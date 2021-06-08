@@ -7,7 +7,7 @@ const listPage = document.querySelector('.page-list');
 const textList = document.querySelector('.text-list');
 
 const searchBox = document.querySelector('.search-box');
-const seasrchInput = document.querySelector('#search-input');
+const searchInput = document.querySelector('#search-input');
 
 const navBottom = document.querySelector('.nav-bottom');
 const navIcons = document.querySelectorAll('.nav-icon');
@@ -19,16 +19,18 @@ homeBtn.addEventListener('click', function () {
   homeBtn.classList.add('hidden');
   listPage.classList.add('hidden');
 
-  navIcons[0].classList.remove('nav-selected');
-  navIcons[1].classList.remove('nav-selected');
-  navIcons[2].classList.remove('nav-selected');
-  navLinks[0].classList.remove('text-selected');
-  navLinks[1].classList.remove('text-selected');
-  navLinks[2].classList.remove('text-selected');
+  removeSelectedColors();
 
   mainHeader.classList.add('hidden');
   headerText.classList.add('hidden');
   headerText.textContent = 'Drink It!';
+});
+
+document.addEventListener('keydown', function (event) {
+  if (event.key === 'Enter') {
+    searchBox.classList.add('hidden');
+    handleSearch();
+  }
 });
 
 navBottom.addEventListener('click', function (event) {
@@ -36,23 +38,22 @@ navBottom.addEventListener('click', function (event) {
   headerText.classList.remove('hidden');
   if (event.target === navIcons[0]) {
     renderIngredients();
+    removeSelectedColors();
+    searchBox.classList.add('hidden');
     navIcons[0].classList.add('nav-selected');
-    navIcons[1].classList.remove('nav-selected');
-    navIcons[2].classList.remove('nav-selected');
     headerText.textContent = 'Ingredients';
   } else if (event.target === navIcons[1]) {
     renderCategories();
+    removeSelectedColors();
+    searchBox.classList.add('hidden');
     navIcons[1].classList.add('nav-selected');
-    navIcons[0].classList.remove('nav-selected');
-    navIcons[2].classList.remove('nav-selected');
     headerText.textContent = 'Categories';
   } else if (event.target === navIcons[2]) {
     openListPage();
     if (textList.hasChildNodes()) clearList(textList);
     searchBox.classList.remove('hidden');
+    removeSelectedColors();
     navIcons[2].classList.add('nav-selected');
-    navIcons[1].classList.remove('nav-selected');
-    navIcons[0].classList.remove('nav-selected');
     headerText.textContent = '';
   }
 });
@@ -121,31 +122,58 @@ function handleCategoryClick(event) {
   xhrFilterByC.responseType = 'json';
   xhrFilterByC.addEventListener('load', function (event) {
     for (const item of xhrFilterByC.response.drinks) {
-      const drink = document.createElement('div');
-      drink.className = 'drink-row';
-
-      const drinkImg = document.createElement('img');
-      drinkImg.src = item.strDrinkThumb;
-      drinkImg.alt = item.strDrink;
-      drinkImg.className = 'drink-img border-round';
-      drink.appendChild(drinkImg);
-
-      const rightCol = document.createElement('div');
-      rightCol.className = 'drink-right-col col-8 border-round';
-      drink.appendChild(rightCol);
-
-      const drinkName = document.createElement('p');
-      drinkName.textContent = item.strDrink;
-      rightCol.appendChild(drinkName);
-
-      const heart = document.createElement('i');
-      heart.className = 'far fa-heart';
-      rightCol.appendChild(heart);
-
-      textList.appendChild(drink);
+      renderDrinkRow(item);
     }
   });
   xhrFilterByC.send();
+}
+
+function handleSearch() {
+  headerText.textContent = searchInput.value.toUpperCase();
+  if (textList.hasChildNodes()) clearList(textList);
+  const xhrSearch = new XMLHttpRequest();
+  xhrSearch.open('GET', 'https://lfz-cors.herokuapp.com/?url=https://www.thecocktaildb.com/api/json/v1/1/search.php?s=' + searchInput.value);
+  xhrSearch.responseType = 'json';
+
+  xhrSearch.addEventListener('load', function (event) {
+    if (xhrSearch.response.drinks === null) {
+      headerText.textContent = 'No drinks were found.';
+    } else {
+      for (const item of xhrSearch.response.drinks) {
+        renderDrinkRow(item);
+      }
+    }
+  });
+  xhrSearch.send();
+}
+
+function renderDrinkRow(item) {
+  const drink = document.createElement('div');
+  drink.className = 'drink-row';
+  const drinkImg = document.createElement('img');
+  drinkImg.src = item.strDrinkThumb;
+  drinkImg.alt = item.strDrink;
+  drinkImg.className = 'drink-img border-round';
+  drink.appendChild(drinkImg);
+  const rightCol = document.createElement('div');
+  rightCol.className = 'drink-right-col col-8 border-round';
+  drink.appendChild(rightCol);
+  const drinkName = document.createElement('p');
+  drinkName.textContent = item.strDrink;
+  rightCol.appendChild(drinkName);
+  const heart = document.createElement('i');
+  heart.className = 'far fa-heart';
+  rightCol.appendChild(heart);
+  textList.appendChild(drink);
+}
+
+function removeSelectedColors() {
+  navIcons[0].classList.remove('nav-selected');
+  navIcons[1].classList.remove('nav-selected');
+  navIcons[2].classList.remove('nav-selected');
+  navLinks[0].classList.remove('text-selected');
+  navLinks[1].classList.remove('text-selected');
+  navLinks[2].classList.remove('text-selected');
 }
 
 function clearList(parent) {
