@@ -2,13 +2,15 @@ const homePage = document.querySelector('.page-home');
 const mainHeader = document.querySelector('.main-header');
 const headerText = document.querySelector('#main-header-text');
 
-const listPage = document.querySelector('.page-list');
 const homeBtn = document.querySelector('.home-icon');
+const listPage = document.querySelector('.page-list');
 const textList = document.querySelector('.text-list');
+
+const searchBox = document.querySelector('.search-box');
+const seasrchInput = document.querySelector('#search-input');
 
 const navBottom = document.querySelector('.nav-bottom');
 const navIcons = document.querySelectorAll('.nav-icon');
-
 const navSide = document.querySelector('.nav-links');
 const navLinks = document.querySelectorAll('.nav-link');
 
@@ -19,8 +21,10 @@ homeBtn.addEventListener('click', function () {
 
   navIcons[0].classList.remove('nav-selected');
   navIcons[1].classList.remove('nav-selected');
-  navLinks[1].classList.remove('text-selected');
+  navIcons[2].classList.remove('nav-selected');
   navLinks[0].classList.remove('text-selected');
+  navLinks[1].classList.remove('text-selected');
+  navLinks[2].classList.remove('text-selected');
 
   mainHeader.classList.add('hidden');
   headerText.classList.add('hidden');
@@ -34,12 +38,22 @@ navBottom.addEventListener('click', function (event) {
     renderIngredients();
     navIcons[0].classList.add('nav-selected');
     navIcons[1].classList.remove('nav-selected');
+    navIcons[2].classList.remove('nav-selected');
     headerText.textContent = 'Ingredients';
   } else if (event.target === navIcons[1]) {
     renderCategories();
     navIcons[1].classList.add('nav-selected');
     navIcons[0].classList.remove('nav-selected');
+    navIcons[2].classList.remove('nav-selected');
     headerText.textContent = 'Categories';
+  } else if (event.target === navIcons[2]) {
+    openListPage();
+    if (textList.hasChildNodes()) clearList(textList);
+    searchBox.classList.remove('hidden');
+    navIcons[2].classList.add('nav-selected');
+    navIcons[1].classList.remove('nav-selected');
+    navIcons[0].classList.remove('nav-selected');
+    headerText.textContent = '';
   }
 });
 
