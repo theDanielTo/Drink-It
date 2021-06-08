@@ -10,6 +10,7 @@ const navBottom = document.querySelector('.nav-bottom');
 const navIcons = document.querySelectorAll('.nav-icon');
 
 const navSide = document.querySelector('.nav-links');
+const navLinks = document.querySelectorAll('.nav-link');
 
 ingredBtn.addEventListener('click', function (event) {
   openListPage();
@@ -39,6 +40,8 @@ homeBtn.addEventListener('click', function () {
   categBtn.classList.remove('btn-selected');
   navIcons[0].classList.remove('nav-selected');
   navIcons[1].classList.remove('nav-selected');
+  navLinks[1].classList.remove('text-selected');
+  navLinks[0].classList.remove('text-selected');
 });
 
 navBottom.addEventListener('click', function (event) {
@@ -56,14 +59,18 @@ navBottom.addEventListener('click', function (event) {
 });
 
 navSide.addEventListener('click', function (event) {
-  if (navIcons[1]) {
+  if (event.target === navLinks[0]) {
     openListPage();
+    if (textList.hasChildNodes()) clearList(textList);
     renderIngredients();
-    navIcons[0].classList.add('nav-selected');
-  } else if (navIcons[2]) {
+    navLinks[1].classList.remove('text-selected');
+    navLinks[0].classList.add('text-selected');
+  } else if (event.target === navLinks[1]) {
     openListPage();
+    if (textList.hasChildNodes()) clearList(textList);
     renderCategories();
-    navIcons[1].classList.add('nav-selected');
+    navLinks[0].classList.remove('text-selected');
+    navLinks[1].classList.add('text-selected');
   }
 });
 
@@ -71,7 +78,6 @@ function openListPage() {
   listPage.classList.remove('hidden');
   homePage.classList.add('hidden');
   homeBtn.classList.remove('hidden');
-
 }
 
 function renderIngredients() {
@@ -82,7 +88,7 @@ function renderIngredients() {
     for (const item of xhrIngredients.response.drinks) {
       const ingredient = document.createElement('p');
       ingredient.textContent = item.strIngredient1;
-      ingredient.className = 'ingred-li';
+      ingredient.className = 'list-item';
       textList.appendChild(ingredient);
     }
   });
@@ -97,7 +103,7 @@ function renderCategories() {
     for (const item of xhrCategories.response.drinks) {
       const ingredient = document.createElement('p');
       ingredient.textContent = item.strCategory;
-      ingredient.className = 'ingred-li';
+      ingredient.className = 'list-item';
       textList.appendChild(ingredient);
     }
   });

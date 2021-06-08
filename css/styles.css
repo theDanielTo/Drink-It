@@ -94,7 +94,7 @@
 
 /* Secondary Pages */
 
-/* Ingredients Page */
+/* Ingredients/Category Page */
 .page-list {
   display: flex;
   flex-direction: column;
@@ -110,16 +110,17 @@
   overflow-y: scroll;
 }
 
-.ingred-li {
+.list-item {
   list-style-type: none;
   padding: 0.5rem;
   font-size: 1.5rem;
   font-weight: bold;
   text-align: center;
   color: #0074c2;
+  cursor: pointer;
 }
 
-.ingred-li:active {
+.list-item:active {
   background-color: #66b6d2;
 }
 
@@ -165,6 +166,10 @@
 .nav-links a:hover {
   border-radius: 20px;
   background-color: #007da9;
+}
+
+.text-selected {
+  color: #eab676 !important;
 }
 
 .logo-small {
@@ -238,7 +243,7 @@
     cursor: auto;
   }
 
-  .page-ingredients {
+  .page-list {
     position: absolute;
     float: right;
     margin: 0 22%;
@@ -248,7 +253,7 @@
     width: 76%;
   }
 
-  .ingredients-list {
+  .text-list {
     margin: 0;
     width: 100%;
   }
