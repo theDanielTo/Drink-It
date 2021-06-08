@@ -108,10 +108,22 @@ function renderCategories() {
       const ingredient = document.createElement('p');
       ingredient.textContent = item.strCategory;
       ingredient.className = 'list-item';
+      ingredient.addEventListener('click', handleCategoryClick);
       textList.appendChild(ingredient);
     }
   });
   xhrCategories.send();
+}
+
+function handleCategoryClick(event) {
+  if (textList.hasChildNodes()) clearList(textList);
+  const xhrFilterByC = new XMLHttpRequest();
+  xhrFilterByC.open('GET', 'https://lfz-cors.herokuapp.com/?url=https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Cocktail');
+  xhrFilterByC.responseType = 'json';
+  xhrFilterByC.addEventListener('load', function (event) {
+    console.log(xhrFilterByC.response);
+  });
+  xhrFilterByC.send();
 }
 
 function clearList(parent) {
