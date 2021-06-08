@@ -38,7 +38,9 @@
   border-radius: 10px;
 }
 
-/* main content */
+/* Main Content */
+
+/* Home Page */
 .page-home {
   display: flex;
   flex-direction: column;
@@ -145,7 +147,9 @@
   box-shadow: 0.3rem 0.3rem 0.8rem 0.2rem #66b6d2;
 }
 
-/* nav bar for small screens */
+/* Nav Bars */
+
+/* Bottom Navbar */
 .nav-bottom {
   position: absolute;
   left: 0;
@@ -173,6 +177,7 @@
   color: #ff3939;
 }
 
+/* Sidebar Nav */
 .nav-links {
   display: none;
 }
@@ -206,12 +211,14 @@
     font-size: 2rem;
   }
 
+  /* Page Header */
   .title {
     border-bottom-right-radius: 20px;
     text-align: left;
     z-index: 10;
   }
 
+  /* Home Page */
   .page-home {
     height: 100%;
     width: 80%;
@@ -241,6 +248,7 @@
     display: none;
   }
 
+  /* Secondary Pages */
   .large-bg {
     display: flex;
     justify-content: center;
@@ -294,6 +302,7 @@
     font-size: 80px;
   }
 
+  /* Nav Bars */
   .hr {
     display: block;
     background-color: #fffeeb;
