@@ -118,10 +118,33 @@ function renderCategories() {
 function handleCategoryClick(event) {
   if (textList.hasChildNodes()) clearList(textList);
   const xhrFilterByC = new XMLHttpRequest();
-  xhrFilterByC.open('GET', 'https://lfz-cors.herokuapp.com/?url=https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Cocktail');
+  xhrFilterByC.open('GET', 'https://lfz-cors.herokuapp.com/?url=https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=' + event.target.textContent);
   xhrFilterByC.responseType = 'json';
   xhrFilterByC.addEventListener('load', function (event) {
-    console.log(xhrFilterByC.response);
+    for (const item of xhrFilterByC.response.drinks) {
+      const drink = document.createElement('div');
+      drink.className = 'drink-row';
+
+      const drinkImg = document.createElement('img');
+      drinkImg.src = item.strDrinkThumb;
+      drinkImg.alt = item.strDrink;
+      drinkImg.className = 'drink-img border-round';
+      drink.appendChild(drinkImg);
+
+      const rightCol = document.createElement('div');
+      rightCol.className = 'drink-right-col col-8 border-round';
+      drink.appendChild(rightCol);
+
+      const drinkName = document.createElement('p');
+      drinkName.textContent = item.strDrink;
+      rightCol.appendChild(drinkName);
+
+      const heart = document.createElement('i');
+      heart.className = 'far fa-heart';
+      rightCol.appendChild(heart);
+
+      textList.appendChild(drink);
+    }
   });
   xhrFilterByC.send();
 }
