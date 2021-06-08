@@ -1,0 +1,302 @@
+* {
+  font-family: 'Roboto', sans-serif;
+}
+
+.border-round {
+  border-radius: 10px;
+}
+
+/* main header */
+.title {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  border-radius: 0 0 10px 10px;
+  padding: 1rem;
+  background-color: #66b6d2;
+  color: #fffeeb;
+  text-align: center;
+}
+
+.title h1 {
+  font-weight: bolder;
+  padding: 0;
+  margin: 0;
+}
+
+.home-icon {
+  position: absolute;
+  left: 0.5rem;
+  top: 0.5rem;
+  font-size: 50px;
+  color: #fffeeb;
+  cursor: pointer;
+}
+
+.hr {
+  border-radius: 10px;
+}
+
+/* main content */
+.page-home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 70%;
+}
+
+.main-header {
+  position: relative;
+  margin: 16px auto;
+  display: flex;
+  justify-content: space-between;
+  background-color: #b2dae8;
+  margin-top: 80px;
+  height: 45px;
+  width: 90%;
+}
+
+.main-header h2 {
+  display: none;
+}
+
+.btn {
+  margin: 6px;
+  font-size: 18px;
+  font-weight: bold;
+  border: none;
+  color: #fffeeb;
+  background-color: #66b6d2;
+  cursor: pointer;
+}
+
+.btn-selected {
+  background-color: #007da9;
+}
+
+.home-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo-large {
+  font-size: 200px;
+  color: #66b6d2;
+  cursor: pointer;
+}
+
+.large-bg {
+  display: none;
+}
+
+/* Ingredients Page */
+.page-ingredients {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 70%;
+}
+
+.ingredients-list {
+  background-color: #b2dae8;
+  width: 90%;
+  padding: 0;
+  overflow-y: scroll;
+}
+
+.ingred-li {
+  list-style-type: none;
+  padding: 0.5rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+  color: #0074c2;
+}
+
+.ingred-li:active {
+  background-color: #66b6d2;
+}
+
+/* nav bar for small screens */
+.nav-bottom {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  border-radius: 10px 10px 0 0;
+  background-color: #66b6d2;
+}
+
+.nav-icon {
+  margin: 1rem 0;
+  font-size: 50px;
+  color: #eab676;
+  cursor: pointer;
+}
+
+.nav-selected {
+  color: #e88000;
+}
+
+.fa-heart {
+  color: #ff3939;
+}
+
+.nav-links {
+  display: none;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #fffeeb;
+  font-size: 1rem;
+  padding: 1rem;
+}
+
+.nav-links a:hover {
+  border-radius: 20px;
+  background-color: #007da9;
+}
+
+.logo-small {
+  display: none;
+}
+
+/* hide element */
+.hidden {
+  display: none;
+}
+
+@media (min-width: 1200px) {
+  * {
+    font-size: 2rem;
+  }
+
+  .title {
+    border-bottom-right-radius: 20px;
+    text-align: left;
+    z-index: 10;
+  }
+
+  .page-home {
+    height: 100%;
+    width: 80%;
+    float: right;
+  }
+
+  .btn {
+    display: none;
+  }
+
+  .main-header {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    top: 170px;
+    margin: 0 22%;
+    float: right;
+    height: 80px;
+    width: 76%;
+  }
+
+  .main-header h2 {
+    display: inline;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    color: #0074c2;
+  }
+
+  .home-logo {
+    display: none;
+  }
+
+  .large-bg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #b2dae8;
+    position: absolute;
+    bottom: 1rem;
+    margin: 0 22%;
+    float: right;
+    height: 65%;
+    width: 76%;
+  }
+
+  .logo-large {
+    color: #fffeeb;
+    cursor: auto;
+  }
+
+  .page-ingredients {
+    position: absolute;
+    float: right;
+    margin: 0 22%;
+    top: 9rem;
+    bottom: 0;
+    height: 65%;
+    width: 76%;
+  }
+
+  .ingredients-list {
+    margin: 0;
+    width: 100%;
+  }
+
+  .home-icon {
+    position: relative;
+    float: right;
+    top: 0;
+    margin-right: 1rem;
+    font-size: 80px;
+  }
+
+  .hr {
+    display: block;
+    background-color: #fffeeb;
+    height: 10px;
+    width: 100%;
+  }
+
+  .nav-bottom {
+    display: none;
+  }
+
+  .nav-side {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #66b6d2;
+    width: 20%;
+    border-bottom-right-radius: 20px;
+  }
+
+  .nav-links {
+    align-self: flex-start;
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin-top: 140px;
+    margin-left: 1rem;
+  }
+
+  .logo-small {
+    display: block;
+    margin-bottom: 3rem;
+    font-size: 150px;
+    color: #fffeeb;
+  }
+}
