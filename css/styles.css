@@ -92,8 +92,10 @@
   display: none;
 }
 
+/* Secondary Pages */
+
 /* Ingredients Page */
-.page-ingredients {
+.page-list {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -101,7 +103,7 @@
   height: 70%;
 }
 
-.ingredients-list {
+.text-list {
   background-color: #b2dae8;
   width: 90%;
   padding: 0;

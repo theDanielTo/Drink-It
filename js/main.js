@@ -1,44 +1,81 @@
 const homePage = document.querySelector('.page-home');
 const ingredBtn = document.querySelector('#ingred-btn');
+const categBtn = document.querySelector('#categ-btn');
 
-const ingredPage = document.querySelector('.page-ingredients');
+const listPage = document.querySelector('.page-list');
 const homeBtn = document.querySelector('.home-icon');
-const ingredList = document.querySelector('.ingredients-list');
+const textList = document.querySelector('.text-list');
 
 const navBottom = document.querySelector('.nav-bottom');
 const navIcons = document.querySelectorAll('.nav-icon');
 
 const navSide = document.querySelector('.nav-links');
 
-ingredBtn.addEventListener('click', openIngredients);
+ingredBtn.addEventListener('click', function (event) {
+  openListPage();
+  if (textList.hasChildNodes()) clearList(textList);
+  renderIngredients();
+  ingredBtn.classList.add('btn-selected');
+  navIcons[0].classList.add('nav-selected');
+  categBtn.classList.remove('btn-selected');
+  navIcons[1].classList.remove('nav-selected');
+});
 
-homeBtn.addEventListener('click', function () {
-  ingredPage.classList.add('hidden');
-  homePage.classList.remove('hidden');
-  homeBtn.classList.add('hidden');
+categBtn.addEventListener('click', function (event) {
+  openListPage();
+  if (textList.hasChildNodes()) clearList(textList);
+  renderCategories();
+  categBtn.classList.add('btn-selected');
+  navIcons[1].classList.add('nav-selected');
   ingredBtn.classList.remove('btn-selected');
   navIcons[0].classList.remove('nav-selected');
 });
 
+homeBtn.addEventListener('click', function () {
+  listPage.classList.add('hidden');
+  homePage.classList.remove('hidden');
+  homeBtn.classList.add('hidden');
+  ingredBtn.classList.remove('btn-selected');
+  categBtn.classList.remove('btn-selected');
+  navIcons[0].classList.remove('nav-selected');
+  navIcons[1].classList.remove('nav-selected');
+});
+
 navBottom.addEventListener('click', function (event) {
-  if (navIcons[0]) openIngredients();
+  if (event.target === navIcons[0]) {
+    openListPage();
+    renderIngredients();
+    ingredBtn.classList.add('btn-selected');
+    navIcons[0].classList.add('nav-selected');
+  } else if (event.target === navIcons[1]) {
+    openListPage();
+    renderCategories();
+    categBtn.classList.add('btn-selected');
+    navIcons[1].classList.add('nav-selected');
+  }
 });
 
 navSide.addEventListener('click', function (event) {
-  if (navIcons[1]) openIngredients();
+  if (navIcons[1]) {
+    openListPage();
+    renderIngredients();
+    navIcons[0].classList.add('nav-selected');
+  } else if (navIcons[2]) {
+    openListPage();
+    renderCategories();
+    navIcons[1].classList.add('nav-selected');
+  }
 });
 
-function openIngredients() {
-  ingredPage.classList.remove('hidden');
+function openListPage() {
+  listPage.classList.remove('hidden');
   homePage.classList.add('hidden');
   homeBtn.classList.remove('hidden');
-  ingredBtn.classList.add('btn-selected');
-  navIcons[0].classList.add('nav-selected');
-  renderIngredients();
+
 }
 
 function renderIngredients() {
-  var xhrIngredients = new XMLHttpRequest();
+  const xhrIngredients = new XMLHttpRequest();
   xhrIngredients.open('GET', 'https://lfz-cors.herokuapp.com/?url=https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list');
   xhrIngredients.responseType = 'json';
   xhrIngredients.addEventListener('load', function (event) {
@@ -46,8 +83,29 @@ function renderIngredients() {
       const ingredient = document.createElement('p');
       ingredient.textContent = item.strIngredient1;
       ingredient.className = 'ingred-li';
-      ingredList.appendChild(ingredient);
+      textList.appendChild(ingredient);
     }
   });
   xhrIngredients.send();
+}
+
+function renderCategories() {
+  const xhrCategories = new XMLHttpRequest();
+  xhrCategories.open('GET', 'https://lfz-cors.herokuapp.com/?url=https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list');
+  xhrCategories.responseType = 'json';
+  xhrCategories.addEventListener('load', function (event) {
+    for (const item of xhrCategories.response.drinks) {
+      const ingredient = document.createElement('p');
+      ingredient.textContent = item.strCategory;
+      ingredient.className = 'ingred-li';
+      textList.appendChild(ingredient);
+    }
+  });
+  xhrCategories.send();
+}
+
+function clearList(parent) {
+  while (parent.firstChild) {
+    parent.removeChild(parent.firstChild);
+  }
 }
