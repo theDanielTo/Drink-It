@@ -1,7 +1,5 @@
 const homePage = document.querySelector('.page-home');
 const headerText = document.querySelector('#main-header-text');
-const ingredBtn = document.querySelector('#ingred-btn');
-const categBtn = document.querySelector('#categ-btn');
 
 const listPage = document.querySelector('.page-list');
 const homeBtn = document.querySelector('.home-icon');
@@ -13,29 +11,11 @@ const navIcons = document.querySelectorAll('.nav-icon');
 const navSide = document.querySelector('.nav-links');
 const navLinks = document.querySelectorAll('.nav-link');
 
-ingredBtn.addEventListener('click', function (event) {
-  renderIngredients();
-  ingredBtn.classList.add('btn-selected');
-  categBtn.classList.remove('btn-selected');
-  navIcons[0].classList.add('nav-selected');
-  navIcons[1].classList.remove('nav-selected');
-});
-
-categBtn.addEventListener('click', function (event) {
-  renderCategories();
-  categBtn.classList.add('btn-selected');
-  ingredBtn.classList.remove('btn-selected');
-  navIcons[1].classList.add('nav-selected');
-  navIcons[0].classList.remove('nav-selected');
-});
-
 homeBtn.addEventListener('click', function () {
   homePage.classList.remove('hidden');
   homeBtn.classList.add('hidden');
   listPage.classList.add('hidden');
 
-  ingredBtn.classList.remove('btn-selected');
-  categBtn.classList.remove('btn-selected');
   navIcons[0].classList.remove('nav-selected');
   navIcons[1].classList.remove('nav-selected');
   navLinks[1].classList.remove('text-selected');
@@ -47,14 +27,10 @@ homeBtn.addEventListener('click', function () {
 navBottom.addEventListener('click', function (event) {
   if (event.target === navIcons[0]) {
     renderIngredients();
-    ingredBtn.classList.add('btn-selected');
-    categBtn.classList.remove('btn-selected');
     navIcons[0].classList.add('nav-selected');
     navIcons[1].classList.remove('nav-selected');
   } else if (event.target === navIcons[1]) {
     renderCategories();
-    categBtn.classList.add('btn-selected');
-    ingredBtn.classList.remove('btn-selected');
     navIcons[1].classList.add('nav-selected');
     navIcons[0].classList.remove('nav-selected');
   }
@@ -116,6 +92,8 @@ function renderCategories() {
 }
 
 function handleCategoryClick(event) {
+  headerText.classList.remove('hidden');
+  headerText.textContent = event.target.textContent;
   if (textList.hasChildNodes()) clearList(textList);
   const xhrFilterByC = new XMLHttpRequest();
   xhrFilterByC.open('GET', 'https://lfz-cors.herokuapp.com/?url=https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=' + event.target.textContent);

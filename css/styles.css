@@ -51,7 +51,8 @@
   position: relative;
   margin: 16px auto;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
   background-color: #b2dae8;
   margin-top: 80px;
   height: 45px;
@@ -59,21 +60,7 @@
 }
 
 .main-header h2 {
-  display: none;
-}
-
-.btn {
-  margin: 6px;
-  font-size: 18px;
-  font-weight: bold;
-  border: none;
-  color: #fffeeb;
-  background-color: #66b6d2;
-  cursor: pointer;
-}
-
-.btn-selected {
-  background-color: #007da9;
+  color: #0074c2;
 }
 
 .home-logo {
@@ -138,9 +125,9 @@
 }
 
 .drink-row p {
-  margin: 0;
   font-size: 1.2rem;
   color: #0074c2;
+  text-align: center;
 }
 
 .drink-row i {
@@ -191,7 +178,6 @@
 }
 
 .nav-links a {
-  text-decoration: none;
   color: #fffeeb;
   font-size: 1rem;
   padding: 1rem;
@@ -230,10 +216,6 @@
     height: 100%;
     width: 80%;
     float: right;
-  }
-
-  .btn {
-    display: none;
   }
 
   .main-header {
