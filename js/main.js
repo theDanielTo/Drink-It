@@ -13,29 +13,26 @@ const navSide = document.querySelector('.nav-links');
 const navLinks = document.querySelectorAll('.nav-link');
 
 ingredBtn.addEventListener('click', function (event) {
-  openListPage();
-  if (textList.hasChildNodes()) clearList(textList);
   renderIngredients();
   ingredBtn.classList.add('btn-selected');
-  navIcons[0].classList.add('nav-selected');
   categBtn.classList.remove('btn-selected');
+  navIcons[0].classList.add('nav-selected');
   navIcons[1].classList.remove('nav-selected');
 });
 
 categBtn.addEventListener('click', function (event) {
-  openListPage();
-  if (textList.hasChildNodes()) clearList(textList);
   renderCategories();
   categBtn.classList.add('btn-selected');
-  navIcons[1].classList.add('nav-selected');
   ingredBtn.classList.remove('btn-selected');
+  navIcons[1].classList.add('nav-selected');
   navIcons[0].classList.remove('nav-selected');
 });
 
 homeBtn.addEventListener('click', function () {
-  listPage.classList.add('hidden');
   homePage.classList.remove('hidden');
   homeBtn.classList.add('hidden');
+  listPage.classList.add('hidden');
+
   ingredBtn.classList.remove('btn-selected');
   categBtn.classList.remove('btn-selected');
   navIcons[0].classList.remove('nav-selected');
@@ -46,12 +43,10 @@ homeBtn.addEventListener('click', function () {
 
 navBottom.addEventListener('click', function (event) {
   if (event.target === navIcons[0]) {
-    openListPage();
     renderIngredients();
     ingredBtn.classList.add('btn-selected');
     navIcons[0].classList.add('nav-selected');
   } else if (event.target === navIcons[1]) {
-    openListPage();
     renderCategories();
     categBtn.classList.add('btn-selected');
     navIcons[1].classList.add('nav-selected');
@@ -60,14 +55,10 @@ navBottom.addEventListener('click', function (event) {
 
 navSide.addEventListener('click', function (event) {
   if (event.target === navLinks[0]) {
-    openListPage();
-    if (textList.hasChildNodes()) clearList(textList);
     renderIngredients();
     navLinks[1].classList.remove('text-selected');
     navLinks[0].classList.add('text-selected');
   } else if (event.target === navLinks[1]) {
-    openListPage();
-    if (textList.hasChildNodes()) clearList(textList);
     renderCategories();
     navLinks[0].classList.remove('text-selected');
     navLinks[1].classList.add('text-selected');
@@ -81,6 +72,8 @@ function openListPage() {
 }
 
 function renderIngredients() {
+  openListPage();
+  if (textList.hasChildNodes()) clearList(textList);
   const xhrIngredients = new XMLHttpRequest();
   xhrIngredients.open('GET', 'https://lfz-cors.herokuapp.com/?url=https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list');
   xhrIngredients.responseType = 'json';
@@ -96,6 +89,8 @@ function renderIngredients() {
 }
 
 function renderCategories() {
+  openListPage();
+  if (textList.hasChildNodes()) clearList(textList);
   const xhrCategories = new XMLHttpRequest();
   xhrCategories.open('GET', 'https://lfz-cors.herokuapp.com/?url=https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list');
   xhrCategories.responseType = 'json';
