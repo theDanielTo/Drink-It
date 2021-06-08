@@ -1,6 +1,5 @@
 const homePage = document.querySelector('.page-home');
 const ingredBtn = document.querySelector('#ingred-btn');
-const drinksBtn = document.querySelector('#drinks-btn');
 
 const ingredPage = document.querySelector('.page-ingredients');
 const homeBtn = document.querySelector('.home-icon');
