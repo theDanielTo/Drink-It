@@ -1,4 +1,5 @@
 const homePage = document.querySelector('.page-home');
+const mainHeader = document.querySelector('.main-header');
 const headerText = document.querySelector('#main-header-text');
 
 const listPage = document.querySelector('.page-list');
@@ -21,18 +22,24 @@ homeBtn.addEventListener('click', function () {
   navLinks[1].classList.remove('text-selected');
   navLinks[0].classList.remove('text-selected');
 
+  mainHeader.classList.add('hidden');
+  headerText.classList.add('hidden');
   headerText.textContent = 'Drink It!';
 });
 
 navBottom.addEventListener('click', function (event) {
+  mainHeader.classList.remove('hidden');
+  headerText.classList.remove('hidden');
   if (event.target === navIcons[0]) {
     renderIngredients();
     navIcons[0].classList.add('nav-selected');
     navIcons[1].classList.remove('nav-selected');
+    headerText.textContent = 'Ingredients';
   } else if (event.target === navIcons[1]) {
     renderCategories();
     navIcons[1].classList.add('nav-selected');
     navIcons[0].classList.remove('nav-selected');
+    headerText.textContent = 'Categories';
   }
 });
 
