@@ -8,6 +8,8 @@ const ingredList = document.querySelector('.ingredients-list');
 const navBottom = document.querySelector('.nav-bottom');
 const navIcons = document.querySelectorAll('.nav-icon');
 
+const navSide = document.querySelector('.nav-links');
+
 ingredBtn.addEventListener('click', openIngredients);
 
 homeBtn.addEventListener('click', function () {
@@ -20,6 +22,10 @@ homeBtn.addEventListener('click', function () {
 
 navBottom.addEventListener('click', function (event) {
   if (navIcons[0]) openIngredients();
+});
+
+navSide.addEventListener('click', function (event) {
+  if (navIcons[1]) openIngredients();
 });
 
 function openIngredients() {
