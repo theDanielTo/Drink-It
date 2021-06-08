@@ -51,7 +51,8 @@
   position: relative;
   margin: 16px auto;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
   background-color: #b2dae8;
   margin-top: 80px;
   height: 45px;
@@ -59,21 +60,7 @@
 }
 
 .main-header h2 {
-  display: none;
-}
-
-.btn {
-  margin: 6px;
-  font-size: 18px;
-  font-weight: bold;
-  border: none;
-  color: #fffeeb;
-  background-color: #66b6d2;
-  cursor: pointer;
-}
-
-.btn-selected {
-  background-color: #007da9;
+  color: #0074c2;
 }
 
 .home-logo {
@@ -92,8 +79,10 @@
   display: none;
 }
 
-/* Ingredients Page */
-.page-ingredients {
+/* Secondary Pages */
+
+/* Ingredients/Category Page */
+.page-list {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -101,24 +90,59 @@
   height: 70%;
 }
 
-.ingredients-list {
+.text-list {
   background-color: #b2dae8;
   width: 90%;
   padding: 0;
   overflow-y: scroll;
 }
 
-.ingred-li {
+.list-item {
   list-style-type: none;
   padding: 0.5rem;
+  margin: 0;
   font-size: 1.5rem;
   font-weight: bold;
   text-align: center;
   color: #0074c2;
+  cursor: pointer;
 }
 
-.ingred-li:active {
+.list-item:active {
   background-color: #66b6d2;
+}
+
+.drink-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.drink-img {
+  width: 200px;
+  margin: 1rem;
+  box-shadow: 0.3rem 0.3rem 0.8rem 0.2rem #66b6d2;
+}
+
+.drink-row p {
+  font-size: 1.2rem;
+  color: #0074c2;
+  text-align: center;
+}
+
+.drink-row i {
+  font-size: 3rem;
+}
+
+.drink-right-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 200px;
+  margin-right: 1rem;
+  background-color: #fffeeb;
+  box-shadow: 0.3rem 0.3rem 0.8rem 0.2rem #66b6d2;
 }
 
 /* nav bar for small screens */
@@ -154,7 +178,6 @@
 }
 
 .nav-links a {
-  text-decoration: none;
   color: #fffeeb;
   font-size: 1rem;
   padding: 1rem;
@@ -163,6 +186,10 @@
 .nav-links a:hover {
   border-radius: 20px;
   background-color: #007da9;
+}
+
+.text-selected {
+  color: #eab676 !important;
 }
 
 .logo-small {
@@ -189,10 +216,6 @@
     height: 100%;
     width: 80%;
     float: right;
-  }
-
-  .btn {
-    display: none;
   }
 
   .main-header {
@@ -236,7 +259,7 @@
     cursor: auto;
   }
 
-  .page-ingredients {
+  .page-list {
     position: absolute;
     float: right;
     margin: 0 22%;
@@ -246,9 +269,21 @@
     width: 76%;
   }
 
-  .ingredients-list {
+  .text-list {
     margin: 0;
     width: 100%;
+  }
+
+  .drink-img {
+    width: 400px;
+  }
+
+  .drink-row p {
+    font-size: 1.8rem;
+  }
+
+  .drink-right-col {
+    height: 400px;
   }
 
   .home-icon {
