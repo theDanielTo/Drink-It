@@ -8,26 +8,37 @@
 
 .title {
   border-radius: 0 0 10px 10px;
-  font-size: 54px;
   padding: 0.5rem;
-  font-weight: bolder;
   background-color: #66b6d2;
   color: #fffeeb;
   text-align: center;
+  cursor: pointer;
 }
 
-main {
+.title h1 {
+  font-weight: bolder;
+}
+
+.home-icon {
+  position: absolute;
+  left: 0;
+  margin: 1rem;
+  font-size: 50px;
+  color: #fffeeb;
+}
+
+.page-home {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  height: 70%;
+  height: 100%;
 }
 
-.mobile-buttons {
+.main-header {
+  margin: 16px auto;
   display: flex;
   justify-content: space-between;
-  margin-top: 16px;
   background-color: #b2dae8;
   height: 45px;
   width: 90%;
@@ -44,6 +55,10 @@ main {
   cursor: pointer;
 }
 
+.btn-selected {
+  background-color: #007da9;
+}
+
 .home-logo {
   display: flex;
   justify-content: center;
@@ -56,6 +71,34 @@ main {
   cursor: pointer;
 }
 
+.page-ingredients {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.ingredients-list {
+  background-color: #b2dae8;
+  width: 90%;
+  height: 80%;
+  overflow-y: scroll;
+}
+
+.ingred-li {
+  padding: 0.5rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+  color: #934d2f;
+}
+
+.ingred-li:active {
+  background-color: #66b6d2;
+}
+
+/* nav bar for small screens */
 .nav-bottom {
   position: absolute;
   left: 0;
@@ -75,6 +118,15 @@ main {
   cursor: pointer;
 }
 
+.nav-selected {
+  color: #e88000;
+}
+
 .fa-heart {
   color: #ff3939;
+}
+
+/* hide element */
+.hidden {
+  display: none;
 }

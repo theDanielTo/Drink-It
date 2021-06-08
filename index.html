@@ -15,19 +15,30 @@
 </head>
 <body>
   <header class="container">
+
     <div class="title col-12">
-      Drink It!
+      <i class="home-icon fas fa-home hidden"></i>
+      <h1>Drink It!</h1>
     </div>
   </header>
+
   <main>
-    <div class="mobile-buttons border-round">
-      <button class="btn col-4 border-round">Ingredients</button>
-      <button class="btn col-4 border-round">Drinks</button>
+    <div class="main-header border-round">
+      <button id="ingred-btn" class="btn col-4 border-round">Ingredients</button>
+      <button id="drinks-btn" class="btn col-4 border-round">Drinks</button>
     </div>
-    <div class="home-logo col-12">
-      <i class="logo-large fas fa-glass-martini-alt"></i>
+
+    <div class="page-home">
+      <div class="home-logo col-12">
+        <i class="logo-large fas fa-glass-martini-alt"></i>
+      </div>
+    </div>
+
+    <div class="page-ingredients hidden">
+      <ul class="ingredients-list border-round"></ul>
     </div>
   </main>
+
   <nav class="container">
     <div class="nav-bottom col-12 border-round">
       <i class="nav-icon fas fa-align-justify"></i>
