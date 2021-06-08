@@ -1,4 +1,5 @@
 const homePage = document.querySelector('.page-home');
+const headerText = document.querySelector('#main-header-text');
 const ingredBtn = document.querySelector('#ingred-btn');
 const categBtn = document.querySelector('#categ-btn');
 
@@ -39,17 +40,23 @@ homeBtn.addEventListener('click', function () {
   navIcons[1].classList.remove('nav-selected');
   navLinks[1].classList.remove('text-selected');
   navLinks[0].classList.remove('text-selected');
+
+  headerText.textContent = 'Drink It!';
 });
 
 navBottom.addEventListener('click', function (event) {
   if (event.target === navIcons[0]) {
     renderIngredients();
     ingredBtn.classList.add('btn-selected');
+    categBtn.classList.remove('btn-selected');
     navIcons[0].classList.add('nav-selected');
+    navIcons[1].classList.remove('nav-selected');
   } else if (event.target === navIcons[1]) {
     renderCategories();
     categBtn.classList.add('btn-selected');
+    ingredBtn.classList.remove('btn-selected');
     navIcons[1].classList.add('nav-selected');
+    navIcons[0].classList.remove('nav-selected');
   }
 });
 
@@ -58,10 +65,12 @@ navSide.addEventListener('click', function (event) {
     renderIngredients();
     navLinks[1].classList.remove('text-selected');
     navLinks[0].classList.add('text-selected');
+    headerText.textContent = 'Ingredients';
   } else if (event.target === navLinks[1]) {
     renderCategories();
     navLinks[0].classList.remove('text-selected');
     navLinks[1].classList.add('text-selected');
+    headerText.textContent = 'Categories';
   }
 });
 
