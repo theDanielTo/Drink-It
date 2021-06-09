@@ -11,7 +11,7 @@ const searchInput = document.querySelector('#search-input');
 
 const largeLogo = document.querySelector('.logo-large');
 const largeLogo2 = document.querySelector('.logo-large2');
-// const randomBtn = document.querySelector('.random-btn');
+const randomBtn = document.querySelector('.random-btn');
 const detailedDrink = document.querySelector('.drink-detailed');
 
 const navBottom = document.querySelector('.nav-bottom');
@@ -24,6 +24,8 @@ homeBtn.addEventListener('click', function () {
   homeBtn.classList.add('hidden');
   listPage.classList.add('hidden');
   searchBox.classList.add('hidden');
+  detailedDrink.classList.add('hidden');
+  randomBtn.classList.add('hidden');
 
   removeSelectedColors();
 
@@ -35,6 +37,7 @@ homeBtn.addEventListener('click', function () {
 navBottom.addEventListener('click', function (event) {
   mainHeader.classList.remove('hidden');
   headerText.classList.remove('hidden');
+  detailedDrink.classList.add('hidden');
   if (event.target === navIcons[0]) {
     renderIngredients();
     removeSelectedColors();
@@ -59,6 +62,7 @@ navBottom.addEventListener('click', function (event) {
 });
 
 navSide.addEventListener('click', function (event) {
+  detailedDrink.classList.add('hidden');
   if (event.target === navLinks[0]) {
     renderIngredients();
     removeSelectedColors();
@@ -91,6 +95,7 @@ searchBox.addEventListener('keydown', function (event) {
 
 largeLogo.addEventListener('click', handleRandom);
 largeLogo2.addEventListener('click', handleRandom);
+randomBtn.addEventListener('click', handleRandom);
 
 function openListPage() {
   listPage.classList.remove('hidden');
@@ -207,6 +212,7 @@ function handleRandom(event) {
   homePage.classList.add('hidden');
   homeBtn.classList.remove('hidden');
   detailedDrink.classList.remove('hidden');
+  randomBtn.classList.remove('hidden');
   const xhrRandom = new XMLHttpRequest();
   xhrRandom.open('GET', 'https://lfz-cors.herokuapp.com/?url=https://www.thecocktaildb.com/api/json/v1/1/random.php');
   xhrRandom.responseType = 'json';
@@ -246,7 +252,6 @@ function renderDetailedDrink(drink) {
   th2.textContent = 'Ingredients';
   trH.appendChild(th2);
   thead.appendChild(trH);
-
   for (let i = 1; i <= 15; i++) {
     const ingredIndex = 'strIngredient' + i;
     const measureIndex = 'strMeasure' + i;
@@ -261,16 +266,15 @@ function renderDetailedDrink(drink) {
       tbody.appendChild(tr);
     }
   }
+
   const instructions = document.createElement('p');
   instructions.className = 'col-6 border-round';
   instructions.innerHTML = '<b style="font-size:1rem;">Instructions: </b>' + drink.strInstructions;
 
   const detailsDiv = document.createElement('div');
   detailsDiv.className = 'details-div border-round';
-
   detailsDiv.appendChild(detailsTable);
   detailsDiv.appendChild(instructions);
-
   detailedDrink.appendChild(topRow);
   detailedDrink.appendChild(detailsDiv);
 }
