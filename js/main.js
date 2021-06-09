@@ -12,7 +12,6 @@ const searchInput = document.querySelector('#search-input');
 const largeLogo = document.querySelector('.logo-large');
 // const randomBtn = document.querySelector('.random-btn');
 const detailedDrink = document.querySelector('.drink-detailed');
-const randomDetails = document.querySelector('.random-details');
 
 const navBottom = document.querySelector('.nav-bottom');
 const navIcons = document.querySelectorAll('.nav-icon');
@@ -221,55 +220,55 @@ function renderDetailedDrink(drink) {
 
   const topRow = document.createElement('div');
   topRow.className = 'detail-top-row row';
-
   const drinkImg = document.createElement('img');
   drinkImg.className = 'detailed-img col-6 border-round';
   drinkImg.src = drink.strDrinkThumb;
   drinkImg.alt = 'Random Drink';
-
-  const drinkName = document.createElement('p');
+  const drinkName = document.createElement('h2');
   drinkName.textContent = drink.strDrink;
-
   topRow.appendChild(drinkImg);
   topRow.appendChild(drinkName);
 
-  const detailsDiv = document.createElement('div');
-  detailsDiv.className = 'details-div border-round';
+  const detailsTable = document.createElement('table');
+  detailsTable.className = 'details-table border-round col-6';
+  const thead = document.createElement('thead');
+  detailsTable.appendChild(thead);
+  const tbody = document.createElement('tbody');
+  detailsTable.appendChild(tbody);
+  const trH = document.createElement('tr');
+  const th1 = document.createElement('th');
+  th1.textContent = 'Measurements';
+  trH.appendChild(th1);
+  const th2 = document.createElement('th');
+  th2.textContent = 'Ingredients';
+  trH.appendChild(th2);
+  thead.appendChild(trH);
 
-  const detailsHeading = document.createElement('div');
-  detailsHeading.className = 'details-heading row';
-  const ingredP = document.createElement('p');
-  ingredP.textContent = 'Ingredients';
-  const instructP = document.createElement('p');
-  instructP.textContent = 'Instructions';
-  detailsHeading.appendChild(ingredP);
-  detailsHeading.appendChild(instructP);
-
-  const ingredList = document.createElement('ul');
-  ingredList.className = 'detailed-list col-3';
-  const measureList = document.createElement('ul');
-  measureList.className = 'detailed-list col-3';
   for (let i = 1; i <= 15; i++) {
     const ingredIndex = 'strIngredient' + i;
     const measureIndex = 'strMeasure' + i;
     if (drink[ingredIndex] !== null) {
-      const measure = document.createElement('li');
-      measure.textContent = drink[measureIndex];
-      measureList.appendChild(measure);
-      const ingred = document.createElement('li');
-      ingred.textContent = drink[ingredIndex];
-      ingredList.appendChild(ingred);
+      const tr = document.createElement('tr');
+      const td1 = document.createElement('td');
+      td1.textContent = drink[measureIndex];
+      tr.appendChild(td1);
+      const td2 = document.createElement('td');
+      td2.textContent = drink[ingredIndex];
+      tr.appendChild(td2);
+      tbody.appendChild(tr);
     }
   }
   const instructions = document.createElement('p');
-  instructions.className = 'col-5';
-  instructions.textContent = drink.strInstructions;
-  detailsDiv.appendChild(measureList);
-  detailsDiv.appendChild(ingredList);
+  instructions.className = 'col-6 instructions border-round';
+  instructions.innerHTML = '<b>Instructions: </b>' + drink.strInstructions;
+
+  const detailsDiv = document.createElement('div');
+  detailsDiv.className = 'details-div border-round';
+
+  detailsDiv.appendChild(detailsTable);
   detailsDiv.appendChild(instructions);
 
   detailedDrink.appendChild(topRow);
-  detailedDrink.appendChild(detailsHeading);
   detailedDrink.appendChild(detailsDiv);
 }
 
