@@ -1,3 +1,15 @@
+// const ingredient = 'coke';
+// const query = '';
+// const page = 1;
+
+// var xhr = new XMLHttpRequest();
+// xhr.open('GET', 'https://lfz-cors.herokuapp.com/?url=http://www.recipepuppy.com/api/?i=' + ingredient + '&q=' + query + '&p=' + page);
+// xhr.responseType = 'json';
+// xhr.addEventListener('load', function () {
+//   console.log(xhr.response);
+// });
+// xhr.send();
+
 const homePage = document.querySelector('.page-home');
 const mainHeader = document.querySelector('.main-header');
 const headerText = document.querySelector('#main-header-text');
@@ -101,10 +113,26 @@ function renderIngredients() {
       const ingredient = document.createElement('p');
       ingredient.textContent = item.strIngredient1;
       ingredient.className = 'list-item';
+      ingredient.addEventListener('click', handleIngredientClick);
       textList.appendChild(ingredient);
     }
   });
   xhrIngredients.send();
+}
+
+function handleIngredientClick(event) {
+  headerText.classList.remove('hidden');
+  headerText.textContent = event.target.textContent;
+  if (textList.hasChildNodes()) clearList(textList);
+  const xhrFilterByC = new XMLHttpRequest();
+  xhrFilterByC.open('GET', 'https://lfz-cors.herokuapp.com/?url=https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=' + event.target.textContent);
+  xhrFilterByC.responseType = 'json';
+  xhrFilterByC.addEventListener('load', function (event) {
+    for (const item of xhrFilterByC.response.drinks) {
+      renderDrinkRow(item);
+    }
+  });
+  xhrFilterByC.send();
 }
 
 function renderCategories() {
@@ -115,11 +143,11 @@ function renderCategories() {
   xhrCategories.responseType = 'json';
   xhrCategories.addEventListener('load', function (event) {
     for (const item of xhrCategories.response.drinks) {
-      const ingredient = document.createElement('p');
-      ingredient.textContent = item.strCategory;
-      ingredient.className = 'list-item';
-      ingredient.addEventListener('click', handleCategoryClick);
-      textList.appendChild(ingredient);
+      const category = document.createElement('p');
+      category.textContent = item.strCategory;
+      category.className = 'list-item';
+      category.addEventListener('click', handleCategoryClick);
+      textList.appendChild(category);
     }
   });
   xhrCategories.send();
