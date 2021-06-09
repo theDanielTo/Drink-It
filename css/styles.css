@@ -188,7 +188,40 @@
 }
 
 .drink-detailed {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #b2dae8;
+  margin: 5%;
+  height: 70vh;
+  margin-top: 6rem;
+  overflow-y: scroll;
+}
 
+.detail-top-row {
+  margin: 5%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.detail-top-row p {
+  text-align: center;
+  flex-basis: 50%;
+}
+
+.detailed-img {
+  width: 50%;
+}
+
+.details-heading {
+  justify-content: space-evenly;
+}
+
+.details-div {
+  display: flex;
+  justify-content: space-evenly;
+  width: 90%;
+  margin-top: 1rem;
 }
 
 .random-btn {
@@ -196,6 +229,7 @@
   color: white;
   background-color: #0074c2;
   font-size: 2rem;
+  margin-top: 1rem;
   padding: 1rem;
   width: 90%;
   cursor: pointer;

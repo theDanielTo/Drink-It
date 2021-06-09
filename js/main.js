@@ -10,8 +10,9 @@ const searchBox = document.querySelector('.search-box');
 const searchInput = document.querySelector('#search-input');
 
 const largeLogo = document.querySelector('.logo-large');
-const randomBtn = document.querySelector('.random-btn');
+// const randomBtn = document.querySelector('.random-btn');
 const detailedDrink = document.querySelector('.drink-detailed');
+const randomDetails = document.querySelector('.random-details');
 
 const navBottom = document.querySelector('.nav-bottom');
 const navIcons = document.querySelectorAll('.nav-icon');
@@ -204,6 +205,7 @@ function renderDrinkRow(item) {
 function handleRandom(event) {
   homePage.classList.add('hidden');
   homeBtn.classList.remove('hidden');
+  detailedDrink.classList.remove('hidden');
   const xhrRandom = new XMLHttpRequest();
   xhrRandom.open('GET', 'https://lfz-cors.herokuapp.com/?url=https://www.thecocktaildb.com/api/json/v1/1/random.php');
   xhrRandom.responseType = 'json';
@@ -214,7 +216,61 @@ function handleRandom(event) {
 }
 
 function renderDetailedDrink(drink) {
+  headerText.textContent = drink.strDrink;
+  clearList(detailedDrink);
 
+  const topRow = document.createElement('div');
+  topRow.className = 'detail-top-row row';
+
+  const drinkImg = document.createElement('img');
+  drinkImg.className = 'detailed-img col-6 border-round';
+  drinkImg.src = drink.strDrinkThumb;
+  drinkImg.alt = 'Random Drink';
+
+  const drinkName = document.createElement('p');
+  drinkName.textContent = drink.strDrink;
+
+  topRow.appendChild(drinkImg);
+  topRow.appendChild(drinkName);
+
+  const detailsDiv = document.createElement('div');
+  detailsDiv.className = 'details-div border-round';
+
+  const detailsHeading = document.createElement('div');
+  detailsHeading.className = 'details-heading row';
+  const ingredP = document.createElement('p');
+  ingredP.textContent = 'Ingredients';
+  const instructP = document.createElement('p');
+  instructP.textContent = 'Instructions';
+  detailsHeading.appendChild(ingredP);
+  detailsHeading.appendChild(instructP);
+
+  const ingredList = document.createElement('ul');
+  ingredList.className = 'detailed-list col-3';
+  const measureList = document.createElement('ul');
+  measureList.className = 'detailed-list col-3';
+  for (let i = 1; i <= 15; i++) {
+    const ingredIndex = 'strIngredient' + i;
+    const measureIndex = 'strMeasure' + i;
+    if (drink[ingredIndex] !== null) {
+      const measure = document.createElement('li');
+      measure.textContent = drink[measureIndex];
+      measureList.appendChild(measure);
+      const ingred = document.createElement('li');
+      ingred.textContent = drink[ingredIndex];
+      ingredList.appendChild(ingred);
+    }
+  }
+  const instructions = document.createElement('p');
+  instructions.className = 'col-5';
+  instructions.textContent = drink.strInstructions;
+  detailsDiv.appendChild(measureList);
+  detailsDiv.appendChild(ingredList);
+  detailsDiv.appendChild(instructions);
+
+  detailedDrink.appendChild(topRow);
+  detailedDrink.appendChild(detailsHeading);
+  detailedDrink.appendChild(detailsDiv);
 }
 
 function removeSelectedColors() {

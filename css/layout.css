@@ -12,6 +12,10 @@ main {
   align-items: center;
 }
 
+.row {
+  display: flex;
+}
+
 .col-1 {
   flex-basis: calc(100% / 12);
 }
