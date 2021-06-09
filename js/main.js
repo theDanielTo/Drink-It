@@ -18,6 +18,7 @@ homeBtn.addEventListener('click', function () {
   homePage.classList.remove('hidden');
   homeBtn.classList.add('hidden');
   listPage.classList.add('hidden');
+  searchBox.classList.add('hidden');
 
   removeSelectedColors();
 
@@ -26,7 +27,7 @@ homeBtn.addEventListener('click', function () {
   headerText.textContent = 'Drink It!';
 });
 
-document.addEventListener('keydown', function (event) {
+searchBox.addEventListener('keydown', function (event) {
   if (event.key === 'Enter') {
     searchBox.classList.add('hidden');
     handleSearch();
@@ -49,10 +50,11 @@ navBottom.addEventListener('click', function (event) {
     navIcons[1].classList.add('nav-selected');
     headerText.textContent = 'Categories';
   } else if (event.target === navIcons[2]) {
+    removeSelectedColors();
     openListPage();
     if (textList.hasChildNodes()) clearList(textList);
     searchBox.classList.remove('hidden');
-    removeSelectedColors();
+    searchInput.value = '';
     navIcons[2].classList.add('nav-selected');
     headerText.textContent = '';
   }
@@ -61,14 +63,24 @@ navBottom.addEventListener('click', function (event) {
 navSide.addEventListener('click', function (event) {
   if (event.target === navLinks[0]) {
     renderIngredients();
-    navLinks[1].classList.remove('text-selected');
+    removeSelectedColors();
+    searchBox.classList.add('hidden');
     navLinks[0].classList.add('text-selected');
     headerText.textContent = 'Ingredients';
   } else if (event.target === navLinks[1]) {
     renderCategories();
-    navLinks[0].classList.remove('text-selected');
+    removeSelectedColors();
+    searchBox.classList.add('hidden');
     navLinks[1].classList.add('text-selected');
     headerText.textContent = 'Categories';
+  } else if (event.target === navLinks[2]) {
+    removeSelectedColors();
+    openListPage();
+    if (textList.hasChildNodes()) clearList(textList);
+    searchBox.classList.remove('hidden');
+    searchInput.value = '';
+    headerText.textContent = '';
+    navLinks[2].classList.add('text-selected');
   }
 });
 
