@@ -10,6 +10,7 @@ const searchBox = document.querySelector('.search-box');
 const searchInput = document.querySelector('#search-input');
 
 const largeLogo = document.querySelector('.logo-large');
+const largeLogo2 = document.querySelector('.logo-large2');
 // const randomBtn = document.querySelector('.random-btn');
 const detailedDrink = document.querySelector('.drink-detailed');
 
@@ -89,6 +90,7 @@ searchBox.addEventListener('keydown', function (event) {
 });
 
 largeLogo.addEventListener('click', handleRandom);
+largeLogo2.addEventListener('click', handleRandom);
 
 function openListPage() {
   listPage.classList.remove('hidden');
@@ -225,12 +227,13 @@ function renderDetailedDrink(drink) {
   drinkImg.src = drink.strDrinkThumb;
   drinkImg.alt = 'Random Drink';
   const drinkName = document.createElement('h2');
+  drinkName.className = 'col-5 drink-name';
   drinkName.textContent = drink.strDrink;
   topRow.appendChild(drinkImg);
   topRow.appendChild(drinkName);
 
   const detailsTable = document.createElement('table');
-  detailsTable.className = 'details-table border-round col-6';
+  detailsTable.className = 'details-table col-6';
   const thead = document.createElement('thead');
   detailsTable.appendChild(thead);
   const tbody = document.createElement('tbody');
@@ -259,8 +262,8 @@ function renderDetailedDrink(drink) {
     }
   }
   const instructions = document.createElement('p');
-  instructions.className = 'col-6 instructions border-round';
-  instructions.innerHTML = '<b>Instructions: </b>' + drink.strInstructions;
+  instructions.className = 'col-6 border-round';
+  instructions.innerHTML = '<b style="font-size:1rem;">Instructions: </b>' + drink.strInstructions;
 
   const detailsDiv = document.createElement('div');
   detailsDiv.className = 'details-div border-round';
