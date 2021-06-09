@@ -1,15 +1,3 @@
-// const ingredient = 'coke';
-// const query = '';
-// const page = 1;
-
-// var xhr = new XMLHttpRequest();
-// xhr.open('GET', 'https://lfz-cors.herokuapp.com/?url=http://www.recipepuppy.com/api/?i=' + ingredient + '&q=' + query + '&p=' + page);
-// xhr.responseType = 'json';
-// xhr.addEventListener('load', function () {
-//   console.log(xhr.response);
-// });
-// xhr.send();
-
 const homePage = document.querySelector('.page-home');
 const mainHeader = document.querySelector('.main-header');
 const headerText = document.querySelector('#main-header-text');
@@ -20,6 +8,10 @@ const textList = document.querySelector('.text-list');
 
 const searchBox = document.querySelector('.search-box');
 const searchInput = document.querySelector('#search-input');
+
+const largeLogo = document.querySelector('.logo-large');
+const randomBtn = document.querySelector('.random-btn');
+const detailedDrink = document.querySelector('.drink-detailed');
 
 const navBottom = document.querySelector('.nav-bottom');
 const navIcons = document.querySelectorAll('.nav-icon');
@@ -37,13 +29,6 @@ homeBtn.addEventListener('click', function () {
   mainHeader.classList.add('hidden');
   headerText.classList.add('hidden');
   headerText.textContent = 'Drink It!';
-});
-
-searchBox.addEventListener('keydown', function (event) {
-  if (event.key === 'Enter') {
-    searchBox.classList.add('hidden');
-    handleSearch();
-  }
 });
 
 navBottom.addEventListener('click', function (event) {
@@ -95,6 +80,15 @@ navSide.addEventListener('click', function (event) {
     navLinks[2].classList.add('text-selected');
   }
 });
+
+searchBox.addEventListener('keydown', function (event) {
+  if (event.key === 'Enter') {
+    searchBox.classList.add('hidden');
+    handleSearch();
+  }
+});
+
+largeLogo.addEventListener('click', handleRandom);
 
 function openListPage() {
   listPage.classList.remove('hidden');
@@ -205,6 +199,22 @@ function renderDrinkRow(item) {
   heart.className = 'far fa-heart';
   rightCol.appendChild(heart);
   textList.appendChild(drink);
+}
+
+function handleRandom(event) {
+  homePage.classList.add('hidden');
+  homeBtn.classList.remove('hidden');
+  const xhrRandom = new XMLHttpRequest();
+  xhrRandom.open('GET', 'https://lfz-cors.herokuapp.com/?url=https://www.thecocktaildb.com/api/json/v1/1/random.php');
+  xhrRandom.responseType = 'json';
+  xhrRandom.addEventListener('load', function (event) {
+    renderDetailedDrink(xhrRandom.response.drinks[0]);
+  });
+  xhrRandom.send();
+}
+
+function renderDetailedDrink(drink) {
+
 }
 
 function removeSelectedColors() {
