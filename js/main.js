@@ -1,6 +1,8 @@
 const $homePage = document.querySelector('.page-home');
 const $mainHeader = document.querySelector('.main-header');
 const $headerText = document.querySelector('#main-header-text');
+const $subHeader = document.querySelector('#sub-header-text');
+const $horizontalRule = document.querySelector('#horizontal-rule');
 
 const $homeBtn = document.querySelector('.home-icon');
 const $listPage = document.querySelector('.page-list');
@@ -33,14 +35,18 @@ $homeBtn.addEventListener('click', function () {
 
   removeSelectedColors();
 
-  $mainHeader.classList.add('hidden');
-  $headerText.classList.add('hidden');
+  $mainHeader.classList.remove('hidden');
+  $headerText.classList.remove('hidden');
+  $horizontalRule.classList.add('hidden');
   $headerText.textContent = 'Drink It!';
+  $subHeader.textContent = 'Discover your next favorite drink';
 });
 
 $navBottom.addEventListener('click', function (event) {
   $mainHeader.classList.remove('hidden');
   $headerText.classList.remove('hidden');
+  $horizontalRule.classList.remove('hidden');
+  $subHeader.classList.remove('hidden');
   $detailedDrink.classList.add('hidden');
   $randomBtn.classList.add('hidden');
   if (event.target === $navIcons[0]) {
@@ -49,12 +55,14 @@ $navBottom.addEventListener('click', function (event) {
     $searchBox.classList.add('hidden');
     $navIcons[0].classList.add('nav-selected');
     $headerText.textContent = 'Ingredients';
+    $subHeader.textContent = 'Click on an ingredient to filter drinks by ingredient!';
   } else if (event.target === $navIcons[1]) {
     renderCategories();
     removeSelectedColors();
     $searchBox.classList.add('hidden');
     $navIcons[1].classList.add('nav-selected');
     $headerText.textContent = 'Categories';
+    $subHeader.textContent = 'Click on a category to filter drinks by category!';
   } else if (event.target === $navIcons[2]) {
     removeSelectedColors();
     openListPage();
@@ -64,16 +72,21 @@ $navBottom.addEventListener('click', function (event) {
     $searchInput.value = '';
     $navIcons[2].classList.add('nav-selected');
     $headerText.textContent = '';
+    $horizontalRule.classList.add('hidden');
+    $subHeader.textContent = '';
   } else if (event.target === $navIcons[3]) {
     renderFavorites();
     removeSelectedColors();
     $searchBox.classList.add('hidden');
     $navIcons[3].classList.replace('far', 'fas');
     $headerText.textContent = 'Favorites';
+    $subHeader.textContent = 'Click on a picture of a drink for its recipe!';
   }
 });
 
 $navSide.addEventListener('click', function (event) {
+  $horizontalRule.classList.remove('hidden');
+  $subHeader.classList.remove('hidden');
   $detailedDrink.classList.add('hidden');
   $randomBtn.classList.add('hidden');
   if (event.target === $navLinks[0]) {
@@ -82,12 +95,14 @@ $navSide.addEventListener('click', function (event) {
     $searchBox.classList.add('hidden');
     $navLinks[0].classList.add('text-selected');
     $headerText.textContent = 'Ingredients';
+    $subHeader.textContent = 'Click on an ingredient to filter drinks by ingredient!';
   } else if (event.target === $navLinks[1]) {
     renderCategories();
     removeSelectedColors();
     $searchBox.classList.add('hidden');
     $navLinks[1].classList.add('text-selected');
     $headerText.textContent = 'Categories';
+    $subHeader.textContent = 'Click on a category to filter drinks by category!';
   } else if (event.target === $navLinks[2]) {
     removeSelectedColors();
     if ($textList.hasChildNodes()) clearList($textList);
@@ -95,6 +110,8 @@ $navSide.addEventListener('click', function (event) {
     $listPage.classList.add('hidden');
     $searchInput.value = '';
     $headerText.textContent = '';
+    $horizontalRule.classList.add('hidden');
+    $subHeader.textContent = '';
     $navLinks[2].classList.add('text-selected');
   } else if (event.target === $navLinks[3]) {
     renderFavorites();
@@ -102,12 +119,14 @@ $navSide.addEventListener('click', function (event) {
     $searchBox.classList.add('hidden');
     $navLinks[3].classList.add('text-selected');
     $headerText.textContent = 'Favorites';
+    $subHeader.textContent = 'Click on a picture of a drink for its recipe!';
   }
 });
 
 $searchBox.addEventListener('keydown', function (event) {
   if (event.key === 'Enter') {
     $searchBox.classList.add('hidden');
+    $listPage.classList.remove('hidden');
     handleSearch();
   }
 });
@@ -165,6 +184,7 @@ function renderIngredients() {
 function handleIngredientClick(event) {
   $headerText.classList.remove('hidden');
   $headerText.textContent = event.target.textContent;
+  $subHeader.textContent = 'Click on a picture of a drink for its recipe!';
   if ($textList.hasChildNodes()) clearList($textList);
   const xhrFilterByC = new XMLHttpRequest();
   xhrFilterByC.open('GET', 'https://lfz-cors.herokuapp.com/?url=https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=' + event.target.textContent);
@@ -198,6 +218,7 @@ function renderCategories() {
 function handleCategoryClick(event) {
   $headerText.classList.remove('hidden');
   $headerText.textContent = event.target.textContent;
+  $subHeader.textContent = 'Click on a picture of a drink for its recipe!';
   if ($textList.hasChildNodes()) clearList($textList);
   const xhrFilterByC = new XMLHttpRequest();
   xhrFilterByC.open('GET', 'https://lfz-cors.herokuapp.com/?url=https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=' + event.target.textContent);
@@ -212,6 +233,7 @@ function handleCategoryClick(event) {
 
 function handleSearch() {
   $headerText.textContent = $searchInput.value.toUpperCase();
+  $subHeader.textContent = 'Click on a picture of a drink for its recipe!';
   if ($textList.hasChildNodes()) clearList($textList);
   const xhrSearch = new XMLHttpRequest();
   xhrSearch.open('GET', 'https://lfz-cors.herokuapp.com/?url=https://www.thecocktaildb.com/api/json/v1/1/search.php?s=' + $searchInput.value);
@@ -269,6 +291,7 @@ function handleRandom(event) {
   $homeBtn.classList.remove('hidden');
   $detailedDrink.classList.remove('hidden');
   $randomBtn.classList.remove('hidden');
+  $subHeader.classList.add('hidden');
   const xhrRandom = new XMLHttpRequest();
   xhrRandom.open('GET', 'https://lfz-cors.herokuapp.com/?url=https://www.thecocktaildb.com/api/json/v1/1/random.php');
   xhrRandom.responseType = 'json';
@@ -297,17 +320,23 @@ function renderDetailedDrink(drink) {
   const topRow = document.createElement('div');
   topRow.className = 'detail-top-row row';
   const drinkImg = document.createElement('img');
-  drinkImg.className = 'detailed-img col-6 border-round';
+  drinkImg.className = 'detailed-img col-4 border-round';
   drinkImg.src = drink.strDrinkThumb;
   drinkImg.alt = 'Random Drink';
   const drinkName = document.createElement('h2');
   drinkName.className = 'col-5 drink-name';
   drinkName.textContent = drink.strDrink;
+  const heart = document.createElement('i');
+  heart.className = 'far fa-heart';
+  heart.addEventListener('click', function (event) {
+    heart.classList.replace('far', 'fas');
+    favoriteDrinks.push(drink);
+  });
   topRow.appendChild(drinkImg);
-  topRow.appendChild(drinkName);
+  topRow.appendChild(heart);
 
   const detailsTable = document.createElement('table');
-  detailsTable.className = 'details-table col-6';
+  detailsTable.className = 'details-table col-8';
   const thead = document.createElement('thead');
   detailsTable.appendChild(thead);
   const tbody = document.createElement('tbody');
