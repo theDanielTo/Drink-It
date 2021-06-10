@@ -56,9 +56,16 @@ $navBottom.addEventListener('click', function (event) {
     openListPage();
     if ($textList.hasChildNodes()) clearList($textList);
     $searchBox.classList.remove('hidden');
+    $listPage.classList.add('hidden');
     $searchInput.value = '';
     $navIcons[2].classList.add('nav-selected');
     $headerText.textContent = '';
+  } else if (event.target === $navIcons[3]) {
+    renderFavorites();
+    removeSelectedColors();
+    $searchBox.classList.add('hidden');
+    $navIcons[3].classList.replace('far', 'fas');
+    $headerText.textContent = 'Favorites';
   }
 });
 
@@ -79,12 +86,18 @@ $navSide.addEventListener('click', function (event) {
     $headerText.textContent = 'Categories';
   } else if (event.target === $navLinks[2]) {
     removeSelectedColors();
-    openListPage();
     if ($textList.hasChildNodes()) clearList($textList);
     $searchBox.classList.remove('hidden');
+    $listPage.classList.add('hidden');
     $searchInput.value = '';
     $headerText.textContent = '';
     $navLinks[2].classList.add('text-selected');
+  } else if (event.target === $navLinks[3]) {
+    renderFavorites();
+    removeSelectedColors();
+    $searchBox.classList.add('hidden');
+    $navLinks[3].classList.add('text-selected');
+    $headerText.textContent = 'Favorites';
   }
 });
 
@@ -227,6 +240,14 @@ function handleRandom(event) {
   xhrRandom.send();
 }
 
+function renderFavorites() {
+  openListPage();
+  if ($textList.hasChildNodes()) clearList($textList);
+  for (const drink of favoriteDrinks) {
+    renderDrinkRow(drink);
+  }
+}
+
 function renderDetailedDrink(drink) {
   $headerText.textContent = drink.strDrink;
   clearList($detailedDrink);
@@ -288,9 +309,12 @@ function removeSelectedColors() {
   $navIcons[0].classList.remove('nav-selected');
   $navIcons[1].classList.remove('nav-selected');
   $navIcons[2].classList.remove('nav-selected');
+  $navIcons[3].classList.replace('fas', 'far');
   $navLinks[0].classList.remove('text-selected');
   $navLinks[1].classList.remove('text-selected');
   $navLinks[2].classList.remove('text-selected');
+  $navLinks[3].classList.remove('text-selected');
+
 }
 
 function clearList(parent) {
