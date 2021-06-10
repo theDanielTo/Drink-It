@@ -268,7 +268,7 @@ function renderDetailedDrink(drink) {
   }
 
   const instructions = document.createElement('p');
-  instructions.className = 'col-6 border-round';
+  instructions.className = 'border-round';
   instructions.innerHTML = '<b style="font-size:1rem;">Instructions: </b>' + drink.strInstructions;
 
   const detailsDiv = document.createElement('div');
