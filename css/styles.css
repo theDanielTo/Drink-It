@@ -58,16 +58,28 @@ body {
   position: relative;
   margin: 16px auto;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #b2dae8;
-  margin-top: 80px;
-  height: 45px;
+  background-color: #eab676;
+  margin-top: 90px;
+  padding: 10px;
   width: 90%;
 }
 
-.main-header h2 {
+.main-header hr {
+  margin: 0.3rem;
+}
+
+.main-header-div {
+  font-size: 1.2rem;
+  text-align: center;
   color: #0074c2;
+}
+
+.sub-header-div {
+  color: #005994;
+  text-align: center;
 }
 
 .home-logo {
@@ -101,16 +113,16 @@ body {
 
 /* Secondary Pages */
 .page-list {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  height: 65vh;
+  position: absolute;
+  top: 13.5rem;
+  bottom: 6.5rem;
+  left: 5%;
+  right: 5%;
 }
 
 .text-list {
   background-color: #b2dae8;
-  width: 90%;
+  height: 100%;
   padding: 0;
   overflow-y: scroll;
 }
@@ -137,9 +149,10 @@ body {
 }
 
 .drink-img {
-  width: 200px;
+  width: 120px;
   margin: 1rem;
   box-shadow: 0.3rem 0.3rem 0.8rem 0.2rem #66b6d2;
+  cursor: pointer;
 }
 
 .drink-row p {
@@ -157,14 +170,13 @@ body {
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  height: 200px;
+  height: 120px;
   margin-right: 1rem;
   background-color: #fffeeb;
   box-shadow: 0.3rem 0.3rem 0.8rem 0.2rem #66b6d2;
 }
 
 .search-box {
-  margin-top: 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -173,12 +185,13 @@ body {
 
 .search-box input {
   color: #0074c2;
-  font-size: 1.5rem;
+  font-size: 2rem;
   text-align: center;
   background-color: #b2dae8;
   padding: 5px;
   margin: 10px;
   width: 100%;
+  box-shadow: 0.1rem 0.1rem 1.5rem 0.1rem #0074c2;
 }
 
 #search-input::placeholder {
@@ -190,25 +203,27 @@ body {
   background-color: #b2dae8;
 }
 
+/* Detailed Drink */
 .drink-detailed {
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: #b2dae8;
   margin: 5%;
-  height: 60vh;
-  margin-top: 6rem;
+  height: 55vh;
+  margin-top: 1rem;
 }
 
 .detail-top-row {
+  display: flex;
   margin: 5%;
   justify-content: center;
   align-items: center;
 }
 
-.detail-top-row h2 {
+.detail-top-row i {
   font-size: 2rem;
-  color: #0074c2;
+  color: #ff3939;
   text-align: center;
   flex-basis: 50%;
 }
@@ -277,6 +292,8 @@ body {
 }
 
 .fa-trash-alt {
+  font-size: 0.5rem;
+  cursor: pointer;
   color: #707070;
 }
 
@@ -416,16 +433,26 @@ body {
     top: 170px;
     margin: 0 22%;
     float: right;
-    height: 80px;
+    height: 160px;
     width: 76%;
   }
 
-  .main-header h2 {
+  .main-header-div {
     display: inline;
     margin: 0;
     padding: 0;
-    text-align: center;
-    color: #0074c2;
+  }
+
+  #main-header-text {
+    font-size: 1.5rem;
+  }
+
+  #sub-header-text {
+    font-size: 1.2rem;
+  }
+
+  #sub-header-text {
+    color: #005994;
   }
 
   .home-logo {
@@ -439,7 +466,7 @@ body {
     flex-direction: column;
     background-color: #b2dae8;
     position: absolute;
-    top: 8.5rem;
+    top: 11.5rem;
     bottom: 1rem;
     margin: 0 22%;
     float: right;
@@ -453,11 +480,10 @@ body {
   /* Secondary Pages */
   .page-list {
     position: absolute;
-    float: right;
-    margin: 0 22%;
-    top: 9rem;
-    bottom: 0;
-    height: 65%;
+    top: 360px;
+    bottom: 35px;
+    right: 35px;
+    left: 22%;
     width: 76%;
   }
 
@@ -467,19 +493,23 @@ body {
   }
 
   .search-box input {
-    margin-top: 0.7rem;
+    margin-top: 0;
   }
 
   .drink-img {
-    width: 400px;
+    width: 250px;
   }
 
   .drink-row p {
-    font-size: 1.8rem;
+    font-size: 1.3rem;
+  }
+
+  .fa-trash-alt {
+    font-size: 0.3rem;
   }
 
   .drink-right-col {
-    height: 400px;
+    height: 250px;
   }
 
   .home-icon {
@@ -490,14 +520,15 @@ body {
     font-size: 80px;
   }
 
+  /* Detailed Drink */
   .drink-detailed {
     flex-direction: row;
     position: absolute;
     float: right;
     margin: 0 22%;
-    top: 9rem;
+    top: 11rem;
     bottom: 0;
-    height: 50%;
+    height: 40%;
     width: 76%;
   }
 
@@ -506,7 +537,8 @@ body {
   }
 
   .detail-top-row {
-    flex-basis: 50%;
+    flex-direction: column;
+    flex-basis: 30%;
     margin: 0 5%;
     justify-content: center;
     align-items: center;
@@ -516,7 +548,6 @@ body {
     font-size: 3rem;
     color: #0074c2;
     text-align: center;
-    flex-basis: 50%;
   }
 
   .detailed-img {
