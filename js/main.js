@@ -36,10 +36,10 @@ $homeBtn.addEventListener('click', function () {
   removeSelectedColors();
 
   $mainHeader.classList.remove('hidden');
-  $subHeader.classList.add('hidden');
   $headerText.classList.remove('hidden');
   $horizontalRule.classList.add('hidden');
   $headerText.textContent = 'Drink It!';
+  $subHeader.textContent = 'Discover your next favorite drink';
 });
 
 $navBottom.addEventListener('click', function (event) {
@@ -72,6 +72,7 @@ $navBottom.addEventListener('click', function (event) {
     $searchInput.value = '';
     $navIcons[2].classList.add('nav-selected');
     $headerText.textContent = '';
+    $horizontalRule.classList.add('hidden');
     $subHeader.textContent = '';
   } else if (event.target === $navIcons[3]) {
     renderFavorites();
@@ -109,6 +110,7 @@ $navSide.addEventListener('click', function (event) {
     $listPage.classList.add('hidden');
     $searchInput.value = '';
     $headerText.textContent = '';
+    $horizontalRule.classList.add('hidden');
     $subHeader.textContent = '';
     $navLinks[2].classList.add('text-selected');
   } else if (event.target === $navLinks[3]) {
@@ -289,6 +291,7 @@ function handleRandom(event) {
   $homeBtn.classList.remove('hidden');
   $detailedDrink.classList.remove('hidden');
   $randomBtn.classList.remove('hidden');
+  $subHeader.classList.add('hidden');
   const xhrRandom = new XMLHttpRequest();
   xhrRandom.open('GET', 'https://lfz-cors.herokuapp.com/?url=https://www.thecocktaildb.com/api/json/v1/1/random.php');
   xhrRandom.responseType = 'json';
