@@ -2,6 +2,10 @@
   font-family: 'Roboto', sans-serif;
 }
 
+body {
+  background-color: #fffeeb;
+}
+
 .border-round {
   border: none;
   border-radius: 10px;
@@ -90,6 +94,7 @@
 }
 
 .large-bg h2 {
+  text-align: center;
   font-size: 1.5rem;
   color: #0074c2;
 }
@@ -195,7 +200,6 @@
   margin: 5%;
   height: 60vh;
   margin-top: 6rem;
-  overflow-y: scroll;
 }
 
 .detail-top-row {
@@ -301,7 +305,12 @@
 }
 
 .fa-heart {
+  cursor: pointer;
   color: #ff3939;
+}
+
+.fa-heart:active {
+  box-shadow: 0 0 1rem 1rem #ff3939;
 }
 
 /* Sidebar Nav */
@@ -443,7 +452,6 @@
     bottom: 0;
     height: 50%;
     width: 76%;
-    overflow-y: scroll;
   }
 
   .drink-name {
