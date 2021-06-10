@@ -220,6 +220,7 @@ function renderDrinkRow(item) {
   const heart = document.createElement('i');
   heart.className = 'far fa-heart border-round';
   heart.addEventListener('click', function (event) {
+    heart.classList.replace('far', 'fas');
     favoriteDrinks.push(item);
   });
   rightCol.appendChild(heart);

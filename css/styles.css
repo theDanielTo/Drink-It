@@ -309,10 +309,6 @@ body {
   color: #ff3939;
 }
 
-.fa-heart:active {
-  box-shadow: 0 0 1rem 1rem #ff3939;
-}
-
 /* Sidebar Nav */
 .nav-links {
   display: none;
@@ -391,10 +387,10 @@ body {
     flex-direction: column;
     background-color: #b2dae8;
     position: absolute;
+    top: 8.5rem;
     bottom: 1rem;
     margin: 0 22%;
     float: right;
-    height: 65%;
     width: 76%;
   }
 
