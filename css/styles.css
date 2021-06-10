@@ -276,7 +276,11 @@ body {
   background-color: #0074c2;
 }
 
-/* modal */
+.fa-trash-alt {
+  color: #707070;
+}
+
+/* Modal */
 .modal-bg {
   position: fixed;
   top: 0;
@@ -288,6 +292,7 @@ body {
   align-items: center;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.8);
+  z-index: 1000;
 }
 
 .modal-box {
@@ -299,6 +304,10 @@ body {
   height: 180px;
   width: 250px;
   text-align: center;
+}
+
+.modal-box h2 {
+  font-size: 1.5rem;
 }
 
 .modal-btns {
@@ -314,6 +323,7 @@ body {
   padding: 10px;
   font-size: 1rem;
   font-weight: bold;
+  text-align: center;
 }
 
 .modal-btn:active {
@@ -441,7 +451,6 @@ body {
   }
 
   /* Secondary Pages */
-
   .page-list {
     position: absolute;
     float: right;
@@ -567,6 +576,21 @@ body {
     width: 50%;
     padding: 0.5rem;
     cursor: pointer;
+  }
+
+  /* modal */
+  .modal-box {
+    height: 270px;
+    width: 375px;
+  }
+
+  .modal-btn {
+    width: 140px;
+    padding: 15px;
+  }
+
+  .modal-btn:hover {
+    background-color: #0074c2;
   }
 
   /* Nav Bars */

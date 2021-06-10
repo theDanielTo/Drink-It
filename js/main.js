@@ -16,7 +16,7 @@ const $detailedDrink = document.querySelector('.drink-detailed');
 
 const $modalBg = document.querySelector('.modal-bg');
 const $modalYes = document.querySelector('#modal-yes');
-const $modalCancel = document.querySelector('#modal-cancel);
+const $modalCancel = document.querySelector('#modal-cancel');
 
 const $navBottom = document.querySelector('.nav-bottom');
 const $navIcons = document.querySelectorAll('.nav-icon');
@@ -116,13 +116,27 @@ $largeLogo.addEventListener('click', handleRandom);
 $largeLogo2.addEventListener('click', handleRandom);
 $randomBtn.addEventListener('click', handleRandom);
 
-$modalYes.addEventListener('click', function(event) {
-
-})
+$modalYes.addEventListener('click', function (event) {
+  const idToDel = parseInt($modalYes.getAttribute('drink-id'));
+  for (const li of $textList.childNodes) {
+    const liDrinkId = parseInt(li.getAttribute('drink-id'));
+    if (idToDel === liDrinkId) {
+      $textList.removeChild(li);
+      for (let i = 0; i < favoriteDrinks.length; i++) {
+        if (favoriteDrinks[i].idDrink === idToDel.toString()) {
+          favoriteDrinks.splice(i, 1);
+          break;
+        }
+      }
+      break;
+    }
+  }
+  $modalBg.classList.add('hidden');
+});
 
 $modalCancel.addEventListener('click', function (event) {
-
-})
+  $modalBg.classList.add('hidden');
+});
 
 function openListPage() {
   $listPage.classList.remove('hidden');
@@ -218,6 +232,7 @@ function handleSearch() {
 function renderDrinkRow(item, isFav) {
   const drink = document.createElement('div');
   drink.className = 'drink-row';
+  drink.setAttribute('drink-id', item.idDrink);
   const drinkImg = document.createElement('img');
   drinkImg.src = item.strDrinkThumb;
   drinkImg.alt = item.strDrink;
@@ -233,8 +248,8 @@ function renderDrinkRow(item, isFav) {
     const trash = document.createElement('i');
     trash.className = 'far fa-trash-alt';
     trash.addEventListener('click', function (event) {
+      $modalYes.setAttribute('drink-id', item.idDrink);
       handleDelete();
-      // favoriteDrinks.push(item);
     });
     rightCol.appendChild(trash);
   } else {
