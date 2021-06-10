@@ -14,6 +14,10 @@ const $largeLogo2 = document.querySelector('.logo-large2');
 const $randomBtn = document.querySelector('.random-btn');
 const $detailedDrink = document.querySelector('.drink-detailed');
 
+const $modalBg = document.querySelector('.modal-bg');
+const $modalYes = document.querySelector('#modal-yes');
+const $modalCancel = document.querySelector('#modal-cancel);
+
 const $navBottom = document.querySelector('.nav-bottom');
 const $navIcons = document.querySelectorAll('.nav-icon');
 const $navSide = document.querySelector('.nav-links');
@@ -112,6 +116,14 @@ $largeLogo.addEventListener('click', handleRandom);
 $largeLogo2.addEventListener('click', handleRandom);
 $randomBtn.addEventListener('click', handleRandom);
 
+$modalYes.addEventListener('click', function(event) {
+
+})
+
+$modalCancel.addEventListener('click', function (event) {
+
+})
+
 function openListPage() {
   $listPage.classList.remove('hidden');
   $homePage.classList.add('hidden');
@@ -145,7 +157,7 @@ function handleIngredientClick(event) {
   xhrFilterByC.responseType = 'json';
   xhrFilterByC.addEventListener('load', function (event) {
     for (const item of xhrFilterByC.response.drinks) {
-      renderDrinkRow(item);
+      renderDrinkRow(item, false);
     }
   });
   xhrFilterByC.send();
@@ -178,7 +190,7 @@ function handleCategoryClick(event) {
   xhrFilterByC.responseType = 'json';
   xhrFilterByC.addEventListener('load', function (event) {
     for (const item of xhrFilterByC.response.drinks) {
-      renderDrinkRow(item);
+      renderDrinkRow(item, false);
     }
   });
   xhrFilterByC.send();
@@ -196,14 +208,14 @@ function handleSearch() {
       $headerText.textContent = 'No drinks were found.';
     } else {
       for (const item of xhrSearch.response.drinks) {
-        renderDrinkRow(item);
+        renderDrinkRow(item, false);
       }
     }
   });
   xhrSearch.send();
 }
 
-function renderDrinkRow(item) {
+function renderDrinkRow(item, isFav) {
   const drink = document.createElement('div');
   drink.className = 'drink-row';
   const drinkImg = document.createElement('img');
@@ -217,13 +229,23 @@ function renderDrinkRow(item) {
   const drinkName = document.createElement('p');
   drinkName.textContent = item.strDrink;
   rightCol.appendChild(drinkName);
-  const heart = document.createElement('i');
-  heart.className = 'far fa-heart border-round';
-  heart.addEventListener('click', function (event) {
-    heart.classList.replace('far', 'fas');
-    favoriteDrinks.push(item);
-  });
-  rightCol.appendChild(heart);
+  if (isFav) {
+    const trash = document.createElement('i');
+    trash.className = 'far fa-trash-alt';
+    trash.addEventListener('click', function (event) {
+      handleDelete();
+      // favoriteDrinks.push(item);
+    });
+    rightCol.appendChild(trash);
+  } else {
+    const heart = document.createElement('i');
+    heart.className = 'far fa-heart';
+    heart.addEventListener('click', function (event) {
+      heart.classList.replace('far', 'fas');
+      favoriteDrinks.push(item);
+    });
+    rightCol.appendChild(heart);
+  }
   $textList.appendChild(drink);
 }
 
@@ -245,8 +267,12 @@ function renderFavorites() {
   openListPage();
   if ($textList.hasChildNodes()) clearList($textList);
   for (const drink of favoriteDrinks) {
-    renderDrinkRow(drink);
+    renderDrinkRow(drink, true);
   }
+}
+
+function handleDelete() {
+  $modalBg.classList.remove('hidden');
 }
 
 function renderDetailedDrink(drink) {

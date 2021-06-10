@@ -100,8 +100,6 @@ body {
 }
 
 /* Secondary Pages */
-
-/* Ingredients/Category Page */
 .page-list {
   display: flex;
   flex-direction: column;
@@ -275,6 +273,50 @@ body {
 }
 
 .random-btn:active {
+  background-color: #0074c2;
+}
+
+/* modal */
+.modal-bg {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.modal-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: white;
+  height: 180px;
+  width: 250px;
+  text-align: center;
+}
+
+.modal-btns {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.modal-btn {
+  background-color: #b2dae8;
+  color: #e88000;
+  width: 80px;
+  padding: 10px;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.modal-btn:active {
   background-color: #0074c2;
 }
 
