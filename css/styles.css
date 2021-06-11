@@ -13,7 +13,7 @@ body {
 
 /* title header */
 .title {
-  position: absolute;
+  position: fixed;
   left: 0;
   top: 0;
   right: 0;
@@ -50,18 +50,18 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 70%;
+  height: 100vh;
 }
 
 .main-header {
-  position: relative;
-  margin: 16px auto;
+  position: fixed;
+  left: 5%;
+  top: 80px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   background-color: #eab676;
-  margin-top: 90px;
   padding: 10px;
   width: 90%;
 }
@@ -231,9 +231,8 @@ body {
   flex-direction: column;
   align-items: center;
   background-color: #b2dae8;
-  margin: 5%;
-  height: 48vh;
-  margin-top: 1rem;
+  padding-bottom: 5%;
+  margin: 140px 5% 30px;
 }
 
 .detail-top-row {
@@ -258,7 +257,6 @@ body {
   background-color: #fffeeb;
   width: 90%;
   padding: 0.5rem;
-  margin-bottom: 1rem;
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
@@ -290,6 +288,9 @@ body {
 }
 
 .random-btn-div {
+  position: fixed;
+  bottom: 80px;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -373,7 +374,7 @@ body {
 
 /* Bottom Navbar */
 .nav-bottom {
-  position: absolute;
+  position: fixed;
   left: 0;
   right: 0;
   bottom: 0;
@@ -453,8 +454,7 @@ body {
     justify-content: center;
     position: absolute;
     top: 170px;
-    margin: 0 22%;
-    float: right;
+    margin: 0 16.5%;
     height: 160px;
     width: 76%;
   }
@@ -487,7 +487,7 @@ body {
   .main-logo {
     width: 200px;
     height: 200px;
-    margin-bottom: 40px;
+    margin-bottom: 60px;
   }
 
   .fa-circle,
@@ -626,7 +626,7 @@ body {
   }
 
   .random-btn-div {
-    position: absolute;
+    position: fixed;
     bottom: 1rem;
     right: 0;
     width: 80%;

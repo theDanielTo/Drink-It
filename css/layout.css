@@ -1,9 +1,10 @@
 body {
-  height: 100vh;
+  height: 100%;
 }
 
 main {
   height: 80vh;
+  overflow-y: scroll;
 }
 
 .container {
