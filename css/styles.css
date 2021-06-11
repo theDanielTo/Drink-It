@@ -11,7 +11,7 @@ body {
   border-radius: 10px;
 }
 
-/* main header */
+/* title header */
 .title {
   position: absolute;
   left: 0;
@@ -50,8 +50,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  height: 100vh;
+  height: 70%;
 }
 
 .main-header {
@@ -68,12 +67,26 @@ body {
 }
 
 .main-header hr {
+  width: 90%;
   margin: 0.3rem;
 }
 
 .main-header-div {
   font-size: 1.2rem;
   text-align: center;
+  color: #0074c2;
+}
+
+#main-header-text {
+  font-size: 1.2rem;
+}
+
+#sub-header-text {
+  font-size: 1rem;
+  color: #005994;
+}
+
+#horizontal-rule {
   color: #0074c2;
 }
 
@@ -85,30 +98,35 @@ body {
 .home-logo {
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
   text-align: center;
 }
 
 .home-logo h2 {
-  font-size: 2rem;
+  width: 90%;
+  position: absolute;
+  bottom: 120px;
+  font-size: 1.5rem;
   color: #66b6d2;
 }
 
-.logo-large {
-  font-size: 200px;
+.main-logo {
+  width: 150px;
+  height: 150px;
   color: #66b6d2;
   cursor: pointer;
 }
 
-.large-bg {
-  display: none;
+.logo-large {
+  font-size: 150px;
 }
 
-.large-bg h2 {
-  text-align: center;
-  font-size: 1.5rem;
-  color: #0074c2;
+.fa-circle {
+  position: relative;
+  font-size: 80px;
+  bottom: 180px;
+  right: -65px;
 }
 
 /* Secondary Pages */
@@ -156,13 +174,13 @@ body {
 }
 
 .drink-row p {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   color: #0074c2;
   text-align: center;
 }
 
 .drink-row i {
-  font-size: 3rem;
+  font-size: 2rem;
 }
 
 .drink-right-col {
@@ -176,6 +194,10 @@ body {
   box-shadow: 0.3rem 0.3rem 0.8rem 0.2rem #66b6d2;
 }
 
+.drink-right-col p {
+  font-size: 1.2rem;
+}
+
 .search-box {
   display: flex;
   flex-direction: column;
@@ -185,7 +207,7 @@ body {
 
 .search-box input {
   color: #0074c2;
-  font-size: 2rem;
+  font-size: 1.5rem;
   text-align: center;
   background-color: #b2dae8;
   padding: 5px;
@@ -364,7 +386,7 @@ body {
 
 .nav-icon {
   margin: 1rem 0;
-  font-size: 50px;
+  font-size: 40px;
   color: #eab676;
   cursor: pointer;
 }
@@ -449,21 +471,10 @@ body {
 
   #sub-header-text {
     font-size: 1.2rem;
-  }
-
-  #sub-header-text {
     color: #005994;
   }
 
   .home-logo {
-    display: none;
-  }
-
-  .large-bg {
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    flex-direction: column;
     background-color: #b2dae8;
     position: absolute;
     top: 11.5rem;
@@ -473,8 +484,31 @@ body {
     width: 76%;
   }
 
+  .main-logo {
+    width: 200px;
+    height: 200px;
+    margin-bottom: 40px;
+  }
+
+  .fa-circle,
   .logo-large {
     color: #fffeeb;
+  }
+
+  .logo-large {
+    font-size: 200px;
+  }
+
+  .fa-circle {
+    font-size: 100px;
+    bottom: 230px;
+    right: -85px;
+  }
+
+  .home-logo h2 {
+    bottom: 50px;
+    font-size: 1.5rem;
+    color: #66b6d2;
   }
 
   /* Secondary Pages */
