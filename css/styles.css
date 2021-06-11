@@ -77,6 +77,15 @@ body {
   color: #0074c2;
 }
 
+#main-header-text {
+  font-size: 1.2rem;
+}
+
+#sub-header-text {
+  font-size: 1rem;
+  color: #005994;
+}
+
 #horizontal-rule {
   color: #0074c2;
 }
@@ -175,13 +184,13 @@ body {
 }
 
 .drink-row p {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   color: #0074c2;
   text-align: center;
 }
 
 .drink-row i {
-  font-size: 3rem;
+  font-size: 2rem;
 }
 
 .drink-right-col {
@@ -195,6 +204,10 @@ body {
   box-shadow: 0.3rem 0.3rem 0.8rem 0.2rem #66b6d2;
 }
 
+.drink-right-col p {
+  font-size: 1.2rem;
+}
+
 .search-box {
   display: flex;
   flex-direction: column;
@@ -204,7 +217,7 @@ body {
 
 .search-box input {
   color: #0074c2;
-  font-size: 2rem;
+  font-size: 1.5rem;
   text-align: center;
   background-color: #b2dae8;
   padding: 5px;
@@ -383,7 +396,7 @@ body {
 
 .nav-icon {
   margin: 1rem 0;
-  font-size: 50px;
+  font-size: 40px;
   color: #eab676;
   cursor: pointer;
 }

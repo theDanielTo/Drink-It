@@ -12,8 +12,7 @@ const $textList = document.querySelector('.text-list');
 const $searchBox = document.querySelector('.search-box');
 const $searchInput = document.querySelector('#search-input');
 
-const $largeLogo = document.querySelector('.logo-large');
-const $largeLogo2 = document.querySelector('.logo-large2');
+const $mainLogo = document.querySelector('.main-logo');
 const $randomBtn = document.querySelector('.random-btn');
 const $detailedDrink = document.querySelector('.drink-detailed');
 
@@ -160,8 +159,7 @@ $searchBox.addEventListener('keydown', function (event) {
   }
 });
 
-$largeLogo.addEventListener('click', handleRandom);
-$largeLogo2.addEventListener('click', handleRandom);
+$mainLogo.addEventListener('click', handleRandom);
 $randomBtn.addEventListener('click', handleRandom);
 
 $modalYes.addEventListener('click', function (event) {
