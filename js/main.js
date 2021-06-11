@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 const $homePage = document.querySelector('.page-home');
 const $mainHeader = document.querySelector('.main-header');
 const $headerText = document.querySelector('#main-header-text');
@@ -32,14 +33,22 @@ $homeBtn.addEventListener('click', function () {
   $searchBox.classList.add('hidden');
   $detailedDrink.classList.add('hidden');
   $randomBtn.classList.add('hidden');
-
   removeSelectedColors();
-
   $mainHeader.classList.remove('hidden');
   $headerText.classList.remove('hidden');
-  $horizontalRule.classList.add('hidden');
+  $subHeader.classList.remove('hidden');
+  $horizontalRule.classList.remove('hidden');
   $headerText.textContent = 'Drink It!';
   $subHeader.textContent = 'Discover your next favorite drink';
+  gsap.from('.logo', {
+    duration: 1,
+    y: -600,
+    delay: 0.2,
+    stagger: 0.2,
+    ease: 'bounce',
+    force3D: true
+  });
+  gsap.from('.fa-circle', { duration: 1, y: -600, ease: 'bounce' });
 });
 
 $navBottom.addEventListener('click', function (event) {
@@ -82,6 +91,16 @@ $navBottom.addEventListener('click', function (event) {
     $headerText.textContent = 'Favorites';
     $subHeader.textContent = 'Click on a picture of a drink for its recipe!';
   }
+  gsap.from('.main-header', { duration: 0.5, opacity: 0, scale: 2, ease: 'slow' });
+  gsap.from('.nav-icon', {
+    duration: 0.5,
+    scale: 0.5,
+    opacity: 0,
+    delay: 0.2,
+    stagger: 0.2,
+    ease: 'elastic',
+    force3D: true
+  });
 });
 
 $navSide.addEventListener('click', function (event) {
@@ -121,6 +140,16 @@ $navSide.addEventListener('click', function (event) {
     $headerText.textContent = 'Favorites';
     $subHeader.textContent = 'Click on a picture of a drink for its recipe!';
   }
+  gsap.from('.main-header', { duration: 1.5, opacity: 0, scale: 0.5, ease: 'elastic' });
+  gsap.from('.nav-link', {
+    duration: 0.5,
+    scale: 0.5,
+    opacity: 0,
+    delay: 0.1,
+    stagger: 0.2,
+    ease: 'elastic',
+    force3D: true
+  });
 });
 
 $searchBox.addEventListener('keydown', function (event) {
@@ -271,6 +300,11 @@ function renderDrinkRow(item, isFav) {
     trash.className = 'far fa-trash-alt';
     trash.addEventListener('click', function (event) {
       $modalYes.setAttribute('drink-id', item.idDrink);
+      gsap.from('.modal-box', {
+        duration: 0.5,
+        x: 3000,
+        ease: 'ease'
+      });
       handleDelete();
     });
     rightCol.appendChild(trash);
@@ -291,6 +325,8 @@ function handleRandom(event) {
   $homeBtn.classList.remove('hidden');
   $detailedDrink.classList.remove('hidden');
   $randomBtn.classList.remove('hidden');
+  $mainHeader.classList.remove('hidden');
+  $horizontalRule.classList.add('hidden');
   $subHeader.classList.add('hidden');
   const xhrRandom = new XMLHttpRequest();
   xhrRandom.open('GET', 'https://lfz-cors.herokuapp.com/?url=https://www.thecocktaildb.com/api/json/v1/1/random.php');

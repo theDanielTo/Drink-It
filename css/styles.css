@@ -11,7 +11,7 @@ body {
   border-radius: 10px;
 }
 
-/* main header */
+/* title header */
 .title {
   position: absolute;
   left: 0;
@@ -68,12 +68,17 @@ body {
 }
 
 .main-header hr {
+  width: 90%;
   margin: 0.3rem;
 }
 
 .main-header-div {
   font-size: 1.2rem;
   text-align: center;
+  color: #0074c2;
+}
+
+#horizontal-rule {
   color: #0074c2;
 }
 
@@ -95,10 +100,18 @@ body {
   color: #66b6d2;
 }
 
+.fa-circle,
 .logo-large {
   font-size: 200px;
   color: #66b6d2;
   cursor: pointer;
+}
+
+.fa-circle {
+  font-size: 100px;
+  position: absolute;
+  top: 17.5rem;
+  right: 3rem;
 }
 
 .large-bg {
@@ -449,9 +462,6 @@ body {
 
   #sub-header-text {
     font-size: 1.2rem;
-  }
-
-  #sub-header-text {
     color: #005994;
   }
 
@@ -473,8 +483,16 @@ body {
     width: 76%;
   }
 
+  .fa-circle,
   .logo-large {
     color: #fffeeb;
+  }
+
+  .fa-circle {
+    font-size: 100px;
+    position: absolute;
+    top: 1.5rem;
+    right: 18.5rem;
   }
 
   /* Secondary Pages */
