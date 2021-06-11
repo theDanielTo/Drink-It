@@ -250,6 +250,7 @@ body {
 }
 
 .detailed-img {
+  /* will-change */
   width: 50%;
 }
 
@@ -450,8 +451,6 @@ body {
   }
 
   .main-header {
-    display: flex;
-    justify-content: center;
     position: absolute;
     top: 170px;
     margin: 0 16.5%;
@@ -557,13 +556,15 @@ body {
   /* Detailed Drink */
   .drink-detailed {
     flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
     position: absolute;
-    float: right;
-    margin: 0 22%;
-    top: 11rem;
+    margin-left: 22%;
+    margin-right: 0;
+    padding: 1%;
+    top: 220px;
+    right: 1rem;
     bottom: 0;
-    height: 40%;
-    width: 76%;
   }
 
   .drink-name {
@@ -572,10 +573,12 @@ body {
 
   .detail-top-row {
     flex-direction: column;
-    flex-basis: 30%;
-    margin: 0 5%;
-    justify-content: center;
-    align-items: center;
+    justify-content: space-between;
+    align-items: flex-start;
+    height: 100%;
+    flex-basis: 40%;
+    padding: 0;
+    margin: 0;
   }
 
   .detail-top-row h2 {
@@ -584,16 +587,20 @@ body {
     text-align: center;
   }
 
+  .detail-top-row i {
+    position: absolute;
+    top: 40px;
+    left: 25%;
+  }
+
   .detailed-img {
-    width: 100%;
+    margin-right: 5%;
+    width: 95%;
   }
 
   .details-div {
-    margin-top: 1rem;
-    margin-right: 1rem;
-    width: 100%;
-    height: 90%;
-    padding: 0.5rem;
+    height: 100%;
+    flex-basis: 80%;
   }
 
   .details-div p {
@@ -606,7 +613,6 @@ body {
   }
 
   .details-table {
-    height: 90%;
     flex-basis: 50%;
     margin: 5px;
   }
@@ -625,22 +631,18 @@ body {
     border: 1px solid black;
   }
 
-  .random-btn-div {
+  .random-btn {
     position: fixed;
-    bottom: 1rem;
-    right: 0;
-    width: 80%;
-    margin: 0;
+    bottom: 1.2rem;
+    left: 23%;
+    font-size: 1rem;
+    width: 23.5%;
+    padding: 0.5rem;
+    margin-top: 1rem;
   }
 
-  .random-btn {
-    border: none;
-    color: white;
-    background-color: #0074c2;
-    font-size: 1.5rem;
-    width: 50%;
-    padding: 0.5rem;
-    cursor: pointer;
+  .random-btn i {
+    font-size: 1rem;
   }
 
   /* modal */

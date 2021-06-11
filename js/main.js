@@ -370,7 +370,7 @@ function renderDetailedDrink(drink) {
   clearList($detailedDrink);
 
   const topRow = document.createElement('div');
-  topRow.className = 'detail-top-row row';
+  topRow.className = 'detail-top-row';
   const drinkImg = document.createElement('img');
   drinkImg.className = 'detailed-img col-4 border-round';
   drinkImg.src = drink.strDrinkThumb;
