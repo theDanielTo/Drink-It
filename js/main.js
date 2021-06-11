@@ -286,6 +286,24 @@ function renderDrinkRow(item, isFav) {
   drinkImg.src = item.strDrinkThumb;
   drinkImg.alt = item.strDrink;
   drinkImg.className = 'drink-img border-round';
+  drinkImg.addEventListener('click', function (event) {
+    $homePage.classList.add('hidden');
+    $homeBtn.classList.remove('hidden');
+    $listPage.classList.add('hidden');
+    $detailedDrink.classList.remove('hidden');
+    $randomBtn.classList.add('hidden');
+    $mainHeader.classList.remove('hidden');
+    $horizontalRule.classList.add('hidden');
+    $subHeader.classList.add('hidden');
+    if ($textList.hasChildNodes()) clearList($textList);
+    const xhrById = new XMLHttpRequest();
+    xhrById.open('GET', 'https://lfz-cors.herokuapp.com/?url=https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=' + drink.getAttribute('drink-id'));
+    xhrById.responseType = 'json';
+    xhrById.addEventListener('load', function (event) {
+      renderDetailedDrink(xhrById.response.drinks[0]);
+    });
+    xhrById.send();
+  });
   drink.appendChild(drinkImg);
   const rightCol = document.createElement('div');
   rightCol.className = 'drink-right-col col-8 border-round';
