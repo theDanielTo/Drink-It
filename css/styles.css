@@ -562,11 +562,11 @@ body {
     justify-content: space-between;
     align-items: center;
     position: absolute;
+    margin-bottom: 1rem;
+    margin-right: 40px;
     margin-left: 22%;
-    margin-right: 0;
     padding: 1%;
     top: 220px;
-    right: 1rem;
     bottom: 0;
   }
 
@@ -604,6 +604,7 @@ body {
   .details-div {
     height: 100%;
     flex-basis: 80%;
+    margin: 0;
   }
 
   .details-div p {

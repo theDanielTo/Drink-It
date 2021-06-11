@@ -55,6 +55,9 @@ $navBottom.addEventListener('click', function (event) {
   removeSelectedColors();
   openListPage();
   if ($listPage.hasChildNodes()) clearList($listPage);
+  if ($listPage.nextElementSibling.classList.contains('drink-detailed')) {
+    $listPage.nextElementSibling.remove();
+  }
   if (event.target === $navIcons[0]) {
     $listPage.appendChild(renderIngredientsList());
     $searchBox.classList.add('hidden');
@@ -100,6 +103,9 @@ $navSide.addEventListener('click', function (event) {
   $subHeader.classList.remove('hidden');
   removeSelectedColors();
   openListPage();
+  if ($listPage.nextElementSibling.classList.contains('drink-detailed')) {
+    $listPage.nextElementSibling.remove();
+  }
   if (event.target === $navLinks[0]) {
     $listPage.appendChild(renderIngredientsList());
     $searchBox.classList.add('hidden');
@@ -181,6 +187,7 @@ function openListPage() {
 }
 
 function handleIngredientClick(event) {
+  openListPage();
   if ($listPage.hasChildNodes()) clearList($listPage);
   $headerText.classList.remove('hidden');
   $headerText.textContent = event.target.textContent;
@@ -342,6 +349,11 @@ function renderDrinkRow(item, isFav) {
     xhrById.responseType = 'json';
     xhrById.addEventListener('load', function (event) {
       renderDetailedDrink(xhrById.response.drinks[0]);
+      if ($listPage.nextElementSibling.classList.contains('drink-detailed')) {
+        $listPage.nextElementSibling.remove();
+      }
+      $listPage.insertAdjacentElement('afterend',
+        renderDetailedDrink(xhrById.response.drinks[0]));
     });
     xhrById.send();
   });
