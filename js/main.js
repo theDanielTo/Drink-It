@@ -421,7 +421,6 @@ function removeSelectedColors() {
   $navLinks[1].classList.remove('text-selected');
   $navLinks[2].classList.remove('text-selected');
   $navLinks[3].classList.remove('text-selected');
-
 }
 
 function clearList(parent) {

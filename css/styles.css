@@ -50,8 +50,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  height: 100vh;
+  height: 70%;
 }
 
 .main-header {
@@ -90,31 +89,38 @@ body {
 .home-logo {
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
   text-align: center;
 }
 
 .home-logo h2 {
-  font-size: 2rem;
+  width: 90%;
+  position: absolute;
+  bottom: 120px;
+  font-size: 1.5rem;
   color: #66b6d2;
 }
 
-.fa-circle,
-.logo-large {
-  font-size: 200px;
+.main-logo {
+  width: 150px;
+  height: 150px;
   color: #66b6d2;
   cursor: pointer;
 }
 
-.fa-circle {
-  font-size: 100px;
-  position: absolute;
-  top: 17.5rem;
-  right: 3rem;
+.logo-large {
+  font-size: 150px;
 }
 
-.large-bg {
+.fa-circle {
+  position: relative;
+  font-size: 80px;
+  bottom: 180px;
+  right: -65px;
+}
+
+/* .large-bg {
   display: none;
 }
 
@@ -122,7 +128,7 @@ body {
   text-align: center;
   font-size: 1.5rem;
   color: #0074c2;
-}
+} */
 
 /* Secondary Pages */
 .page-list {
@@ -466,14 +472,6 @@ body {
   }
 
   .home-logo {
-    display: none;
-  }
-
-  .large-bg {
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    flex-direction: column;
     background-color: #b2dae8;
     position: absolute;
     top: 11.5rem;
@@ -483,16 +481,31 @@ body {
     width: 76%;
   }
 
+  .main-logo {
+    width: 200px;
+    height: 200px;
+    margin-bottom: 40px;
+  }
+
   .fa-circle,
   .logo-large {
     color: #fffeeb;
   }
 
+  .logo-large {
+    font-size: 200px;
+  }
+
   .fa-circle {
     font-size: 100px;
-    position: absolute;
-    top: 1.5rem;
-    right: 18.5rem;
+    bottom: 230px;
+    right: -85px;
+  }
+
+  .home-logo h2 {
+    bottom: 50px;
+    font-size: 1.5rem;
+    color: #66b6d2;
   }
 
   /* Secondary Pages */
