@@ -68,19 +68,18 @@ $navBottom.addEventListener('click', function (event) {
 });
 
 $navSide.addEventListener('click', function (event) {
-  removeSelectedColors();
-  openListPage();
-  handleNavClick(event.target, event.target.getAttribute('nav-data'));
-  gsap.from('.main-header', { duration: 1.5, opacity: 0, scale: 0.5, ease: 'elastic' });
-  gsap.from('.nav-link', {
-    duration: 0.5,
-    scale: 0.5,
-    opacity: 0,
-    delay: 0.1,
-    stagger: 0.1,
-    ease: 'elastic',
-    force3D: true
-  });
+  if (event.target.hasAttribute('nav-data')) {
+    handleNavClick(event.target, event.target.getAttribute('nav-data'));
+    gsap.from('.nav-link', {
+      duration: 0.5,
+      scale: 0.5,
+      opacity: 0,
+      delay: 0.1,
+      stagger: 0.1,
+      ease: 'elastic',
+      force3D: true
+    });
+  }
 });
 
 $searchBox.addEventListener('keydown', function (event) {
@@ -135,16 +134,17 @@ function handleNavClick(targetEl, navData) {
   } else if (navData === 'Categories') {
     $listPage.appendChild(renderCategoriesList());
     $subHeader.textContent = 'Click on an category to filter drinks by ingredient!';
-  } if (navData === 'Search') {
+  } else if (navData === 'Search') {
     $listPage.classList.add('hidden');
     $searchInput.value = '';
     $headerText.textContent = '';
     $horizontalRule.classList.add('hidden');
     $subHeader.textContent = '';
-  } if (navData === 'Favorites') {
+  } else if (navData === 'Favorites') {
     $listPage.appendChild(renderFavoritesList());
     $subHeader.textContent = 'Click on a picture of a drink for its recipe!';
   }
+  gsap.from('.main-header', { duration: 0.5, opacity: 0, scale: 0.5, ease: 'slow' });
 }
 
 function handleIngredientClick(event) {
