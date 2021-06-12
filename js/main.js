@@ -23,6 +23,7 @@ const $navIcons = document.querySelectorAll('.nav-icon');
 const $navLinks = document.querySelectorAll('.nav-link');
 
 $homeBtn.addEventListener('click', function () {
+  clearPage();
   $homeBtn.classList.add('hidden');
   $listPage.classList.add('hidden');
   $searchBox.classList.add('hidden');
@@ -44,103 +45,39 @@ $homeBtn.addEventListener('click', function () {
     force3D: true
   });
   gsap.from('.fa-circle', { duration: 1, y: -600, ease: 'bounce' });
+  gsap.from('#home-text', { duration: 2, opacity: 0 });
 });
 
 $navBottom.addEventListener('click', function (event) {
-  $randomBtn.classList.add('hidden');
-  $mainHeader.classList.remove('hidden');
-  $headerText.classList.remove('hidden');
-  $horizontalRule.classList.remove('hidden');
-  $subHeader.classList.remove('hidden');
-  removeSelectedColors();
-  openListPage();
-  if ($listPage.hasChildNodes()) clearList($listPage);
-  if ($listPage.nextElementSibling.classList.contains('drink-detailed')) {
-    $listPage.nextElementSibling.remove();
+  if (event.target.hasAttribute('nav-data')) {
+    $mainHeader.classList.remove('hidden');
+    $headerText.classList.remove('hidden');
+    handleNavClick(event.target, event.target.getAttribute('nav-data'));
+    $headerText.textContent = event.target.getAttribute('nav-data');
+    gsap.from('.main-header', { duration: 0.5, opacity: 0, scale: 2, ease: 'slow' });
+    gsap.from('.nav-icon', {
+      duration: 0.5,
+      scale: 0.5,
+      opacity: 0,
+      delay: 0.1,
+      stagger: 0.1,
+      ease: 'elastic',
+      force3D: true
+    });
   }
-  if (event.target === $navIcons[0]) {
-    $listPage.appendChild(renderIngredientsList());
-    $searchBox.classList.add('hidden');
-    $navIcons[0].classList.add('nav-selected');
-    $headerText.textContent = 'Ingredients';
-    $subHeader.textContent = 'Click on an ingredient to filter drinks by ingredient!';
-  } else if (event.target === $navIcons[1]) {
-    $listPage.appendChild(renderCategoriesList());
-    $searchBox.classList.add('hidden');
-    $navIcons[1].classList.add('nav-selected');
-    $headerText.textContent = 'Categories';
-    $subHeader.textContent = 'Click on a category to filter drinks by category!';
-  } else if (event.target === $navIcons[2]) {
-    $searchBox.classList.remove('hidden');
-    $listPage.classList.add('hidden');
-    $searchInput.value = '';
-    $navIcons[2].classList.add('nav-selected');
-    $headerText.textContent = '';
-    $horizontalRule.classList.add('hidden');
-    $subHeader.textContent = '';
-  } else if (event.target === $navIcons[3]) {
-    $listPage.appendChild(renderFavoritesList());
-    $searchBox.classList.add('hidden');
-    $navIcons[3].classList.replace('far', 'fas');
-    $headerText.textContent = 'Favorites';
-    $subHeader.textContent = 'Click on a picture of a drink for its recipe!';
-  }
-  gsap.from('.main-header', { duration: 0.5, opacity: 0, scale: 2, ease: 'slow' });
-  gsap.from('.nav-icon', {
-    duration: 0.5,
-    scale: 0.5,
-    opacity: 0,
-    delay: 0.2,
-    stagger: 0.2,
-    ease: 'elastic',
-    force3D: true
-  });
 });
 
 $navSide.addEventListener('click', function (event) {
-  $randomBtn.classList.add('hidden');
-  $horizontalRule.classList.remove('hidden');
-  $subHeader.classList.remove('hidden');
   removeSelectedColors();
   openListPage();
-  if ($listPage.hasChildNodes()) clearList($listPage);
-  if ($listPage.nextElementSibling.classList.contains('drink-detailed')) {
-    $listPage.nextElementSibling.remove();
-  }
-  if (event.target === $navLinks[0]) {
-    $listPage.appendChild(renderIngredientsList());
-    $searchBox.classList.add('hidden');
-    $navLinks[0].classList.add('text-selected');
-    $headerText.textContent = 'Ingredients';
-    $subHeader.textContent = 'Click on an ingredient to filter drinks by ingredient!';
-  } else if (event.target === $navLinks[1]) {
-    $listPage.appendChild(renderCategoriesList());
-    $searchBox.classList.add('hidden');
-    $navLinks[1].classList.add('text-selected');
-    $headerText.textContent = 'Categories';
-    $subHeader.textContent = 'Click on a category to filter drinks by category!';
-  } else if (event.target === $navLinks[2]) {
-    $listPage.classList.add('hidden');
-    $searchInput.value = '';
-    $headerText.textContent = '';
-    $horizontalRule.classList.add('hidden');
-    $subHeader.textContent = '';
-    $searchBox.classList.remove('hidden');
-    $navLinks[2].classList.add('text-selected');
-  } else if (event.target === $navLinks[3]) {
-    $listPage.appendChild(renderFavoritesList());
-    $searchBox.classList.add('hidden');
-    $navLinks[3].classList.add('text-selected');
-    $headerText.textContent = 'Favorites';
-    $subHeader.textContent = 'Click on a picture of a drink for its recipe!';
-  }
+  handleNavClick(event.target, event.target.getAttribute('nav-data'));
   gsap.from('.main-header', { duration: 1.5, opacity: 0, scale: 0.5, ease: 'elastic' });
   gsap.from('.nav-link', {
     duration: 0.5,
     scale: 0.5,
     opacity: 0,
     delay: 0.1,
-    stagger: 0.2,
+    stagger: 0.1,
     ease: 'elastic',
     force3D: true
   });
@@ -186,9 +123,39 @@ function openListPage() {
   $homeBtn.classList.remove('hidden');
 }
 
+function handleNavClick(targetEl, navData) {
+  $randomBtn.classList.add('hidden');
+  $horizontalRule.classList.remove('hidden');
+  $subHeader.classList.remove('hidden');
+  $headerText.textContent = navData;
+  removeSelectedColors();
+  openListPage();
+  clearPage();
+  if (navData !== 'Search') $searchBox.classList.add('hidden');
+  else $searchBox.classList.remove('hidden');
+  if (navData === 'Favorites') targetEl.classList.replace('far', 'fas');
+  else targetEl.classList.add('nav-selected');
+  if (navData === 'Ingredients') {
+    $listPage.appendChild(renderIngredientsList());
+    $subHeader.textContent = 'Click on an ingredient to filter drinks by ingredient!';
+  } else if (navData === 'Categories') {
+    $listPage.appendChild(renderCategoriesList());
+    $subHeader.textContent = 'Click on an category to filter drinks by ingredient!';
+  } if (navData === 'Search') {
+    $listPage.classList.add('hidden');
+    $searchInput.value = '';
+    $headerText.textContent = '';
+    $horizontalRule.classList.add('hidden');
+    $subHeader.textContent = '';
+  } if (navData === 'Favorites') {
+    $listPage.appendChild(renderFavoritesList());
+    $subHeader.textContent = 'Click on a picture of a drink for its recipe!';
+  }
+}
+
 function handleIngredientClick(event) {
   openListPage();
-  if ($listPage.hasChildNodes()) clearList($listPage);
+  clearPage();
   $headerText.classList.remove('hidden');
   $headerText.textContent = event.target.textContent;
   $subHeader.textContent = 'Click on a picture of a drink for its recipe!';
@@ -207,7 +174,7 @@ function handleIngredientClick(event) {
 }
 
 function handleCategoryClick(event) {
-  if ($listPage.hasChildNodes()) clearList($listPage);
+  clearPage();
   $headerText.classList.remove('hidden');
   $headerText.textContent = event.target.textContent;
   $subHeader.textContent = 'Click on a picture of a drink for its recipe!';
@@ -461,8 +428,13 @@ function removeSelectedColors() {
   $navLinks[3].classList.remove('text-selected');
 }
 
-function clearList(parent) {
-  while (parent.firstChild) {
-    parent.removeChild(parent.firstChild);
+function clearPage() {
+  if ($listPage.hasChildNodes()) {
+    while ($listPage.firstChild) {
+      $listPage.removeChild($listPage.firstChild);
+    }
+  }
+  if ($listPage.nextElementSibling.classList.contains('drink-detailed')) {
+    $listPage.nextElementSibling.remove();
   }
 }
