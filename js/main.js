@@ -103,6 +103,7 @@ $navSide.addEventListener('click', function (event) {
   $subHeader.classList.remove('hidden');
   removeSelectedColors();
   openListPage();
+  if ($listPage.hasChildNodes()) clearList($listPage);
   if ($listPage.nextElementSibling.classList.contains('drink-detailed')) {
     $listPage.nextElementSibling.remove();
   }
@@ -119,7 +120,6 @@ $navSide.addEventListener('click', function (event) {
     $headerText.textContent = 'Categories';
     $subHeader.textContent = 'Click on a category to filter drinks by category!';
   } else if (event.target === $navLinks[2]) {
-    if ($textList.hasChildNodes()) clearList($textList);
     $listPage.classList.add('hidden');
     $searchInput.value = '';
     $headerText.textContent = '';
