@@ -117,12 +117,6 @@ $modalCancel.addEventListener('click', function (event) {
   $modalBg.classList.add('hidden');
 });
 
-function openListPage() {
-  $listPage.classList.remove('hidden');
-  $homePage.classList.add('hidden');
-  $homeBtn.classList.remove('hidden');
-}
-
 function handleNavClick(targetEl, navData) {
   $randomBtn.classList.add('hidden');
   $horizontalRule.classList.remove('hidden');
@@ -415,6 +409,12 @@ function renderDetailedDrink(drink) {
   $detailedDrink.appendChild(topRow);
   $detailedDrink.appendChild(detailsDiv);
   return $detailedDrink;
+}
+
+function openListPage() {
+  $listPage.classList.remove('hidden');
+  $homePage.classList.add('hidden');
+  $homeBtn.classList.remove('hidden');
 }
 
 function removeSelectedColors() {
