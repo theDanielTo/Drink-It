@@ -43,13 +43,11 @@
           <i class="logo logo-large fas fa-glass-martini-alt"></i>
           <i class="logo far fa-circle"></i>
         </div>
-        <h2>Click the martini glass to see a random recipe!</h2>
+        <h2 id="home-text">Click the martini glass to see a random recipe!</h2>
       </div>
     </div>
 
-    <div class="page-list hidden">
-      <ul class="text-list border-round"></ul>
-    </div>
+    <div class="page-list hidden"></div>
 
     <div class="modal-bg hidden">
       <div class="modal-box border-round">
@@ -60,8 +58,6 @@
         </div>
       </div>
     </div>
-
-    <div class="drink-detailed border-round hidden"></div>
     <div class="random-btn-div">
       <button class="random-btn border-round hidden">
         Random Drink!
@@ -72,18 +68,18 @@
 
   <nav class="container">
     <div class="nav-bottom col-12 border-round">
-      <i class="nav-icon fas fa-align-justify"></i>
-      <i class="nav-icon fas fa-cocktail"></i>
-      <i class="nav-icon fas fa-search"></i>
-      <i class="nav-icon far fa-heart"></i>
+      <i nav-data="Ingredients" class="nav-icon fas fa-align-justify"></i>
+      <i nav-data="Categories" class="nav-icon fas fa-cocktail"></i>
+      <i nav-data="Search" class="nav-icon fas fa-search"></i>
+      <i nav-data="Favorites" class="nav-icon far fa-heart"></i>
     </div>
     <div class="nav-side col-3">
       <div class="nav-links">
         <div class="hr"></div>
-        <a href="#" class="nav-link">Ingredients</a>
-        <a href="#" class="nav-link">Categories</a>
-        <a href="#" class="nav-link">Search</a>
-        <a href="#" class="nav-link">Favorites</a>
+        <a nav-data="Ingredients" href="#" class="nav-link">Ingredients</a>
+        <a nav-data="Categories" href="#" class="nav-link">Categories</a>
+        <a nav-data="Search" href="#" class="nav-link">Search</a>
+        <a nav-data="Favorites" href="#" class="nav-link">Favorites</a>
       </div>
       <i class="logo-small fas fa-glass-martini-alt"></i>
     </div>
