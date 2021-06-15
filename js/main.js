@@ -54,7 +54,6 @@ $navBottom.addEventListener('click', function (event) {
     $headerText.classList.remove('hidden');
     handleNavClick(event.target, event.target.getAttribute('nav-data'));
     $headerText.textContent = event.target.getAttribute('nav-data');
-    gsap.from('.main-header', { duration: 0.5, opacity: 0, scale: 2, ease: 'slow' });
     gsap.from('.nav-icon', {
       duration: 0.5,
       scale: 0.5,
@@ -64,6 +63,7 @@ $navBottom.addEventListener('click', function (event) {
       ease: 'elastic',
       force3D: true
     });
+    gsap.from('.main-header', { duration: 0.5, opacity: 0, scale: 0.5, ease: 'slow' });
   }
 });
 
@@ -79,6 +79,7 @@ $navSide.addEventListener('click', function (event) {
       ease: 'elastic',
       force3D: true
     });
+    gsap.from('.main-header', { duration: 0.5, opacity: 0, scale: 0.5, ease: 'slow' });
   }
 });
 
@@ -96,6 +97,7 @@ $randomBtn.addEventListener('click', handleRandom);
 
 $modalYes.addEventListener('click', function (event) {
   const idToDel = parseInt($modalYes.getAttribute('drink-id'));
+  const $textList = document.querySelector('.text-list');
   for (const li of $textList.childNodes) {
     const liDrinkId = parseInt(li.getAttribute('drink-id'));
     if (idToDel === liDrinkId) {
@@ -144,7 +146,6 @@ function handleNavClick(targetEl, navData) {
     $listPage.appendChild(renderFavoritesList());
     $subHeader.textContent = 'Click on a picture of a drink for its recipe!';
   }
-  gsap.from('.main-header', { duration: 0.5, opacity: 0, scale: 0.5, ease: 'slow' });
 }
 
 function handleIngredientClick(event) {
