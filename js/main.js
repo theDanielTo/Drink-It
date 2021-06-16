@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
 const $homePage = document.querySelector('.page-home');
 const $homeBtn = document.querySelector('.home-icon');
@@ -157,15 +158,7 @@ function handleIngredientClick(event) {
   $headerText.textContent = event.target.textContent;
   $subHeader.textContent = 'Click on a picture of a drink for its recipe!';
   const $list = renderListPage();
-  const xhrFilterByC = new XMLHttpRequest();
-  xhrFilterByC.open('GET', apiUrl + 'filter.php?i=' + event.target.textContent);
-  xhrFilterByC.responseType = 'json';
-  xhrFilterByC.addEventListener('load', function (event) {
-    for (const item of xhrFilterByC.response.drinks) {
-      $list.appendChild(renderDrinkRow(item, false));
-    }
-  });
-  xhrFilterByC.send();
+  getHttpRequest('filter.php?i=' + event.target.textContent, $list);
   $listPage.appendChild($list);
 }
 
@@ -175,15 +168,7 @@ function handleCategoryClick(event) {
   $headerText.textContent = event.target.textContent;
   $subHeader.textContent = 'Click on a picture of a drink for its recipe!';
   const $list = renderListPage();
-  const xhrFilterByC = new XMLHttpRequest();
-  xhrFilterByC.open('GET', apiUrl + 'filter.php?c=' + event.target.textContent);
-  xhrFilterByC.responseType = 'json';
-  xhrFilterByC.addEventListener('load', function (event) {
-    for (const item of xhrFilterByC.response.drinks) {
-      $list.appendChild(renderDrinkRow(item, false));
-    }
-  });
-  xhrFilterByC.send();
+  getHttpRequest('filter.php?c=' + event.target.textContent, $list);
   $listPage.appendChild($list);
 }
 
@@ -191,19 +176,7 @@ function handleSearch() {
   $headerText.textContent = $searchInput.value.toUpperCase();
   $subHeader.textContent = 'Click on a picture of a drink for its recipe!';
   const $list = renderListPage();
-  const xhrSearch = new XMLHttpRequest();
-  xhrSearch.open('GET', apiUrl + 'search.php?s=' + $searchInput.value);
-  xhrSearch.responseType = 'json';
-  xhrSearch.addEventListener('load', function (event) {
-    if (xhrSearch.response.drinks === null) {
-      $headerText.textContent = 'No drinks were found.';
-    } else {
-      for (const item of xhrSearch.response.drinks) {
-        $list.appendChild(renderDrinkRow(item, false));
-      }
-    }
-  });
-  xhrSearch.send();
+  getHttpRequest('filter.php?s=' + $searchInput.value, $list);
   $listPage.appendChild($list);
 }
 
@@ -215,17 +188,33 @@ function handleRandom(event) {
   $homeBtn.classList.remove('hidden');
   $randomBtn.classList.remove('hidden');
   $mainHeader.classList.remove('hidden');
-  const xhrRandom = new XMLHttpRequest();
-  xhrRandom.open('GET', apiUrl + 'random.php');
-  xhrRandom.responseType = 'json';
-  xhrRandom.addEventListener('load', function (event) {
-    if ($listPage.nextElementSibling.classList.contains('drink-detailed')) {
-      $listPage.nextElementSibling.remove();
+  // const xhrRandom = new XMLHttpRequest();
+  // xhrRandom.open('GET', apiUrl + 'random.php');
+  // xhrRandom.responseType = 'json';
+  // xhrRandom.addEventListener('load', function (event) {
+  //   if ($listPage.nextElementSibling.classList.contains('drink-detailed')) {
+  //     $listPage.nextElementSibling.remove();
+  //   }
+  //   $listPage.insertAdjacentElement('afterend',
+  //     renderDetailedDrink(xhrRandom.response.drinks[0]));
+  // });
+  // xhrRandom.send();
+}
+
+function getHttpRequest(urlEnd, list) {
+  const request = new XMLHttpRequest();
+  request.open('GET', apiUrl + urlEnd);
+  request.responseType = 'json';
+  request.addEventListener('load', function (event) {
+    if (request.response.drinks === null) {
+      $headerText.textContent = 'No drinks were found.';
+    } else {
+      for (const item of request.response.drinks) {
+        list.appendChild(renderDrinkRow(item, false));
+      }
     }
-    $listPage.insertAdjacentElement('afterend',
-      renderDetailedDrink(xhrRandom.response.drinks[0]));
   });
-  xhrRandom.send();
+  request.send();
 }
 
 function handleDelete() {
@@ -239,8 +228,7 @@ function renderListPage() {
 }
 
 function renderIngredientsList() {
-  const $list = document.createElement('ul');
-  $list.className = 'text-list border-round';
+  const $list = renderListPage();
   const xhrIngredients = new XMLHttpRequest();
   xhrIngredients.open('GET', apiUrl + 'list.php?i=list');
   xhrIngredients.responseType = 'json';
@@ -258,8 +246,7 @@ function renderIngredientsList() {
 }
 
 function renderCategoriesList() {
-  const $list = document.createElement('ul');
-  $list.className = 'text-list border-round';
+  const $list = renderListPage();
   const xhrCategories = new XMLHttpRequest();
   xhrCategories.open('GET', apiUrl + 'list.php?c=list');
   xhrCategories.responseType = 'json';
