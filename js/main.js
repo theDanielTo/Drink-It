@@ -238,19 +238,7 @@ function renderDrinkRow(item, isFav) {
     $subHeader.classList.add('hidden');
     $homeBtn.classList.remove('hidden');
     $mainHeader.classList.remove('hidden');
-    getHttpRequest('lookup.php?i=' + drink.getAttribute('drink-id'), false, true, null);
-    // const xhrById = new XMLHttpRequest();
-    // xhrById.open('GET', apiUrl + 'lookup.php?i=' + drink.getAttribute('drink-id'));
-    // xhrById.responseType = 'json';
-    // xhrById.addEventListener('load', function (event) {
-    //   renderDetailedDrink(xhrById.response.drinks[0]);
-    //   if ($listPage.nextElementSibling.classList.contains('drink-detailed')) {
-    //     $listPage.nextElementSibling.remove();
-    //   }
-    //   $listPage.insertAdjacentElement('afterend',
-    //     renderDetailedDrink(xhrById.response.drinks[0]));
-    // });
-    // xhrById.send();
+    getHttpRequest('lookup.php?i=' + drink.getAttribute('drink-id'), true, false, null);
   });
   drink.appendChild(drinkImg);
   const rightCol = document.createElement('div');
@@ -282,40 +270,6 @@ function renderDrinkRow(item, isFav) {
     rightCol.appendChild(heart);
   }
   return drink;
-}
-
-function getHttpRequest(urlEnd, isDetailed, isList, listType = null, list) {
-  const request = new XMLHttpRequest();
-  request.open('GET', apiUrl + urlEnd);
-  request.responseType = 'json';
-  request.addEventListener('load', function (event) {
-    if (isDetailed) {
-      if ($listPage.nextElementSibling.classList.contains('drink-detailed')) {
-        $listPage.nextElementSibling.remove();
-      }
-      $listPage.insertAdjacentElement('afterend',
-        renderDetailedDrink(request.response.drinks[0]));
-    } else if (request.response.drinks === null) {
-      $headerText.textContent = 'No drinks were found.';
-    } else {
-      for (const item of request.response.drinks) {
-        if (isList) {
-          const listItem = document.createElement('p');
-          listItem.className = 'list-item';
-          listItem.textContent = (listType === 'ingredients') ? item.strIngredient1 : item.strCategory;
-          if (listType === 'ingredients') {
-            listItem.addEventListener('click', handleIngredientClick);
-          } else if (listType === 'categories') {
-            listItem.addEventListener('click', handleCategoryClick);
-          }
-          list.appendChild(listItem);
-        } else {
-          list.appendChild(renderDrinkRow(item, false));
-        }
-      }
-    }
-  });
-  request.send();
 }
 
 function renderDetailedDrink(drink) {
@@ -383,6 +337,40 @@ function openListPage() {
   $listPage.classList.remove('hidden');
   $homePage.classList.add('hidden');
   $homeBtn.classList.remove('hidden');
+}
+
+function getHttpRequest(urlEnd, isDetailed, isList, listType = null, list) {
+  const request = new XMLHttpRequest();
+  request.open('GET', apiUrl + urlEnd);
+  request.responseType = 'json';
+  request.addEventListener('load', function (event) {
+    if (isDetailed) {
+      if ($listPage.nextElementSibling.classList.contains('drink-detailed')) {
+        $listPage.nextElementSibling.remove();
+      }
+      $listPage.insertAdjacentElement('afterend',
+        renderDetailedDrink(request.response.drinks[0]));
+    } else if (request.response.drinks === null) {
+      $headerText.textContent = 'No drinks were found.';
+    } else {
+      for (const item of request.response.drinks) {
+        if (isList) {
+          const listItem = document.createElement('p');
+          listItem.className = 'list-item';
+          listItem.textContent = (listType === 'ingredients') ? item.strIngredient1 : item.strCategory;
+          if (listType === 'ingredients') {
+            listItem.addEventListener('click', handleIngredientClick);
+          } else if (listType === 'categories') {
+            listItem.addEventListener('click', handleCategoryClick);
+          }
+          list.appendChild(listItem);
+        } else {
+          list.appendChild(renderDrinkRow(item, false));
+        }
+      }
+    }
+  });
+  request.send();
 }
 
 function removeSelectedColors() {
