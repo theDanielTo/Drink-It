@@ -214,7 +214,7 @@ body {
   padding: 5px;
   margin: 10px;
   width: 100%;
-  box-shadow: 0.1rem 0.1rem 1.5rem 0.1rem #0074c2;
+  box-shadow: 0 0 1rem 0.7rem #b2dae8;
 }
 
 #search-input::placeholder {

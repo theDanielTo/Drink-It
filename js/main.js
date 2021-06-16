@@ -22,6 +22,8 @@ const $navSide = document.querySelector('.nav-links');
 const $navIcons = document.querySelectorAll('.nav-icon');
 const $navLinks = document.querySelectorAll('.nav-link');
 
+const apiUrl = 'https://lfz-cors.herokuapp.com/?url=https://www.thecocktaildb.com/api/json/v1/1/';
+
 $homeBtn.addEventListener('click', function () {
   clearPage();
   $homeBtn.classList.add('hidden');
@@ -156,8 +158,7 @@ function handleIngredientClick(event) {
   $subHeader.textContent = 'Click on a picture of a drink for its recipe!';
   const $list = renderListPage();
   const xhrFilterByC = new XMLHttpRequest();
-  xhrFilterByC.open('GET',
-    'https://lfz-cors.herokuapp.com/?url=https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=' + event.target.textContent);
+  xhrFilterByC.open('GET', apiUrl + 'filter.php?i=' + event.target.textContent);
   xhrFilterByC.responseType = 'json';
   xhrFilterByC.addEventListener('load', function (event) {
     for (const item of xhrFilterByC.response.drinks) {
@@ -175,8 +176,7 @@ function handleCategoryClick(event) {
   $subHeader.textContent = 'Click on a picture of a drink for its recipe!';
   const $list = renderListPage();
   const xhrFilterByC = new XMLHttpRequest();
-  xhrFilterByC.open('GET',
-    'https://lfz-cors.herokuapp.com/?url=https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=' + event.target.textContent);
+  xhrFilterByC.open('GET', apiUrl + 'filter.php?c=' + event.target.textContent);
   xhrFilterByC.responseType = 'json';
   xhrFilterByC.addEventListener('load', function (event) {
     for (const item of xhrFilterByC.response.drinks) {
@@ -192,8 +192,7 @@ function handleSearch() {
   $subHeader.textContent = 'Click on a picture of a drink for its recipe!';
   const $list = renderListPage();
   const xhrSearch = new XMLHttpRequest();
-  xhrSearch.open('GET',
-    'https://lfz-cors.herokuapp.com/?url=https://www.thecocktaildb.com/api/json/v1/1/search.php?s=' + $searchInput.value);
+  xhrSearch.open('GET', apiUrl + 'search.php?s=' + $searchInput.value);
   xhrSearch.responseType = 'json';
   xhrSearch.addEventListener('load', function (event) {
     if (xhrSearch.response.drinks === null) {
@@ -217,8 +216,7 @@ function handleRandom(event) {
   $randomBtn.classList.remove('hidden');
   $mainHeader.classList.remove('hidden');
   const xhrRandom = new XMLHttpRequest();
-  xhrRandom.open('GET',
-    'https://lfz-cors.herokuapp.com/?url=https://www.thecocktaildb.com/api/json/v1/1/random.php');
+  xhrRandom.open('GET', apiUrl + 'random.php');
   xhrRandom.responseType = 'json';
   xhrRandom.addEventListener('load', function (event) {
     if ($listPage.nextElementSibling.classList.contains('drink-detailed')) {
@@ -244,8 +242,7 @@ function renderIngredientsList() {
   const $list = document.createElement('ul');
   $list.className = 'text-list border-round';
   const xhrIngredients = new XMLHttpRequest();
-  xhrIngredients.open('GET',
-    'https://lfz-cors.herokuapp.com/?url=https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list');
+  xhrIngredients.open('GET', apiUrl + 'list.php?i=list');
   xhrIngredients.responseType = 'json';
   xhrIngredients.addEventListener('load', function (event) {
     for (const item of xhrIngredients.response.drinks) {
@@ -264,8 +261,7 @@ function renderCategoriesList() {
   const $list = document.createElement('ul');
   $list.className = 'text-list border-round';
   const xhrCategories = new XMLHttpRequest();
-  xhrCategories.open('GET',
-    'https://lfz-cors.herokuapp.com/?url=https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list');
+  xhrCategories.open('GET', apiUrl + 'list.php?c=list');
   xhrCategories.responseType = 'json';
   xhrCategories.addEventListener('load', function (event) {
     for (const item of xhrCategories.response.drinks) {
@@ -306,8 +302,7 @@ function renderDrinkRow(item, isFav) {
     $homeBtn.classList.remove('hidden');
     $mainHeader.classList.remove('hidden');
     const xhrById = new XMLHttpRequest();
-    xhrById.open('GET',
-      'https://lfz-cors.herokuapp.com/?url=https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=' + drink.getAttribute('drink-id'));
+    xhrById.open('GET', apiUrl + 'lookup.php?i=' + drink.getAttribute('drink-id'));
     xhrById.responseType = 'json';
     xhrById.addEventListener('load', function (event) {
       renderDetailedDrink(xhrById.response.drinks[0]);
