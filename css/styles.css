@@ -251,7 +251,6 @@ body {
 }
 
 .detailed-img {
-  /* will-change */
   width: 50%;
 }
 
@@ -396,7 +395,7 @@ body {
 }
 
 .nav-selected {
-  color: #e88000;
+  color: #e88000 !important;
 }
 
 .fa-heart {
@@ -478,7 +477,7 @@ body {
   .home-logo {
     background-color: #b2dae8;
     position: absolute;
-    top: 11.5rem;
+    top: 360px;
     bottom: 1rem;
     margin: 0 22%;
     float: right;
@@ -518,8 +517,7 @@ body {
     top: 360px;
     bottom: 35px;
     right: 35px;
-    left: 22%;
-    width: 76%;
+    left: 21.5%;
   }
 
   .text-list {

@@ -25,20 +25,22 @@ const $navLinks = document.querySelectorAll('.nav-link');
 
 const apiUrl = 'https://lfz-cors.herokuapp.com/?url=https://www.thecocktaildb.com/api/json/v1/1/';
 
-$homeBtn.addEventListener('click', function () {
-  clearPage();
+$homeBtn.addEventListener('click', function (event) {
   $homeBtn.classList.add('hidden');
   $listPage.classList.add('hidden');
   $searchBox.classList.add('hidden');
-  $randomBtn.classList.add('hidden');
   $homePage.classList.remove('hidden');
   $mainHeader.classList.remove('hidden');
   $headerText.classList.remove('hidden');
-  $subHeader.classList.remove('hidden');
-  $horizontalRule.classList.remove('hidden');
   $headerText.textContent = 'Drink It!';
   $subHeader.textContent = 'Discover your next favorite drink';
-  removeSelectedColors();
+  for (const nav of $navIcons) {
+    if (nav.getAttribute('nav-data') === 'Favorites') {
+      nav.classList.replace('fas', 'far');
+    } else nav.classList.remove('nav-selected');
+  }
+  for (const nav of $navLinks) nav.classList.remove('nav-selected');
+  resetDefault();
   gsap.from('.logo', {
     duration: 1,
     y: -600,
@@ -55,7 +57,7 @@ $navBottom.addEventListener('click', function (event) {
   if (event.target.hasAttribute('nav-data')) {
     $mainHeader.classList.remove('hidden');
     $headerText.classList.remove('hidden');
-    handleNavClick(event.target, event.target.getAttribute('nav-data'));
+    handleNavClick($navIcons, event.target, event.target.getAttribute('nav-data'));
     $headerText.textContent = event.target.getAttribute('nav-data');
     gsap.from('.nav-icon', {
       duration: 0.5,
@@ -72,7 +74,7 @@ $navBottom.addEventListener('click', function (event) {
 
 $navSide.addEventListener('click', function (event) {
   if (event.target.hasAttribute('nav-data')) {
-    handleNavClick(event.target, event.target.getAttribute('nav-data'));
+    handleNavClick($navLinks, event.target, event.target.getAttribute('nav-data'));
     gsap.from('.nav-link', {
       duration: 0.5,
       scale: 0.5,
@@ -121,18 +123,24 @@ $modalCancel.addEventListener('click', function (event) {
   $modalBg.classList.add('hidden');
 });
 
-function handleNavClick(targetEl, navData) {
-  $randomBtn.classList.add('hidden');
-  $horizontalRule.classList.remove('hidden');
-  $subHeader.classList.remove('hidden');
+function handleNavClick(navType, targetEl, navData) {
   $headerText.textContent = navData;
-  removeSelectedColors();
+  resetDefault();
   openListPage();
-  clearPage();
+  for (const nav of navType) {
+    const clickedNav = nav.getAttribute('nav-data');
+    if (clickedNav === navData) {
+      if (clickedNav === 'Favorites' && navType === $navIcons) {
+        nav.classList.replace('far', 'fas');
+      } else nav.classList.add('nav-selected');
+    } else {
+      if (clickedNav === 'Favorites' && navType === $navIcons) {
+        nav.classList.replace('fas', 'far');
+      } else nav.classList.remove('nav-selected');
+    }
+  }
   if (navData !== 'Search') $searchBox.classList.add('hidden');
   else $searchBox.classList.remove('hidden');
-  if (navData === 'Favorites') targetEl.classList.replace('far', 'fas');
-  else targetEl.classList.add('nav-selected');
   if (navData === 'Ingredients') {
     $listPage.appendChild(renderIngredientsList());
     $subHeader.textContent = 'Click on an ingredient to filter drinks by ingredient!';
@@ -151,8 +159,17 @@ function handleNavClick(targetEl, navData) {
   }
 }
 
+function handleListItemClick(event) {
+  clearPage();
+  $headerText.classList.remove('hidden');
+  $headerText.textContent = event.target.textContent;
+  $subHeader.textContent = 'Click on a picture of a drink for its recipe!';
+  const $list = renderListPage();
+  getHttpRequest('filter.php?i=' + event.target.textContent, false, false, null, $list);
+  $listPage.appendChild($list);
+}
+
 function handleIngredientClick(event) {
-  openListPage();
   clearPage();
   $headerText.classList.remove('hidden');
   $headerText.textContent = event.target.textContent;
@@ -188,7 +205,7 @@ function handleRandom(event) {
   $homeBtn.classList.remove('hidden');
   $randomBtn.classList.remove('hidden');
   $mainHeader.classList.remove('hidden');
-  getHttpRequest('random.php', true, false, null);
+  getHttpRequest('random.php', true, false);
 }
 
 function handleDelete() {
@@ -214,8 +231,7 @@ function renderCategoriesList() {
 }
 
 function renderFavoritesList() {
-  const $list = document.createElement('ul');
-  $list.className = 'text-list border-round';
+  const $list = renderListPage();
   for (const drink of favoriteDrinks) {
     $list.appendChild(renderDrinkRow(drink, true));
   }
@@ -238,7 +254,7 @@ function renderDrinkRow(item, isFav) {
     $subHeader.classList.add('hidden');
     $homeBtn.classList.remove('hidden');
     $mainHeader.classList.remove('hidden');
-    getHttpRequest('lookup.php?i=' + drink.getAttribute('drink-id'), true, false, null);
+    getHttpRequest('lookup.php?i=' + drink.getAttribute('drink-id'), true, false);
   });
   drink.appendChild(drinkImg);
   const rightCol = document.createElement('div');
@@ -373,15 +389,11 @@ function getHttpRequest(urlEnd, isDetailed, isList, listType = null, list) {
   request.send();
 }
 
-function removeSelectedColors() {
-  $navIcons[0].classList.remove('nav-selected');
-  $navIcons[1].classList.remove('nav-selected');
-  $navIcons[2].classList.remove('nav-selected');
-  $navIcons[3].classList.replace('fas', 'far');
-  $navLinks[0].classList.remove('text-selected');
-  $navLinks[1].classList.remove('text-selected');
-  $navLinks[2].classList.remove('text-selected');
-  $navLinks[3].classList.remove('text-selected');
+function resetDefault() {
+  clearPage();
+  $randomBtn.classList.add('hidden');
+  $horizontalRule.classList.remove('hidden');
+  $subHeader.classList.remove('hidden');
 }
 
 function clearPage() {
