@@ -35,7 +35,7 @@ $homeBtn.addEventListener('click', function (event) {
   $headerText.textContent = 'Drink It!';
   $subHeader.textContent = 'Discover your next favorite drink';
   for (const nav of $navIcons) {
-    if (nav.getAttribute('nav-data') === 'Favorites') {
+    if (nav.getAttribute('nav-data') === 'favorites') {
       nav.classList.replace('fas', 'far');
     } else nav.classList.remove('nav-selected');
   }
@@ -58,7 +58,6 @@ $navBottom.addEventListener('click', function (event) {
     $mainHeader.classList.remove('hidden');
     $headerText.classList.remove('hidden');
     handleNavClick($navIcons, event.target, event.target.getAttribute('nav-data'));
-    $headerText.textContent = event.target.getAttribute('nav-data');
     gsap.from('.nav-icon', {
       duration: 0.5,
       scale: 0.5,
@@ -124,37 +123,36 @@ $modalCancel.addEventListener('click', function (event) {
 });
 
 function handleNavClick(navType, targetEl, navData) {
-  $headerText.textContent = navData;
+  if (navData === 'i') $headerText.textContent = 'Ingredients';
+  else if (navData === 'c') $headerText.textContent = 'Categories';
   resetDefault();
   openListPage();
   for (const nav of navType) {
     const clickedNav = nav.getAttribute('nav-data');
     if (clickedNav === navData) {
-      if (clickedNav === 'Favorites' && navType === $navIcons) {
+      if (clickedNav === 'favorites' && navType === $navIcons) {
         nav.classList.replace('far', 'fas');
       } else nav.classList.add('nav-selected');
     } else {
-      if (clickedNav === 'Favorites' && navType === $navIcons) {
+      if (clickedNav === 'favorites' && navType === $navIcons) {
         nav.classList.replace('fas', 'far');
       } else nav.classList.remove('nav-selected');
     }
   }
-  if (navData !== 'Search') $searchBox.classList.add('hidden');
+  if (navData !== 'search') $searchBox.classList.add('hidden');
   else $searchBox.classList.remove('hidden');
-  if (navData === 'Ingredients') {
-    $listPage.appendChild(renderIngredientsList());
+  if (navData === 'i' || navData === 'c') {
+    $listPage.appendChild(renderList(event));
     $subHeader.textContent = 'Click on an ingredient to filter drinks by ingredient!';
-  } else if (navData === 'Categories') {
-    $listPage.appendChild(renderCategoriesList());
-    $subHeader.textContent = 'Click on an category to filter drinks by ingredient!';
-  } else if (navData === 'Search') {
+  } else if (navData === 's') {
     $listPage.classList.add('hidden');
     $searchInput.value = '';
     $headerText.textContent = '';
     $horizontalRule.classList.add('hidden');
     $subHeader.textContent = '';
-  } else if (navData === 'Favorites') {
+  } else if (navData === 'favorites') {
     $listPage.appendChild(renderFavoritesList());
+    $headerText.textContent = 'Favorites';
     $subHeader.textContent = 'Click on a picture of a drink for its recipe!';
   }
 }
@@ -165,7 +163,15 @@ function handleListItemClick(event) {
   $headerText.textContent = event.target.textContent;
   $subHeader.textContent = 'Click on a picture of a drink for its recipe!';
   const $list = renderListPage();
-  getHttpRequest('filter.php?i=' + event.target.textContent, false, false, null, $list);
+  const urlEnd = 'filter.php?' +
+                  event.target.getAttribute('list-type') +
+                  '=' +
+                  event.target.textContent;
+  getHttpRequest(urlEnd, function (response) {
+    for (const item of response.drinks) {
+      $list.appendChild(renderDrinkRow(item, false));
+    }
+  });
   $listPage.appendChild($list);
 }
 
@@ -240,29 +246,18 @@ function renderListPage() {
   return $list;
 }
 
-function renderIngredientsList() {
+function renderList(event) {
   const $list = renderListPage();
-  getHttpRequest('list.php?i=list', function (response) {
+  const listType = event.target.getAttribute('nav-data');
+  const urlEnd = 'list.php?' + listType + '=list';
+  getHttpRequest(urlEnd, function (response) {
     for (const item of response.drinks) {
-      const ingredient = document.createElement('p');
-      ingredient.textContent = item.strIngredient1;
-      ingredient.className = 'list-item';
-      ingredient.addEventListener('click', handleIngredientClick);
-      $list.appendChild(ingredient);
-    }
-  });
-  return $list;
-}
-
-function renderCategoriesList() {
-  const $list = renderListPage();
-  getHttpRequest('list.php?c=list', function (response) {
-    for (const item of response.drinks) {
-      const category = document.createElement('p');
-      category.textContent = item.strCategory;
-      category.className = 'list-item';
-      category.addEventListener('click', handleCategoryClick);
-      $list.appendChild(category);
+      const listItem = document.createElement('p');
+      listItem.textContent = (listType === 'i') ? item.strIngredient1 : item.strCategory;
+      listItem.className = 'list-item';
+      listItem.setAttribute('list-type', listType);
+      listItem.addEventListener('click', handleListItemClick);
+      $list.appendChild(listItem);
     }
   });
   return $list;
