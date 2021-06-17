@@ -58,32 +58,14 @@ $navBottom.addEventListener('click', function (event) {
     $mainHeader.classList.remove('hidden');
     $headerText.classList.remove('hidden');
     handleNavClick($navIcons, event.target, event.target.getAttribute('nav-data'));
-    gsap.from('.nav-icon', {
-      duration: 0.5,
-      scale: 0.5,
-      opacity: 0,
-      delay: 0.1,
-      stagger: 0.1,
-      ease: 'elastic',
-      force3D: true
-    });
-    gsap.from('.main-header', { duration: 0.5, opacity: 0, scale: 0.5, ease: 'slow' });
+    navAnimation('.nav-icon');
   }
 });
 
 $navSide.addEventListener('click', function (event) {
   if (event.target.hasAttribute('nav-data')) {
     handleNavClick($navLinks, event.target, event.target.getAttribute('nav-data'));
-    gsap.from('.nav-link', {
-      duration: 0.5,
-      scale: 0.5,
-      opacity: 0,
-      delay: 0.1,
-      stagger: 0.1,
-      ease: 'elastic',
-      force3D: true
-    });
-    gsap.from('.main-header', { duration: 0.5, opacity: 0, scale: 0.5, ease: 'slow' });
+    navAnimation('.nav-icon');
   }
 });
 
@@ -123,8 +105,7 @@ $modalCancel.addEventListener('click', function (event) {
 });
 
 function handleNavClick(navType, targetEl, navData) {
-  if (navData === 'i') $headerText.textContent = 'Ingredients';
-  else if (navData === 'c') $headerText.textContent = 'Categories';
+
   resetDefault();
   openListPage();
   for (const nav of navType) {
@@ -139,16 +120,23 @@ function handleNavClick(navType, targetEl, navData) {
       } else nav.classList.remove('nav-selected');
     }
   }
-  if (navData !== 'search') $searchBox.classList.add('hidden');
+  if (navData !== 's') $searchBox.classList.add('hidden');
   else $searchBox.classList.remove('hidden');
   if (navData === 'i' || navData === 'c') {
     $listPage.appendChild(renderList(event));
-    $subHeader.textContent = 'Click on an ingredient to filter drinks by ingredient!';
+    if (navData === 'i') {
+      $headerText.textContent = 'Ingredients';
+      $subHeader.textContent = 'Click on an ingredient to filter drinks by ingredient!';
+    } else if (navData === 'c') {
+      $headerText.textContent = 'Categories';
+      $subHeader.textContent = 'Click on an category to filter drinks by category!';
+    }
+
   } else if (navData === 's') {
     $listPage.classList.add('hidden');
+    $horizontalRule.classList.add('hidden');
     $searchInput.value = '';
     $headerText.textContent = '';
-    $horizontalRule.classList.add('hidden');
     $subHeader.textContent = '';
   } else if (navData === 'favorites') {
     $listPage.appendChild(renderFavoritesList());
@@ -397,6 +385,19 @@ function getHttpRequest(urlEnd, callback) {
     callback(request.response);
   });
   request.send();
+}
+
+function navAnimation(navClass) {
+  gsap.from(navClass, {
+    duration: 0.5,
+    scale: 0.5,
+    opacity: 0,
+    delay: 0.1,
+    stagger: 0.1,
+    ease: 'elastic',
+    force3D: true
+  });
+  gsap.from('.main-header', { duration: 0.5, opacity: 0, scale: 0.5, ease: 'slow' });
 }
 
 function openListPage() {
