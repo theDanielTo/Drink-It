@@ -74,7 +74,6 @@ body {
 }
 
 .main-header-div {
-  font-size: 1.2rem;
   text-align: center;
   color: #0074c2;
 }
@@ -215,7 +214,7 @@ body {
   padding: 5px;
   margin: 10px;
   width: 100%;
-  box-shadow: 0.1rem 0.1rem 1.5rem 0.1rem #0074c2;
+  box-shadow: 0 0 1rem 0.7rem #b2dae8;
 }
 
 #search-input::placeholder {
@@ -252,7 +251,6 @@ body {
 }
 
 .detailed-img {
-  /* will-change */
   width: 50%;
 }
 
@@ -397,7 +395,7 @@ body {
 }
 
 .nav-selected {
-  color: #e88000;
+  color: #e88000 !important;
 }
 
 .fa-heart {
@@ -479,7 +477,7 @@ body {
   .home-logo {
     background-color: #b2dae8;
     position: absolute;
-    top: 11.5rem;
+    top: 360px;
     bottom: 1rem;
     margin: 0 22%;
     float: right;
@@ -519,8 +517,7 @@ body {
     top: 360px;
     bottom: 35px;
     right: 35px;
-    left: 22%;
-    width: 76%;
+    left: 21.5%;
   }
 
   .text-list {
