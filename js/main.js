@@ -65,7 +65,7 @@ $navBottom.addEventListener('click', function (event) {
 $navSide.addEventListener('click', function (event) {
   if (event.target.hasAttribute('nav-data')) {
     handleNavClick($navLinks, event.target, event.target.getAttribute('nav-data'));
-    navAnimation('.nav-icon');
+    navAnimation('.nav-link');
   }
 });
 
@@ -131,7 +131,6 @@ function handleNavClick(navType, targetEl, navData) {
       $headerText.textContent = 'Categories';
       $subHeader.textContent = 'Click on an category to filter drinks by category!';
     }
-
   } else if (navData === 's') {
     $listPage.classList.add('hidden');
     $horizontalRule.classList.add('hidden');
@@ -156,34 +155,6 @@ function handleListItemClick(event) {
                   '=' +
                   event.target.textContent;
   getHttpRequest(urlEnd, function (response) {
-    for (const item of response.drinks) {
-      $list.appendChild(renderDrinkRow(item, false));
-    }
-  });
-  $listPage.appendChild($list);
-}
-
-function handleIngredientClick(event) {
-  clearPage();
-  $headerText.classList.remove('hidden');
-  $headerText.textContent = event.target.textContent;
-  $subHeader.textContent = 'Click on a picture of a drink for its recipe!';
-  const $list = renderListPage();
-  getHttpRequest('filter.php?i=' + event.target.textContent, function (response) {
-    for (const item of response.drinks) {
-      $list.appendChild(renderDrinkRow(item, false));
-    }
-  });
-  $listPage.appendChild($list);
-}
-
-function handleCategoryClick(event) {
-  clearPage();
-  $headerText.classList.remove('hidden');
-  $headerText.textContent = event.target.textContent;
-  $subHeader.textContent = 'Click on a picture of a drink for its recipe!';
-  const $list = renderListPage();
-  getHttpRequest('filter.php?c=' + event.target.textContent, function (response) {
     for (const item of response.drinks) {
       $list.appendChild(renderDrinkRow(item, false));
     }
