@@ -4,7 +4,6 @@ body {
 
 main {
   height: 80vh;
-  overflow-y: scroll;
 }
 
 .container {

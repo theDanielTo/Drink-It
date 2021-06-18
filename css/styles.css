@@ -148,9 +148,9 @@ body {
 
 .list-item {
   list-style-type: none;
-  padding: 0.5rem;
+  padding: 0.3rem;
   margin: 0;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   font-weight: bold;
   text-align: center;
   color: #0074c2;
@@ -165,11 +165,16 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin: 0.5rem;
+  cursor: pointer;
+}
+
+.drink-row:hover {
+  filter: contrast(70%) brightness(85%);
 }
 
 .drink-img {
   width: 120px;
-  margin: 1rem;
   box-shadow: 0.3rem 0.3rem 0.8rem 0.2rem #66b6d2;
   cursor: pointer;
 }
@@ -190,7 +195,7 @@ body {
   justify-content: space-evenly;
   align-items: center;
   height: 120px;
-  margin-right: 1rem;
+  margin-left: 0.5rem;
   background-color: #fffeeb;
   box-shadow: 0.3rem 0.3rem 0.8rem 0.2rem #66b6d2;
 }
@@ -252,6 +257,8 @@ body {
 
 .detailed-img {
   width: 50%;
+  object-fit: cover;
+  height: 100%;
 }
 
 .details-div {
@@ -317,9 +324,13 @@ body {
 }
 
 .fa-trash-alt {
-  font-size: 0.5rem;
   cursor: pointer;
   color: #707070;
+  z-index: 100;
+}
+
+.fa-trash-alt:hover {
+  color: #ff3939;
 }
 
 /* Modal */
@@ -455,8 +466,9 @@ body {
     position: absolute;
     top: 170px;
     margin: 0 16.5%;
-    height: 160px;
-    width: 76%;
+    height: 100px;
+    width: 77%;
+    float: right;
   }
 
   .main-header-div {
@@ -466,22 +478,22 @@ body {
   }
 
   #main-header-text {
-    font-size: 1.5rem;
+    font-size: 1rem;
   }
 
   #sub-header-text {
-    font-size: 1.2rem;
+    font-size: 0.7rem;
     color: #005994;
   }
 
   .home-logo {
     background-color: #b2dae8;
     position: absolute;
-    top: 360px;
+    top: 300px;
     bottom: 1rem;
     margin: 0 22%;
     float: right;
-    width: 76%;
+    width: 77%;
   }
 
   .main-logo {
@@ -514,7 +526,7 @@ body {
   /* Secondary Pages */
   .page-list {
     position: absolute;
-    top: 360px;
+    top: 295px;
     bottom: 35px;
     right: 35px;
     left: 21.5%;
@@ -530,19 +542,15 @@ body {
   }
 
   .drink-img {
-    width: 250px;
+    width: 200px;
   }
 
   .drink-row p {
-    font-size: 1.3rem;
-  }
-
-  .fa-trash-alt {
-    font-size: 0.3rem;
+    font-size: 1rem;
   }
 
   .drink-right-col {
-    height: 250px;
+    height: 200px;
   }
 
   .home-icon {
@@ -563,7 +571,7 @@ body {
     margin-right: 40px;
     margin-left: 22%;
     padding: 1%;
-    top: 220px;
+    top: 160px;
     bottom: 0;
   }
 
@@ -594,8 +602,8 @@ body {
   }
 
   .detailed-img {
-    margin-right: 5%;
     width: 95%;
+    height: 80%;
   }
 
   .details-div {
@@ -634,10 +642,10 @@ body {
 
   .random-btn {
     position: fixed;
-    bottom: 1.2rem;
+    bottom: 1.6rem;
     left: 23%;
     font-size: 1rem;
-    width: 23.5%;
+    width: 445px;
     padding: 0.5rem;
     margin-top: 1rem;
   }

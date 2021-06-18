@@ -105,7 +105,6 @@ $modalCancel.addEventListener('click', function (event) {
 });
 
 function handleNavClick(navType, targetEl, navData) {
-
   resetDefault();
   openListPage();
   for (const nav of navType) {
@@ -234,11 +233,7 @@ function renderDrinkRow(item, isFav) {
   const drink = document.createElement('div');
   drink.className = 'drink-row';
   drink.setAttribute('drink-id', item.idDrink);
-  const drinkImg = document.createElement('img');
-  drinkImg.src = item.strDrinkThumb;
-  drinkImg.alt = item.strDrink;
-  drinkImg.className = 'drink-img border-round';
-  drinkImg.addEventListener('click', function (event) {
+  drink.addEventListener('click', function (event) {
     $homePage.classList.add('hidden');
     $listPage.classList.add('hidden');
     $randomBtn.classList.add('hidden');
@@ -255,9 +250,13 @@ function renderDrinkRow(item, isFav) {
         renderDetailedDrink(response.drinks[0]));
     });
   });
+  const drinkImg = document.createElement('img');
+  drinkImg.src = item.strDrinkThumb;
+  drinkImg.alt = item.strDrink;
+  drinkImg.className = 'drink-img border-round';
   drink.appendChild(drinkImg);
   const rightCol = document.createElement('div');
-  rightCol.className = 'drink-right-col col-8 border-round';
+  rightCol.className = 'drink-right-col col-12 border-round';
   drink.appendChild(rightCol);
   const drinkName = document.createElement('p');
   drinkName.textContent = item.strDrink;
@@ -294,7 +293,7 @@ function renderDetailedDrink(drink) {
   const topRow = document.createElement('div');
   topRow.className = 'detail-top-row';
   const drinkImg = document.createElement('img');
-  drinkImg.className = 'detailed-img col-4 border-round';
+  drinkImg.className = 'detailed-img border-round';
   drinkImg.src = drink.strDrinkThumb;
   drinkImg.alt = 'Random Drink';
   const drinkName = document.createElement('h2');
