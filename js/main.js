@@ -234,7 +234,6 @@ function handleCardClick(event) {
   $homePage.classList.add('hidden');
   $listPage.classList.add('hidden');
   $randomBtn.classList.add('hidden');
-  $horizontalRule.classList.add('hidden');
   $homeBtn.classList.remove('hidden');
   $mainHeader.classList.remove('hidden');
   $subHeader.textContent = 'Click on the heart to add it to your favorites';

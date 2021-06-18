@@ -123,6 +123,10 @@ main {
   cursor: pointer;
 }
 
+.main-logo:hover {
+  transform: rotate(-15deg);
+}
+
 .logo-large {
   font-size: 150px;
 }
@@ -316,10 +320,6 @@ main {
   cursor: pointer;
 }
 
-.random-btn:hover {
-  background-color: #66b6d2;
-}
-
 .random-btn:active {
   background-color: #0074c2;
 }
@@ -418,15 +418,6 @@ main {
 }
 
 .fa-heart {
-  width: 80px;
-
-  /* height: 120px; */
-
-  /* padding-top: 45px;
-  text-align: center;
-  border-left: 1px solid #aaa;
-  border-radius: 0 10px 10px 0;
-  background-color: #fffeeb; */
   cursor: pointer;
   color: #ff3939;
 }
@@ -700,6 +691,10 @@ main {
     width: 445px;
     padding: 0.5rem;
     margin-top: 1rem;
+  }
+
+  .random-btn:hover {
+    background-color: #66b6d2;
   }
 
   .random-btn i {
