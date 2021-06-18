@@ -125,21 +125,22 @@ function handleNavClick(navType, targetEl, navData) {
     $listPage.appendChild(renderList(event));
     if (navData === 'i') {
       $headerText.textContent = 'Ingredients';
-      $subHeader.textContent = 'Click on an ingredient to filter drinks by ingredient!';
+      $subHeader.textContent = 'Click on an ingredient to filter drinks';
     } else if (navData === 'c') {
       $headerText.textContent = 'Categories';
-      $subHeader.textContent = 'Click on an category to filter drinks by category!';
+      $subHeader.textContent = 'Click on a category to filter drinks';
     }
   } else if (navData === 's') {
     $listPage.classList.add('hidden');
     $horizontalRule.classList.add('hidden');
     $searchInput.value = '';
+    $searchInput.placeholder = 'Click here to search for a drink';
     $headerText.textContent = '';
     $subHeader.textContent = '';
   } else if (navData === 'favorites') {
     $listPage.appendChild(renderFavoritesList());
     $headerText.textContent = 'Favorites';
-    $subHeader.textContent = 'Click on a picture of a drink for its recipe!';
+    $subHeader.textContent = 'Click on a picture of a drink for its recipe';
   }
 }
 
@@ -147,7 +148,7 @@ function handleListItemClick(event) {
   clearPage();
   $headerText.classList.remove('hidden');
   $headerText.textContent = event.target.textContent;
-  $subHeader.textContent = 'Click on a picture of a drink for its recipe!';
+  $subHeader.textContent = 'Click on a picture of a drink for its recipe';
   const $list = renderListPage();
   const urlEnd = 'filter.php?' +
                   event.target.getAttribute('list-type') +
@@ -168,6 +169,7 @@ function handleSearch() {
   getHttpRequest('search.php?s=' + $searchInput.value, function (response) {
     if (response.drinks === null) {
       $headerText.textContent = 'No drinks were found.';
+      $subHeader.textContent = '';
     } else {
       for (const item of response.drinks) {
         $list.appendChild(renderDrinkRow(item, false));

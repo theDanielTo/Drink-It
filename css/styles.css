@@ -6,6 +6,10 @@ body {
   background-color: #fffeeb;
 }
 
+main {
+  overflow-y: scroll;
+}
+
 .border-round {
   border: none;
   border-radius: 10px;
@@ -63,7 +67,7 @@ body {
   justify-content: center;
   align-items: center;
   background-color: #eab676;
-  padding: 10px;
+  padding: 5px;
   width: 90%;
   z-index: 10;
 }
@@ -79,11 +83,11 @@ body {
 }
 
 #main-header-text {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
 }
 
 #sub-header-text {
-  font-size: 1rem;
+  font-size: 0.8rem;
   color: #005994;
 }
 
@@ -133,8 +137,8 @@ body {
 /* Secondary Pages */
 .page-list {
   position: absolute;
-  top: 185px;
-  bottom: 90px;
+  top: 155px;
+  bottom: 105px;
   left: 5%;
   right: 5%;
 }
@@ -150,7 +154,7 @@ body {
   list-style-type: none;
   padding: 0.3rem;
   margin: 0;
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: bold;
   text-align: center;
   color: #0074c2;
@@ -209,17 +213,18 @@ body {
   flex-direction: column;
   align-items: center;
   width: 95%;
+  padding: 15px;
 }
 
 .search-box input {
   color: #0074c2;
-  font-size: 1.5rem;
+  font-size: 1rem;
+  font-weight: bold;
   text-align: center;
   background-color: #b2dae8;
   padding: 5px;
-  margin: 10px;
   width: 100%;
-  box-shadow: 0 0 1rem 0.7rem #b2dae8;
+  box-shadow: 0 0 0.6rem 0.6rem #b2dae8;
 }
 
 #search-input::placeholder {
@@ -238,7 +243,7 @@ body {
   align-items: center;
   background-color: #b2dae8;
   margin: 5%;
-  margin-top: 140px;
+  margin-top: 130px;
 }
 
 .detail-top-row {
@@ -274,7 +279,7 @@ body {
 .details-div p {
   margin: 5px;
   padding: 0.5rem;
-  line-height: 1.7rem;
+  line-height: 1.5rem;
   border: 1px solid black;
 }
 
@@ -285,7 +290,7 @@ body {
 
 .details-table th,
 .details-table td {
-  padding: 0.5rem;
+  padding: 0.4rem;
 }
 
 .details-table,
@@ -415,7 +420,7 @@ body {
 }
 
 /* Sidebar Nav */
-.nav-links {
+.nav-side {
   display: none;
 }
 
@@ -423,6 +428,7 @@ body {
   color: #fffeeb;
   font-size: 1rem;
   padding: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .nav-links a:hover {
@@ -438,6 +444,12 @@ body {
   display: none;
 }
 
+.cocktail-link {
+  color: #66b6d2;
+  position: absolute;
+  bottom: 80px;
+}
+
 /* hide element */
 .hidden {
   display: none;
@@ -446,6 +458,10 @@ body {
 @media (min-width: 1200px) {
   * {
     font-size: 2rem;
+  }
+
+  main {
+    overflow-y: hidden;
   }
 
   /* Page Header */
@@ -521,6 +537,17 @@ body {
     bottom: 50px;
     font-size: 1.5rem;
     color: #66b6d2;
+  }
+
+  .cocktail-link {
+    color: #fffeeb;
+    left: 0.5rem;
+    bottom: 0.5rem;
+    font-size: 0.7rem;
+  }
+
+  .cocktail-link a {
+    font-size: 0.7rem;
   }
 
   /* Secondary Pages */
@@ -616,9 +643,9 @@ body {
     flex-basis: 50%;
     margin: 5px;
     padding: 0.5rem;
-    line-height: 1.7rem;
+    line-height: 1.3rem;
     border: 1px solid black;
-    font-size: 1rem;
+    font-size: 0.7rem;
   }
 
   .details-table {
@@ -628,16 +655,20 @@ body {
 
   .details-table th,
   .details-table td {
-    padding: 0.5rem;
+    padding: 0.3rem;
   }
 
   .details-table,
   .details-table th,
   .details-table td {
-    font-size: 1rem;
+    font-size: 0.7rem;
     border-radius: 5px;
     text-align: center;
     border: 1px solid black;
+  }
+
+  .details-table th {
+    font-size: 1rem;
   }
 
   .random-btn {
@@ -693,6 +724,7 @@ body {
     background-color: #66b6d2;
     width: 20%;
     border-bottom-right-radius: 20px;
+    overflow-y: scroll;
   }
 
   .nav-links {
@@ -706,7 +738,7 @@ body {
 
   .logo-small {
     display: block;
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
     font-size: 150px;
     color: #fffeeb;
   }
