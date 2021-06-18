@@ -81,24 +81,7 @@ $mainLogo.addEventListener('click', handleRandom);
 
 $randomBtn.addEventListener('click', handleRandom);
 
-$modalYes.addEventListener('click', function (event) {
-  const idToDel = parseInt($modalYes.getAttribute('drink-id'));
-  const $textList = document.querySelector('.text-list');
-  for (const li of $textList.childNodes) {
-    const liDrinkId = parseInt(li.getAttribute('drink-id'));
-    if (idToDel === liDrinkId) {
-      $textList.removeChild(li);
-      for (let i = 0; i < favoriteDrinks.length; i++) {
-        if (favoriteDrinks[i].idDrink === idToDel.toString()) {
-          favoriteDrinks.splice(i, 1);
-          break;
-        }
-      }
-      break;
-    }
-  }
-  $modalBg.classList.add('hidden');
-});
+$modalYes.addEventListener('click', handleDelete);
 
 $modalCancel.addEventListener('click', function (event) {
   $modalBg.classList.add('hidden');
@@ -196,8 +179,23 @@ function handleRandom(event) {
   });
 }
 
-function handleDelete() {
-  $modalBg.classList.remove('hidden');
+function handleDelete(idToDel = undefined) {
+  if (idToDel === undefined) idToDel = parseInt($modalYes.getAttribute('drink-id'));
+  const $textList = document.querySelector('.text-list');
+  for (const li of $textList.childNodes) {
+    const liDrinkId = parseInt(li.getAttribute('drink-id'));
+    if (idToDel === liDrinkId) {
+      $textList.removeChild(li);
+      for (let i = 0; i < favoriteDrinks.length; i++) {
+        if (favoriteDrinks[i].idDrink === idToDel.toString()) {
+          favoriteDrinks.splice(i, 1);
+          break;
+        }
+      }
+      break;
+    }
+  }
+  $modalBg.classList.add('hidden');
 }
 
 function renderListPage() {
@@ -273,15 +271,26 @@ function renderDrinkRow(item, isFav) {
         x: 3000,
         ease: 'ease'
       });
-      handleDelete();
+      $modalBg.classList.remove('hidden');
     });
     rightCol.appendChild(trash);
   } else {
     const heart = document.createElement('i');
     heart.className = 'far fa-heart';
-    heart.addEventListener('click', function (event) {
+    const drinkInFav = favoriteDrinks.find(function (obj) {
+      return obj.idDrink === item.idDrink;
+    });
+    if (drinkInFav !== undefined) {
       heart.classList.replace('far', 'fas');
-      favoriteDrinks.push(item);
+    }
+    heart.addEventListener('click', function (event) {
+      if (drinkInFav === undefined) {
+        heart.classList.replace('far', 'fas');
+        favoriteDrinks.push(item);
+      } else {
+        heart.classList.replace('fas', 'far');
+        handleDelete(parseInt(item.idDrink));
+      }
     });
     rightCol.appendChild(heart);
   }
@@ -303,9 +312,23 @@ function renderDetailedDrink(drink) {
   drinkName.textContent = drink.strDrink;
   const heart = document.createElement('i');
   heart.className = 'far fa-heart';
-  heart.addEventListener('click', function (event) {
+  const drinkInFav = favoriteDrinks.find(function (obj) {
+    return obj.idDrink === drink.idDrink;
+  });
+  if (drinkInFav !== undefined) {
     heart.classList.replace('far', 'fas');
-    favoriteDrinks.push(drink);
+  }
+  heart.addEventListener('click', function (event) {
+    const drinkInFav = favoriteDrinks.find(function (obj) {
+      return obj.idDrink === drink.idDrink;
+    });
+    if (drinkInFav === undefined) {
+      heart.classList.replace('far', 'fas');
+      favoriteDrinks.push(drink);
+    } else {
+      heart.classList.replace('fas', 'far');
+      handleDelete(parseInt(drink.idDrink));
+    }
   });
   topRow.appendChild(drinkImg);
   topRow.appendChild(heart);
