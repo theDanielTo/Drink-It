@@ -123,7 +123,7 @@ function handleNavClick(navType, targetEl, navData) {
   } else if (navData === 'favorites') {
     $listPage.appendChild(renderFavoritesList());
     $headerText.textContent = 'Favorites';
-    $subHeader.textContent = 'Click on a picture of a drink for its recipe';
+    $subHeader.textContent = 'Click on a drink for its recipe';
   }
 }
 
@@ -131,7 +131,7 @@ function handleListItemClick(event) {
   clearPage();
   $headerText.classList.remove('hidden');
   $headerText.textContent = event.target.textContent;
-  $subHeader.textContent = 'Click on a picture of a drink for its recipe';
+  $subHeader.textContent = 'Click on a for its recipe';
   const $list = renderListPage();
   const urlEnd = 'filter.php?' +
                   event.target.getAttribute('list-type') +
@@ -165,11 +165,10 @@ function handleSearch() {
 function handleRandom(event) {
   $homePage.classList.add('hidden');
   $listPage.classList.add('hidden');
-  $horizontalRule.classList.add('hidden');
-  $subHeader.classList.add('hidden');
   $homeBtn.classList.remove('hidden');
   $randomBtn.classList.remove('hidden');
   $mainHeader.classList.remove('hidden');
+  $subHeader.textContent = 'Click on the heart to add it to your favorites';
   getHttpRequest('random.php', function (response) {
     if ($listPage.nextElementSibling.classList.contains('drink-detailed')) {
       $listPage.nextElementSibling.remove();
@@ -179,8 +178,10 @@ function handleRandom(event) {
   });
 }
 
-function handleDelete(idToDel = undefined) {
-  if (idToDel === undefined) idToDel = parseInt($modalYes.getAttribute('drink-id'));
+function handleDelete(idToDel) {
+  if (idToDel === event) {
+    idToDel = parseInt($modalYes.getAttribute('drink-id'));
+  }
   const $textList = document.querySelector('.text-list');
   for (const li of $textList.childNodes) {
     const liDrinkId = parseInt(li.getAttribute('drink-id'));
@@ -229,34 +230,39 @@ function renderFavoritesList() {
   return $list;
 }
 
+function handleCardClick(event) {
+  $homePage.classList.add('hidden');
+  $listPage.classList.add('hidden');
+  $randomBtn.classList.add('hidden');
+  $horizontalRule.classList.add('hidden');
+  $homeBtn.classList.remove('hidden');
+  $mainHeader.classList.remove('hidden');
+  $subHeader.textContent = 'Click on the heart to add it to your favorites';
+  getHttpRequest('lookup.php?i=' + event.target.getAttribute('drink-id'), function (response) {
+    renderDetailedDrink(response.drinks[0]);
+    if ($listPage.nextElementSibling.classList.contains('drink-detailed')) {
+      $listPage.nextElementSibling.remove();
+    }
+    $listPage.insertAdjacentElement('afterend',
+      renderDetailedDrink(response.drinks[0]));
+  });
+}
+
 function renderDrinkRow(item, isFav) {
   const drink = document.createElement('div');
   drink.className = 'drink-row';
   drink.setAttribute('drink-id', item.idDrink);
-  drink.addEventListener('click', function (event) {
-    $homePage.classList.add('hidden');
-    $listPage.classList.add('hidden');
-    $randomBtn.classList.add('hidden');
-    $horizontalRule.classList.add('hidden');
-    $subHeader.classList.add('hidden');
-    $homeBtn.classList.remove('hidden');
-    $mainHeader.classList.remove('hidden');
-    getHttpRequest('lookup.php?i=' + drink.getAttribute('drink-id'), function (response) {
-      renderDetailedDrink(response.drinks[0]);
-      if ($listPage.nextElementSibling.classList.contains('drink-detailed')) {
-        $listPage.nextElementSibling.remove();
-      }
-      $listPage.insertAdjacentElement('afterend',
-        renderDetailedDrink(response.drinks[0]));
-    });
-  });
   const drinkImg = document.createElement('img');
   drinkImg.src = item.strDrinkThumb;
   drinkImg.alt = item.strDrink;
-  drinkImg.className = 'drink-img border-round';
+  drinkImg.className = 'drink-img';
+  drinkImg.setAttribute('drink-id', item.idDrink);
+  drinkImg.addEventListener('click', handleCardClick);
   drink.appendChild(drinkImg);
   const rightCol = document.createElement('div');
-  rightCol.className = 'drink-right-col col-12 border-round';
+  rightCol.className = 'drink-right-col col-12';
+  rightCol.setAttribute('drink-id', item.idDrink);
+  rightCol.addEventListener('click', handleCardClick);
   drink.appendChild(rightCol);
   const drinkName = document.createElement('p');
   drinkName.textContent = item.strDrink;
@@ -270,29 +276,10 @@ function renderDrinkRow(item, isFav) {
         duration: 0.5,
         x: 3000,
         ease: 'ease'
-      });
+      }, false);
       $modalBg.classList.remove('hidden');
     });
-    rightCol.appendChild(trash);
-  } else {
-    const heart = document.createElement('i');
-    heart.className = 'far fa-heart';
-    const drinkInFav = favoriteDrinks.find(function (obj) {
-      return obj.idDrink === item.idDrink;
-    });
-    if (drinkInFav !== undefined) {
-      heart.classList.replace('far', 'fas');
-    }
-    heart.addEventListener('click', function (event) {
-      if (drinkInFav === undefined) {
-        heart.classList.replace('far', 'fas');
-        favoriteDrinks.push(item);
-      } else {
-        heart.classList.replace('fas', 'far');
-        handleDelete(parseInt(item.idDrink));
-      }
-    });
-    rightCol.appendChild(heart);
+    drink.appendChild(trash);
   }
   return drink;
 }
@@ -311,7 +298,7 @@ function renderDetailedDrink(drink) {
   drinkName.className = 'col-5 drink-name';
   drinkName.textContent = drink.strDrink;
   const heart = document.createElement('i');
-  heart.className = 'far fa-heart';
+  heart.className = 'far fa-heart detailed-heart';
   const drinkInFav = favoriteDrinks.find(function (obj) {
     return obj.idDrink === drink.idDrink;
   });

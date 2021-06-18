@@ -167,20 +167,13 @@ main {
 
 .drink-row {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
   margin: 0.5rem;
   cursor: pointer;
 }
 
-.drink-row:hover {
-  filter: contrast(70%) brightness(85%);
-}
-
 .drink-img {
   width: 120px;
-  box-shadow: 0.3rem 0.3rem 0.8rem 0.2rem #66b6d2;
-  cursor: pointer;
+  border-radius: 10px 0 0 10px;
 }
 
 .drink-row p {
@@ -199,9 +192,12 @@ main {
   justify-content: space-evenly;
   align-items: center;
   height: 120px;
-  margin-left: 0.5rem;
   background-color: #fffeeb;
-  box-shadow: 0.3rem 0.3rem 0.8rem 0.2rem #66b6d2;
+  border-radius: 0 10px 10px 0;
+}
+
+.drink-right-col:hover {
+  filter: contrast(70%) brightness(85%);
 }
 
 .drink-right-col p {
@@ -243,7 +239,7 @@ main {
   align-items: center;
   background-color: #b2dae8;
   margin: 5%;
-  margin-top: 130px;
+  margin-top: 150px;
 }
 
 .detail-top-row {
@@ -303,7 +299,7 @@ main {
 
 .random-btn-div {
   position: fixed;
-  bottom: 80px;
+  bottom: 105px;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -316,7 +312,7 @@ main {
   background-color: #0074c2;
   font-size: 1.5rem;
   width: 90%;
-  padding: 1rem;
+  padding: 0.5rem;
   cursor: pointer;
 }
 
@@ -330,12 +326,19 @@ main {
 
 .fa-trash-alt {
   cursor: pointer;
-  color: #707070;
-  z-index: 100;
+  width: 80px;
+  height: 120px;
+  padding-top: 45px;
+  text-align: center;
+  border-left: 1px solid #aaa;
+  border-radius: 10px;
+  background-color: #fffeeb;
+  color: #aaa;
 }
 
 .fa-trash-alt:hover {
   color: #ff3939;
+  background-color: #fffeeb;
 }
 
 /* Modal */
@@ -415,6 +418,15 @@ main {
 }
 
 .fa-heart {
+  width: 80px;
+
+  /* height: 120px; */
+
+  /* padding-top: 45px;
+  text-align: center;
+  border-left: 1px solid #aaa;
+  border-radius: 0 10px 10px 0;
+  background-color: #fffeeb; */
   cursor: pointer;
   color: #ff3939;
 }
@@ -564,6 +576,10 @@ main {
     width: 100%;
   }
 
+  .list-item:hover {
+    background-color: #66b6d2;
+  }
+
   .search-box input {
     margin-top: 0;
   }
@@ -586,6 +602,11 @@ main {
     top: 0;
     margin-right: 1rem;
     font-size: 80px;
+  }
+
+  .home-icon:hover {
+    border-radius: 20px;
+    background-color: #007da9;
   }
 
   /* Detailed Drink */
@@ -683,6 +704,12 @@ main {
 
   .random-btn i {
     font-size: 1rem;
+  }
+
+  .fa-trash-alt {
+    width: 200px;
+    padding-top: 70px;
+    height: 200px;
   }
 
   /* modal */
