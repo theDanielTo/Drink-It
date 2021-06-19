@@ -44,6 +44,15 @@ main {
   cursor: pointer;
 }
 
+.back-btn {
+  position: absolute;
+  right: 0.5rem;
+  top: 0.5rem;
+  font-size: 50px;
+  color: #fffeeb;
+  cursor: pointer;
+}
+
 .hr {
   border-radius: 10px;
 }
@@ -592,6 +601,13 @@ main {
     float: right;
     top: 0;
     margin-right: 1rem;
+    font-size: 80px;
+  }
+
+  .back-btn {
+    float: right;
+    top: 1rem;
+    margin-right: 5rem;
     font-size: 80px;
   }
 
