@@ -134,11 +134,11 @@ function handleNavClick(navType, targetEl, navData) {
     $headerText.textContent = '';
     $subHeader.textContent = '';
   } else if (navData === 'favorites') {
-    backBtnData.headerMain = $headerText.textContent;
-    backBtnData.headerSub = $subHeader.textContent;
-    $listPage.appendChild(renderFavoritesList());
     $headerText.textContent = 'Favorites';
     $subHeader.textContent = 'Click on a drink for its recipe';
+    $listPage.appendChild(renderFavoritesList());
+    backBtnData.headerMain = $headerText.textContent;
+    backBtnData.headerSub = $subHeader.textContent;
   }
 }
 
