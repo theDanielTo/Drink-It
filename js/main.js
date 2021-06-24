@@ -146,7 +146,7 @@ function handleListItemClick(event) {
   clearPage();
   $headerText.classList.remove('hidden');
   $headerText.textContent = event.target.textContent;
-  $subHeader.textContent = 'Click on a for its recipe';
+  $subHeader.textContent = 'Click on a drink for its recipe';
   backBtnData.headerMain = $headerText.textContent;
   backBtnData.headerSub = $subHeader.textContent;
   const $list = renderListPage();
@@ -167,6 +167,7 @@ function handleSearch() {
   $subHeader.textContent = 'Click on a picture of a drink for its recipe!';
   backBtnData.headerMain = $headerText.textContent;
   backBtnData.headerSub = $subHeader.textContent;
+  $horizontalRule.classList.remove('hidden');
   const $list = renderListPage();
   getHttpRequest('search.php?s=' + $searchInput.value, function (response) {
     if (response.drinks === null) {
