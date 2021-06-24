@@ -6,6 +6,10 @@ body {
   background-color: #fffeeb;
 }
 
+main {
+  overflow-y: scroll;
+}
+
 .border-round {
   border: none;
   border-radius: 10px;
@@ -40,6 +44,15 @@ body {
   cursor: pointer;
 }
 
+.back-btn {
+  position: absolute;
+  right: 0.5rem;
+  top: 0.5rem;
+  font-size: 50px;
+  color: #fffeeb;
+  cursor: pointer;
+}
+
 .hr {
   border-radius: 10px;
 }
@@ -63,7 +76,7 @@ body {
   justify-content: center;
   align-items: center;
   background-color: #eab676;
-  padding: 10px;
+  padding: 5px;
   width: 90%;
   z-index: 10;
 }
@@ -79,11 +92,11 @@ body {
 }
 
 #main-header-text {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
 }
 
 #sub-header-text {
-  font-size: 1rem;
+  font-size: 0.8rem;
   color: #005994;
 }
 
@@ -119,6 +132,10 @@ body {
   cursor: pointer;
 }
 
+.main-logo:hover {
+  transform: rotate(-15deg);
+}
+
 .logo-large {
   font-size: 150px;
 }
@@ -133,8 +150,8 @@ body {
 /* Secondary Pages */
 .page-list {
   position: absolute;
-  top: 185px;
-  bottom: 90px;
+  top: 155px;
+  bottom: 105px;
   left: 5%;
   right: 5%;
 }
@@ -148,9 +165,9 @@ body {
 
 .list-item {
   list-style-type: none;
-  padding: 0.5rem;
+  padding: 0.3rem;
   margin: 0;
-  font-size: 1.5rem;
+  font-size: 1rem;
   font-weight: bold;
   text-align: center;
   color: #0074c2;
@@ -163,15 +180,13 @@ body {
 
 .drink-row {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  margin: 0.5rem;
+  cursor: pointer;
 }
 
 .drink-img {
   width: 120px;
-  margin: 1rem;
-  box-shadow: 0.3rem 0.3rem 0.8rem 0.2rem #66b6d2;
-  cursor: pointer;
+  border-radius: 10px 0 0 10px;
 }
 
 .drink-row p {
@@ -190,9 +205,12 @@ body {
   justify-content: space-evenly;
   align-items: center;
   height: 120px;
-  margin-right: 1rem;
   background-color: #fffeeb;
-  box-shadow: 0.3rem 0.3rem 0.8rem 0.2rem #66b6d2;
+  border-radius: 0 10px 10px 0;
+}
+
+.drink-right-col:hover {
+  filter: contrast(70%) brightness(85%);
 }
 
 .drink-right-col p {
@@ -204,17 +222,18 @@ body {
   flex-direction: column;
   align-items: center;
   width: 95%;
+  padding: 15px;
 }
 
 .search-box input {
   color: #0074c2;
-  font-size: 1.5rem;
+  font-size: 1rem;
+  font-weight: bold;
   text-align: center;
   background-color: #b2dae8;
   padding: 5px;
-  margin: 10px;
   width: 100%;
-  box-shadow: 0 0 1rem 0.7rem #b2dae8;
+  box-shadow: 0 0 0.6rem 0.6rem #b2dae8;
 }
 
 #search-input::placeholder {
@@ -233,7 +252,7 @@ body {
   align-items: center;
   background-color: #b2dae8;
   margin: 5%;
-  margin-top: 140px;
+  margin-top: 150px;
 }
 
 .detail-top-row {
@@ -252,6 +271,8 @@ body {
 
 .detailed-img {
   width: 50%;
+  object-fit: cover;
+  height: 100%;
 }
 
 .details-div {
@@ -267,7 +288,7 @@ body {
 .details-div p {
   margin: 5px;
   padding: 0.5rem;
-  line-height: 1.7rem;
+  line-height: 1.5rem;
   border: 1px solid black;
 }
 
@@ -278,7 +299,7 @@ body {
 
 .details-table th,
 .details-table td {
-  padding: 0.5rem;
+  padding: 0.4rem;
 }
 
 .details-table,
@@ -291,7 +312,7 @@ body {
 
 .random-btn-div {
   position: fixed;
-  bottom: 80px;
+  bottom: 105px;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -304,12 +325,8 @@ body {
   background-color: #0074c2;
   font-size: 1.5rem;
   width: 90%;
-  padding: 1rem;
+  padding: 0.5rem;
   cursor: pointer;
-}
-
-.random-btn:hover {
-  background-color: #66b6d2;
 }
 
 .random-btn:active {
@@ -317,9 +334,20 @@ body {
 }
 
 .fa-trash-alt {
-  font-size: 0.5rem;
   cursor: pointer;
-  color: #707070;
+  width: 80px;
+  height: 120px;
+  padding-top: 45px;
+  text-align: center;
+  border-left: 1px solid #aaa;
+  border-radius: 10px;
+  background-color: #fffeeb;
+  color: #aaa;
+}
+
+.fa-trash-alt:hover {
+  color: #ff3939;
+  background-color: #fffeeb;
 }
 
 /* Modal */
@@ -404,7 +432,7 @@ body {
 }
 
 /* Sidebar Nav */
-.nav-links {
+.nav-side {
   display: none;
 }
 
@@ -412,6 +440,7 @@ body {
   color: #fffeeb;
   font-size: 1rem;
   padding: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .nav-links a:hover {
@@ -427,6 +456,12 @@ body {
   display: none;
 }
 
+.cocktail-link {
+  color: #66b6d2;
+  position: absolute;
+  bottom: 80px;
+}
+
 /* hide element */
 .hidden {
   display: none;
@@ -435,6 +470,10 @@ body {
 @media (min-width: 1200px) {
   * {
     font-size: 2rem;
+  }
+
+  main {
+    overflow-y: hidden;
   }
 
   /* Page Header */
@@ -455,8 +494,9 @@ body {
     position: absolute;
     top: 170px;
     margin: 0 16.5%;
-    height: 160px;
-    width: 76%;
+    height: 100px;
+    width: 77%;
+    float: right;
   }
 
   .main-header-div {
@@ -466,22 +506,22 @@ body {
   }
 
   #main-header-text {
-    font-size: 1.5rem;
+    font-size: 1rem;
   }
 
   #sub-header-text {
-    font-size: 1.2rem;
+    font-size: 0.7rem;
     color: #005994;
   }
 
   .home-logo {
     background-color: #b2dae8;
     position: absolute;
-    top: 360px;
+    top: 300px;
     bottom: 1rem;
     margin: 0 22%;
     float: right;
-    width: 76%;
+    width: 77%;
   }
 
   .main-logo {
@@ -511,10 +551,21 @@ body {
     color: #66b6d2;
   }
 
+  .cocktail-link {
+    color: #fffeeb;
+    left: 0.5rem;
+    bottom: 0.5rem;
+    font-size: 0.7rem;
+  }
+
+  .cocktail-link a {
+    font-size: 0.7rem;
+  }
+
   /* Secondary Pages */
   .page-list {
     position: absolute;
-    top: 360px;
+    top: 295px;
     bottom: 35px;
     right: 35px;
     left: 21.5%;
@@ -525,24 +576,24 @@ body {
     width: 100%;
   }
 
+  .list-item:hover {
+    background-color: #66b6d2;
+  }
+
   .search-box input {
     margin-top: 0;
   }
 
   .drink-img {
-    width: 250px;
+    width: 200px;
   }
 
   .drink-row p {
-    font-size: 1.3rem;
-  }
-
-  .fa-trash-alt {
-    font-size: 0.3rem;
+    font-size: 1rem;
   }
 
   .drink-right-col {
-    height: 250px;
+    height: 200px;
   }
 
   .home-icon {
@@ -551,6 +602,18 @@ body {
     top: 0;
     margin-right: 1rem;
     font-size: 80px;
+  }
+
+  .back-btn {
+    float: right;
+    top: 1rem;
+    margin-right: 5rem;
+    font-size: 80px;
+  }
+
+  .home-icon:hover {
+    border-radius: 20px;
+    background-color: #007da9;
   }
 
   /* Detailed Drink */
@@ -563,7 +626,7 @@ body {
     margin-right: 40px;
     margin-left: 22%;
     padding: 1%;
-    top: 220px;
+    top: 160px;
     bottom: 0;
   }
 
@@ -594,8 +657,8 @@ body {
   }
 
   .detailed-img {
-    margin-right: 5%;
     width: 95%;
+    height: 80%;
   }
 
   .details-div {
@@ -608,9 +671,9 @@ body {
     flex-basis: 50%;
     margin: 5px;
     padding: 0.5rem;
-    line-height: 1.7rem;
+    line-height: 1.3rem;
     border: 1px solid black;
-    font-size: 1rem;
+    font-size: 0.7rem;
   }
 
   .details-table {
@@ -620,30 +683,44 @@ body {
 
   .details-table th,
   .details-table td {
-    padding: 0.5rem;
+    padding: 0.3rem;
   }
 
   .details-table,
   .details-table th,
   .details-table td {
-    font-size: 1rem;
+    font-size: 0.7rem;
     border-radius: 5px;
     text-align: center;
     border: 1px solid black;
   }
 
+  .details-table th {
+    font-size: 1rem;
+  }
+
   .random-btn {
     position: fixed;
-    bottom: 1.2rem;
+    bottom: 1.6rem;
     left: 23%;
     font-size: 1rem;
-    width: 23.5%;
+    width: 445px;
     padding: 0.5rem;
     margin-top: 1rem;
   }
 
+  .random-btn:hover {
+    background-color: #66b6d2;
+  }
+
   .random-btn i {
     font-size: 1rem;
+  }
+
+  .fa-trash-alt {
+    width: 200px;
+    padding-top: 70px;
+    height: 200px;
   }
 
   /* modal */
@@ -685,6 +762,7 @@ body {
     background-color: #66b6d2;
     width: 20%;
     border-bottom-right-radius: 20px;
+    overflow-y: scroll;
   }
 
   .nav-links {
@@ -698,7 +776,7 @@ body {
 
   .logo-small {
     display: block;
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
     font-size: 150px;
     color: #fffeeb;
   }

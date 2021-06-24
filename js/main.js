@@ -2,6 +2,7 @@
 /* eslint-disable no-undef */
 const $homePage = document.querySelector('.page-home');
 const $homeBtn = document.querySelector('.home-icon');
+const $backBtn = document.querySelector('.back-btn');
 const $listPage = document.querySelector('.page-list');
 const $mainLogo = document.querySelector('.main-logo');
 const $randomBtn = document.querySelector('.random-btn');
@@ -27,6 +28,7 @@ const apiUrl = 'https://lfz-cors.herokuapp.com/?url=https://www.thecocktaildb.co
 
 $homeBtn.addEventListener('click', function (event) {
   $homeBtn.classList.add('hidden');
+  $backBtn.classList.add('hidden');
   $listPage.classList.add('hidden');
   $searchBox.classList.add('hidden');
   $homePage.classList.remove('hidden');
@@ -51,6 +53,16 @@ $homeBtn.addEventListener('click', function (event) {
   });
   gsap.from('.fa-circle', { duration: 1, y: -600, ease: 'bounce' });
   gsap.from('#home-text', { duration: 2, opacity: 0 });
+});
+
+$backBtn.addEventListener('click', function (event) {
+  $backBtn.classList.add('hidden');
+  $listPage.classList.remove('hidden');
+  $headerText.textContent = backBtnData.headerMain;
+  $subHeader.textContent = backBtnData.headerSub;
+  if ($listPage.nextElementSibling.classList.contains('drink-detailed')) {
+    $listPage.nextElementSibling.remove();
+  }
 });
 
 $navBottom.addEventListener('click', function (event) {
@@ -81,33 +93,16 @@ $mainLogo.addEventListener('click', handleRandom);
 
 $randomBtn.addEventListener('click', handleRandom);
 
-$modalYes.addEventListener('click', function (event) {
-  const idToDel = parseInt($modalYes.getAttribute('drink-id'));
-  const $textList = document.querySelector('.text-list');
-  for (const li of $textList.childNodes) {
-    const liDrinkId = parseInt(li.getAttribute('drink-id'));
-    if (idToDel === liDrinkId) {
-      $textList.removeChild(li);
-      for (let i = 0; i < favoriteDrinks.length; i++) {
-        if (favoriteDrinks[i].idDrink === idToDel.toString()) {
-          favoriteDrinks.splice(i, 1);
-          break;
-        }
-      }
-      break;
-    }
-  }
-  $modalBg.classList.add('hidden');
-});
+$modalYes.addEventListener('click', handleDelete);
 
 $modalCancel.addEventListener('click', function (event) {
   $modalBg.classList.add('hidden');
 });
 
 function handleNavClick(navType, targetEl, navData) {
-
   resetDefault();
   openListPage();
+  $backBtn.classList.add('hidden');
   for (const nav of navType) {
     const clickedNav = nav.getAttribute('nav-data');
     if (clickedNav === navData) {
@@ -126,21 +121,24 @@ function handleNavClick(navType, targetEl, navData) {
     $listPage.appendChild(renderList(event));
     if (navData === 'i') {
       $headerText.textContent = 'Ingredients';
-      $subHeader.textContent = 'Click on an ingredient to filter drinks by ingredient!';
+      $subHeader.textContent = 'Click on an ingredient to filter drinks';
     } else if (navData === 'c') {
       $headerText.textContent = 'Categories';
-      $subHeader.textContent = 'Click on an category to filter drinks by category!';
+      $subHeader.textContent = 'Click on a category to filter drinks';
     }
   } else if (navData === 's') {
     $listPage.classList.add('hidden');
     $horizontalRule.classList.add('hidden');
     $searchInput.value = '';
+    $searchInput.placeholder = 'Click here to search for a drink';
     $headerText.textContent = '';
     $subHeader.textContent = '';
   } else if (navData === 'favorites') {
+    backBtnData.headerMain = $headerText.textContent;
+    backBtnData.headerSub = $subHeader.textContent;
     $listPage.appendChild(renderFavoritesList());
     $headerText.textContent = 'Favorites';
-    $subHeader.textContent = 'Click on a picture of a drink for its recipe!';
+    $subHeader.textContent = 'Click on a drink for its recipe';
   }
 }
 
@@ -148,7 +146,9 @@ function handleListItemClick(event) {
   clearPage();
   $headerText.classList.remove('hidden');
   $headerText.textContent = event.target.textContent;
-  $subHeader.textContent = 'Click on a picture of a drink for its recipe!';
+  $subHeader.textContent = 'Click on a for its recipe';
+  backBtnData.headerMain = $headerText.textContent;
+  backBtnData.headerSub = $subHeader.textContent;
   const $list = renderListPage();
   const urlEnd = 'filter.php?' +
                   event.target.getAttribute('list-type') +
@@ -165,10 +165,13 @@ function handleListItemClick(event) {
 function handleSearch() {
   $headerText.textContent = $searchInput.value.toUpperCase();
   $subHeader.textContent = 'Click on a picture of a drink for its recipe!';
+  backBtnData.headerMain = $headerText.textContent;
+  backBtnData.headerSub = $subHeader.textContent;
   const $list = renderListPage();
   getHttpRequest('search.php?s=' + $searchInput.value, function (response) {
     if (response.drinks === null) {
       $headerText.textContent = 'No drinks were found.';
+      $subHeader.textContent = '';
     } else {
       for (const item of response.drinks) {
         $list.appendChild(renderDrinkRow(item, false));
@@ -181,11 +184,10 @@ function handleSearch() {
 function handleRandom(event) {
   $homePage.classList.add('hidden');
   $listPage.classList.add('hidden');
-  $horizontalRule.classList.add('hidden');
-  $subHeader.classList.add('hidden');
   $homeBtn.classList.remove('hidden');
   $randomBtn.classList.remove('hidden');
   $mainHeader.classList.remove('hidden');
+  $subHeader.textContent = 'Click on the heart to add it to your favorites';
   getHttpRequest('random.php', function (response) {
     if ($listPage.nextElementSibling.classList.contains('drink-detailed')) {
       $listPage.nextElementSibling.remove();
@@ -195,8 +197,25 @@ function handleRandom(event) {
   });
 }
 
-function handleDelete() {
-  $modalBg.classList.remove('hidden');
+function handleDelete(idToDel) {
+  if (idToDel === event) {
+    idToDel = parseInt($modalYes.getAttribute('drink-id'));
+  }
+  const $textList = document.querySelector('.text-list');
+  for (const li of $textList.childNodes) {
+    const liDrinkId = parseInt(li.getAttribute('drink-id'));
+    if (idToDel === liDrinkId) {
+      $textList.removeChild(li);
+      for (let i = 0; i < favoriteDrinks.length; i++) {
+        if (favoriteDrinks[i].idDrink === idToDel.toString()) {
+          favoriteDrinks.splice(i, 1);
+          break;
+        }
+      }
+      break;
+    }
+  }
+  $modalBg.classList.add('hidden');
 }
 
 function renderListPage() {
@@ -230,6 +249,24 @@ function renderFavoritesList() {
   return $list;
 }
 
+function handleCardClick(event) {
+  $homePage.classList.add('hidden');
+  $listPage.classList.add('hidden');
+  $randomBtn.classList.add('hidden');
+  $homeBtn.classList.remove('hidden');
+  $backBtn.classList.remove('hidden');
+  $mainHeader.classList.remove('hidden');
+  $subHeader.textContent = 'Click on the heart to add it to your favorites';
+  getHttpRequest('lookup.php?i=' + event.target.getAttribute('drink-id'), function (response) {
+    renderDetailedDrink(response.drinks[0]);
+    if ($listPage.nextElementSibling.classList.contains('drink-detailed')) {
+      $listPage.nextElementSibling.remove();
+    }
+    $listPage.insertAdjacentElement('afterend',
+      renderDetailedDrink(response.drinks[0]));
+  });
+}
+
 function renderDrinkRow(item, isFav) {
   const drink = document.createElement('div');
   drink.className = 'drink-row';
@@ -237,27 +274,14 @@ function renderDrinkRow(item, isFav) {
   const drinkImg = document.createElement('img');
   drinkImg.src = item.strDrinkThumb;
   drinkImg.alt = item.strDrink;
-  drinkImg.className = 'drink-img border-round';
-  drinkImg.addEventListener('click', function (event) {
-    $homePage.classList.add('hidden');
-    $listPage.classList.add('hidden');
-    $randomBtn.classList.add('hidden');
-    $horizontalRule.classList.add('hidden');
-    $subHeader.classList.add('hidden');
-    $homeBtn.classList.remove('hidden');
-    $mainHeader.classList.remove('hidden');
-    getHttpRequest('lookup.php?i=' + drink.getAttribute('drink-id'), function (response) {
-      renderDetailedDrink(response.drinks[0]);
-      if ($listPage.nextElementSibling.classList.contains('drink-detailed')) {
-        $listPage.nextElementSibling.remove();
-      }
-      $listPage.insertAdjacentElement('afterend',
-        renderDetailedDrink(response.drinks[0]));
-    });
-  });
+  drinkImg.className = 'drink-img';
+  drinkImg.setAttribute('drink-id', item.idDrink);
+  drinkImg.addEventListener('click', handleCardClick);
   drink.appendChild(drinkImg);
   const rightCol = document.createElement('div');
-  rightCol.className = 'drink-right-col col-8 border-round';
+  rightCol.className = 'drink-right-col col-12';
+  rightCol.setAttribute('drink-id', item.idDrink);
+  rightCol.addEventListener('click', handleCardClick);
   drink.appendChild(rightCol);
   const drinkName = document.createElement('p');
   drinkName.textContent = item.strDrink;
@@ -271,18 +295,10 @@ function renderDrinkRow(item, isFav) {
         duration: 0.5,
         x: 3000,
         ease: 'ease'
-      });
-      handleDelete();
+      }, false);
+      $modalBg.classList.remove('hidden');
     });
-    rightCol.appendChild(trash);
-  } else {
-    const heart = document.createElement('i');
-    heart.className = 'far fa-heart';
-    heart.addEventListener('click', function (event) {
-      heart.classList.replace('far', 'fas');
-      favoriteDrinks.push(item);
-    });
-    rightCol.appendChild(heart);
+    drink.appendChild(trash);
   }
   return drink;
 }
@@ -294,17 +310,31 @@ function renderDetailedDrink(drink) {
   const topRow = document.createElement('div');
   topRow.className = 'detail-top-row';
   const drinkImg = document.createElement('img');
-  drinkImg.className = 'detailed-img col-4 border-round';
+  drinkImg.className = 'detailed-img border-round';
   drinkImg.src = drink.strDrinkThumb;
   drinkImg.alt = 'Random Drink';
   const drinkName = document.createElement('h2');
   drinkName.className = 'col-5 drink-name';
   drinkName.textContent = drink.strDrink;
   const heart = document.createElement('i');
-  heart.className = 'far fa-heart';
-  heart.addEventListener('click', function (event) {
+  heart.className = 'far fa-heart detailed-heart';
+  const drinkInFav = favoriteDrinks.find(function (obj) {
+    return obj.idDrink === drink.idDrink;
+  });
+  if (drinkInFav !== undefined) {
     heart.classList.replace('far', 'fas');
-    favoriteDrinks.push(drink);
+  }
+  heart.addEventListener('click', function (event) {
+    const drinkInFav = favoriteDrinks.find(function (obj) {
+      return obj.idDrink === drink.idDrink;
+    });
+    if (drinkInFav === undefined) {
+      heart.classList.replace('far', 'fas');
+      favoriteDrinks.push(drink);
+    } else {
+      heart.classList.replace('fas', 'far');
+      handleDelete(parseInt(drink.idDrink));
+    }
   });
   topRow.appendChild(drinkImg);
   topRow.appendChild(heart);
