@@ -26,7 +26,7 @@ const $navLinks = document.querySelectorAll('.nav-link');
 
 const apiUrl = 'https://lfz-cors.herokuapp.com/?url=https://www.thecocktaildb.com/api/json/v1/1/';
 
-$homeBtn.addEventListener('click', function (event) {
+$homeBtn.addEventListener('click', event => {
   $homeBtn.classList.add('hidden');
   $backBtn.classList.add('hidden');
   $listPage.classList.add('hidden');
@@ -55,7 +55,7 @@ $homeBtn.addEventListener('click', function (event) {
   gsap.from('#home-text', { duration: 2, opacity: 0 });
 });
 
-$backBtn.addEventListener('click', function (event) {
+$backBtn.addEventListener('click', event => {
   $backBtn.classList.add('hidden');
   $listPage.classList.remove('hidden');
   $headerText.textContent = backBtnData.headerMain;
@@ -65,7 +65,7 @@ $backBtn.addEventListener('click', function (event) {
   }
 });
 
-$navBottom.addEventListener('click', function (event) {
+$navBottom.addEventListener('click', event => {
   if (event.target.hasAttribute('nav-data')) {
     $mainHeader.classList.remove('hidden');
     $headerText.classList.remove('hidden');
@@ -74,14 +74,14 @@ $navBottom.addEventListener('click', function (event) {
   }
 });
 
-$navSide.addEventListener('click', function (event) {
+$navSide.addEventListener('click', event => {
   if (event.target.hasAttribute('nav-data')) {
     handleNavClick($navLinks, event.target, event.target.getAttribute('nav-data'));
     navAnimation('.nav-link');
   }
 });
 
-$searchBox.addEventListener('keydown', function (event) {
+$searchBox.addEventListener('keydown', event => {
   if (event.key === 'Enter') {
     $searchBox.classList.add('hidden');
     $listPage.classList.remove('hidden');
@@ -95,7 +95,7 @@ $randomBtn.addEventListener('click', handleRandom);
 
 $modalYes.addEventListener('click', handleDelete);
 
-$modalCancel.addEventListener('click', function (event) {
+$modalCancel.addEventListener('click', event => {
   $modalBg.classList.add('hidden');
 });
 
@@ -134,11 +134,11 @@ function handleNavClick(navType, targetEl, navData) {
     $headerText.textContent = '';
     $subHeader.textContent = '';
   } else if (navData === 'favorites') {
-    backBtnData.headerMain = $headerText.textContent;
-    backBtnData.headerSub = $subHeader.textContent;
-    $listPage.appendChild(renderFavoritesList());
     $headerText.textContent = 'Favorites';
     $subHeader.textContent = 'Click on a drink for its recipe';
+    $listPage.appendChild(renderFavoritesList());
+    backBtnData.headerMain = $headerText.textContent;
+    backBtnData.headerSub = $subHeader.textContent;
   }
 }
 
@@ -146,7 +146,7 @@ function handleListItemClick(event) {
   clearPage();
   $headerText.classList.remove('hidden');
   $headerText.textContent = event.target.textContent;
-  $subHeader.textContent = 'Click on a for its recipe';
+  $subHeader.textContent = 'Click on a drink for its recipe';
   backBtnData.headerMain = $headerText.textContent;
   backBtnData.headerSub = $subHeader.textContent;
   const $list = renderListPage();
@@ -167,6 +167,7 @@ function handleSearch() {
   $subHeader.textContent = 'Click on a picture of a drink for its recipe!';
   backBtnData.headerMain = $headerText.textContent;
   backBtnData.headerSub = $subHeader.textContent;
+  $horizontalRule.classList.remove('hidden');
   const $list = renderListPage();
   getHttpRequest('search.php?s=' + $searchInput.value, function (response) {
     if (response.drinks === null) {
@@ -228,7 +229,7 @@ function renderList(event) {
   const $list = renderListPage();
   const listType = event.target.getAttribute('nav-data');
   const urlEnd = 'list.php?' + listType + '=list';
-  getHttpRequest(urlEnd, function (response) {
+  getHttpRequest(urlEnd, response => {
     for (const item of response.drinks) {
       const listItem = document.createElement('p');
       listItem.textContent = (listType === 'i') ? item.strIngredient1 : item.strCategory;
@@ -257,7 +258,7 @@ function handleCardClick(event) {
   $backBtn.classList.remove('hidden');
   $mainHeader.classList.remove('hidden');
   $subHeader.textContent = 'Click on the heart to add it to your favorites';
-  getHttpRequest('lookup.php?i=' + event.target.getAttribute('drink-id'), function (response) {
+  getHttpRequest('lookup.php?i=' + event.target.getAttribute('drink-id'), response => {
     renderDetailedDrink(response.drinks[0]);
     if ($listPage.nextElementSibling.classList.contains('drink-detailed')) {
       $listPage.nextElementSibling.remove();
@@ -289,7 +290,7 @@ function renderDrinkRow(item, isFav) {
   if (isFav) {
     const trash = document.createElement('i');
     trash.className = 'far fa-trash-alt';
-    trash.addEventListener('click', function (event) {
+    trash.addEventListener('click', event => {
       $modalYes.setAttribute('drink-id', item.idDrink);
       gsap.from('.modal-box', {
         duration: 0.5,
@@ -318,14 +319,14 @@ function renderDetailedDrink(drink) {
   drinkName.textContent = drink.strDrink;
   const heart = document.createElement('i');
   heart.className = 'far fa-heart detailed-heart';
-  const drinkInFav = favoriteDrinks.find(function (obj) {
+  const drinkInFav = favoriteDrinks.find(obj => {
     return obj.idDrink === drink.idDrink;
   });
   if (drinkInFav !== undefined) {
     heart.classList.replace('far', 'fas');
   }
-  heart.addEventListener('click', function (event) {
-    const drinkInFav = favoriteDrinks.find(function (obj) {
+  heart.addEventListener('click', event => {
+    const drinkInFav = favoriteDrinks.find(obj => {
       return obj.idDrink === drink.idDrink;
     });
     if (drinkInFav === undefined) {
@@ -382,7 +383,7 @@ function getHttpRequest(urlEnd, callback) {
   const request = new XMLHttpRequest();
   request.open('GET', apiUrl + urlEnd);
   request.responseType = 'json';
-  request.addEventListener('load', function (event) {
+  request.addEventListener('load', event => {
     callback(request.response);
   });
   request.send();

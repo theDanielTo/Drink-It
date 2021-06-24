@@ -69,7 +69,7 @@ main {
 
 .main-header {
   position: fixed;
-  left: 5%;
+  left: 3%;
   top: 80px;
   display: flex;
   flex-direction: column;
@@ -77,7 +77,7 @@ main {
   align-items: center;
   background-color: #eab676;
   padding: 5px;
-  width: 90%;
+  width: 94%;
   z-index: 10;
 }
 
@@ -150,10 +150,10 @@ main {
 /* Secondary Pages */
 .page-list {
   position: absolute;
-  top: 155px;
+  top: 150px;
   bottom: 105px;
-  left: 5%;
-  right: 5%;
+  left: 3%;
+  right: 3%;
 }
 
 .text-list {
@@ -221,18 +221,18 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 95%;
+  width: 100%;
   padding: 15px;
 }
 
-.search-box input {
+#search-input {
   color: #0074c2;
   font-size: 1rem;
   font-weight: bold;
   text-align: center;
   background-color: #b2dae8;
   padding: 5px;
-  width: 100%;
+  width: 99%;
   box-shadow: 0 0 0.6rem 0.6rem #b2dae8;
 }
 
@@ -251,13 +251,13 @@ main {
   flex-direction: column;
   align-items: center;
   background-color: #b2dae8;
-  margin: 5%;
+  margin: 3%;
   margin-top: 150px;
 }
 
 .detail-top-row {
   display: flex;
-  margin: 5%;
+  margin: 3%;
   justify-content: center;
   align-items: center;
 }
@@ -277,9 +277,9 @@ main {
 
 .details-div {
   background-color: #fffeeb;
-  width: 90%;
+  width: 94%;
   padding: 0.5rem;
-  margin-bottom: 5%;
+  margin-bottom: 3%;
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
@@ -578,10 +578,6 @@ main {
 
   .list-item:hover {
     background-color: #66b6d2;
-  }
-
-  .search-box input {
-    margin-top: 0;
   }
 
   .drink-img {
