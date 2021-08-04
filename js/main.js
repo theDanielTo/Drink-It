@@ -31,18 +31,23 @@ $homeBtn.addEventListener('click', event => {
   $backBtn.classList.add('hidden');
   $listPage.classList.add('hidden');
   $searchBox.classList.add('hidden');
+
   $homePage.classList.remove('hidden');
   $mainHeader.classList.remove('hidden');
   $headerText.classList.remove('hidden');
   $headerText.textContent = 'Drink It!';
   $subHeader.textContent = 'Discover your next favorite drink';
+
   for (const nav of $navIcons) {
     if (nav.getAttribute('nav-data') === 'favorites') {
       nav.classList.replace('fas', 'far');
     } else nav.classList.remove('nav-selected');
   }
+
   for (const nav of $navLinks) nav.classList.remove('nav-selected');
+
   resetDefault();
+
   gsap.from('.logo', {
     duration: 1,
     y: -600,
@@ -60,6 +65,7 @@ $backBtn.addEventListener('click', event => {
   $listPage.classList.remove('hidden');
   $headerText.textContent = backBtnData.headerMain;
   $subHeader.textContent = backBtnData.headerSub;
+
   if ($listPage.nextElementSibling.classList.contains('drink-detailed')) {
     $listPage.nextElementSibling.remove();
   }
@@ -103,6 +109,7 @@ function handleNavClick(navType, targetEl, navData) {
   resetDefault();
   openListPage();
   $backBtn.classList.add('hidden');
+
   for (const nav of navType) {
     const clickedNav = nav.getAttribute('nav-data');
     if (clickedNav === navData) {
@@ -115,8 +122,10 @@ function handleNavClick(navType, targetEl, navData) {
       } else nav.classList.remove('nav-selected');
     }
   }
+
   if (navData !== 's') $searchBox.classList.add('hidden');
   else $searchBox.classList.remove('hidden');
+
   if (navData === 'i' || navData === 'c') {
     $listPage.appendChild(renderList(event));
     if (navData === 'i') {
@@ -149,6 +158,7 @@ function handleListItemClick(event) {
   $subHeader.textContent = 'Click on a drink for its recipe';
   backBtnData.headerMain = $headerText.textContent;
   backBtnData.headerSub = $subHeader.textContent;
+
   const $list = renderListPage();
   const $loader = document.createElement('div');
   $loader.className = 'loader';
@@ -172,6 +182,7 @@ function handleSearch() {
   backBtnData.headerMain = $headerText.textContent;
   backBtnData.headerSub = $subHeader.textContent;
   $horizontalRule.classList.remove('hidden');
+
   const $list = renderListPage();
   const $loader = document.createElement('div');
   $loader.className = 'loader';
@@ -197,6 +208,7 @@ function handleRandom(event) {
   $randomBtn.classList.remove('hidden');
   $mainHeader.classList.remove('hidden');
   $subHeader.textContent = 'Click on the heart to add it to your favorites';
+
   getHttpRequest('random.php', function (response) {
     if ($listPage.nextElementSibling.classList.contains('drink-detailed')) {
       $listPage.nextElementSibling.remove();
@@ -210,6 +222,7 @@ function handleDelete(idToDel) {
   if (idToDel === event) {
     idToDel = parseInt($modalYes.getAttribute('drink-id'));
   }
+
   const $textList = document.querySelector('.text-list');
   for (const li of $textList.childNodes) {
     const liDrinkId = parseInt(li.getAttribute('drink-id'));
@@ -266,10 +279,12 @@ function handleCardClick(event) {
   $homePage.classList.add('hidden');
   $listPage.classList.add('hidden');
   $randomBtn.classList.add('hidden');
+
   $homeBtn.classList.remove('hidden');
   $backBtn.classList.remove('hidden');
   $mainHeader.classList.remove('hidden');
   $subHeader.textContent = 'Click on the heart to add it to your favorites';
+
   getHttpRequest('lookup.php?i=' + event.target.getAttribute('drink-id'), response => {
     renderDetailedDrink(response.drinks[0]);
     if ($listPage.nextElementSibling.classList.contains('drink-detailed')) {
@@ -284,6 +299,7 @@ function renderDrinkRow(item, isFav) {
   const drink = document.createElement('div');
   drink.className = 'drink-row';
   drink.setAttribute('drink-id', item.idDrink);
+
   const drinkImg = document.createElement('img');
   drinkImg.src = item.strDrinkThumb;
   drinkImg.alt = item.strDrink;
@@ -291,11 +307,13 @@ function renderDrinkRow(item, isFav) {
   drinkImg.setAttribute('drink-id', item.idDrink);
   drinkImg.addEventListener('click', handleCardClick);
   drink.appendChild(drinkImg);
+
   const rightCol = document.createElement('div');
   rightCol.className = 'drink-right-col col-12';
   rightCol.setAttribute('drink-id', item.idDrink);
   rightCol.addEventListener('click', handleCardClick);
   drink.appendChild(rightCol);
+
   const drinkName = document.createElement('p');
   drinkName.textContent = item.strDrink;
   rightCol.appendChild(drinkName);
@@ -318,25 +336,32 @@ function renderDrinkRow(item, isFav) {
 
 function renderDetailedDrink(drink) {
   $headerText.textContent = drink.strDrink;
+
   const $detailedDrink = document.createElement('div');
   $detailedDrink.className = 'drink-detailed border-round';
+
   const topRow = document.createElement('div');
   topRow.className = 'detail-top-row';
+
   const drinkImg = document.createElement('img');
   drinkImg.className = 'detailed-img border-round';
   drinkImg.src = drink.strDrinkThumb;
   drinkImg.alt = 'Random Drink';
+
   const drinkName = document.createElement('h2');
   drinkName.className = 'col-5 drink-name';
   drinkName.textContent = drink.strDrink;
+
   const heart = document.createElement('i');
   heart.className = 'far fa-heart detailed-heart';
+
   const drinkInFav = favoriteDrinks.find(obj => {
     return obj.idDrink === drink.idDrink;
   });
   if (drinkInFav !== undefined) {
     heart.classList.replace('far', 'fas');
   }
+
   heart.addEventListener('click', event => {
     const drinkInFav = favoriteDrinks.find(obj => {
       return obj.idDrink === drink.idDrink;
@@ -351,16 +376,21 @@ function renderDetailedDrink(drink) {
   });
   topRow.appendChild(drinkImg);
   topRow.appendChild(heart);
+
   const detailsTable = document.createElement('table');
   detailsTable.className = 'details-table col-8';
+
   const thead = document.createElement('thead');
   detailsTable.appendChild(thead);
+
   const tbody = document.createElement('tbody');
   detailsTable.appendChild(tbody);
+
   const trH = document.createElement('tr');
   const th1 = document.createElement('th');
   th1.textContent = 'Measurements';
   trH.appendChild(th1);
+
   const th2 = document.createElement('th');
   th2.textContent = 'Ingredients';
   trH.appendChild(th2);
@@ -379,15 +409,19 @@ function renderDetailedDrink(drink) {
       tbody.appendChild(tr);
     }
   }
+
   const instructions = document.createElement('p');
   instructions.className = 'border-round';
   instructions.innerHTML = '<b style="font-size:1rem;">Instructions: </b>' + drink.strInstructions;
+
   const detailsDiv = document.createElement('div');
   detailsDiv.className = 'details-div border-round';
   detailsDiv.appendChild(detailsTable);
   detailsDiv.appendChild(instructions);
+
   $detailedDrink.appendChild(topRow);
   $detailedDrink.appendChild(detailsDiv);
+
   return $detailedDrink;
 }
 
