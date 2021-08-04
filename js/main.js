@@ -150,11 +150,15 @@ function handleListItemClick(event) {
   backBtnData.headerMain = $headerText.textContent;
   backBtnData.headerSub = $subHeader.textContent;
   const $list = renderListPage();
+  const $loader = document.createElement('div');
+  $loader.className = 'loader';
+  $list.appendChild($loader);
   const urlEnd = 'filter.php?' +
                   event.target.getAttribute('list-type') +
                   '=' +
                   event.target.textContent;
   getHttpRequest(urlEnd, function (response) {
+    $loader.classList.add('hidden');
     for (const item of response.drinks) {
       $list.appendChild(renderDrinkRow(item, false));
     }
@@ -169,7 +173,11 @@ function handleSearch() {
   backBtnData.headerSub = $subHeader.textContent;
   $horizontalRule.classList.remove('hidden');
   const $list = renderListPage();
+  const $loader = document.createElement('div');
+  $loader.className = 'loader';
+  $list.appendChild($loader);
   getHttpRequest('search.php?s=' + $searchInput.value, function (response) {
+    $loader.classList.add('hidden');
     if (response.drinks === null) {
       $headerText.textContent = 'No drinks were found.';
       $subHeader.textContent = '';
@@ -227,9 +235,13 @@ function renderListPage() {
 
 function renderList(event) {
   const $list = renderListPage();
+  const $loader = document.createElement('div');
+  $loader.className = 'loader';
+  $list.appendChild($loader);
   const listType = event.target.getAttribute('nav-data');
   const urlEnd = 'list.php?' + listType + '=list';
   getHttpRequest(urlEnd, response => {
+    $loader.classList.add('hidden');
     for (const item of response.drinks) {
       const listItem = document.createElement('p');
       listItem.textContent = (listType === 'i') ? item.strIngredient1 : item.strCategory;
