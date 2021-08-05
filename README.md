@@ -1,4 +1,4 @@
-# ajax-project
+# Drink It!
 
 Live deployment: https://thedanielto.github.io/Drink-It/
 
