@@ -89,6 +89,7 @@ $navSide.addEventListener('click', event => {
 
 $searchBox.addEventListener('keydown', event => {
   if (event.key === 'Enter') {
+    event.preventDefault();
     $searchBox.classList.add('hidden');
     $listPage.classList.remove('hidden');
     handleSearch();
@@ -290,7 +291,6 @@ function handleCardClick(event) {
   $subHeader.textContent = 'Click on the heart to add it to your favorites';
 
   getHttpRequest('lookup.php?i=' + event.target.getAttribute('drink-id'), response => {
-    renderDetailedDrink(response.drinks[0]);
     if ($listPage.nextElementSibling.classList.contains('drink-detailed')) {
       $listPage.nextElementSibling.remove();
     }
