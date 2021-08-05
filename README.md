@@ -7,10 +7,6 @@
  - Built component pieces using *JavaScript* and allowed animation on key elements with GSAP.
  - Requested data from a *RESTful API* while applying **Asynchronous JavaScript and XML** techniques.
 
-# student-grade-table
-
-A full stack JavaScript application for teachers who want to manage course records.
-
 ## Technologies Used
 
 - HTML5
