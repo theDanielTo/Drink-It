@@ -50,7 +50,7 @@ Try the application live at [https://thedanielto.github.io/Drink-It/](https://th
 
     ```shell
     git clone git@github.com:theDanielTo/Drink-It.git
-    cd sgt-react
+    cd drink-it
     ```
 
 2. Once the repository is cloned onto your local machine, please open index.html to view the application. Enjoy!
