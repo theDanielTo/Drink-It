@@ -2,7 +2,6 @@
 ### Find the recipe for your next favorite cocktails and drinks
 ### A web app designed with HTML, CSS and JavaScript that allows users to find various recipes of cocktails and drinks.
 
-
  - Designed a multi-page web-based app through *Figma* that allowed responsive web designs with a mobile-first design philosophy.
  - Deployed *view-swapping* mechanics for HTML elements using media queries.
  - Built component pieces using *JavaScript* and allowed animation on key elements with GSAP.
@@ -32,10 +31,11 @@ Try the application live at [https://thedanielto.github.io/Drink-It/](https://th
 - User can add/delete recipes into their 'Favorites'.
 - User can choose click the cocktail to find a random recipe.!
 
-
 ## Preview
 
+#### Mobile app
 ![drink-it-demo](https://user-images.githubusercontent.com/82009814/128398336-d2e3768f-aa6c-4843-bc98-f31bdaeae5d5.gif)
+#### Browser view
 ![drink-it-demo-browser](https://user-images.githubusercontent.com/82009814/128399646-a8212cb3-eeca-43b3-880a-f2139a04868d.gif)
 
 ## Development
@@ -49,13 +49,8 @@ Try the application live at [https://thedanielto.github.io/Drink-It/](https://th
 1. Clone the repository.
 
     ```shell
-    git clone https://github.com/Learning-Fuze/sgt-react
+    git clone git@github.com:theDanielTo/Drink-It.git
     cd sgt-react
     ```
 
-
-1. Start the project. Once started you can view the application by opening http://localhost:3000 in your browser.
-
-    ```shell
-    npm run dev
-    ```
+2. Once the repository is cloned onto your local machine, please open index.html to view the application. Enjoy!
