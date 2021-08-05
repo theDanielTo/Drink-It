@@ -163,6 +163,7 @@ function handleListItemClick(event) {
   const $loader = document.createElement('div');
   $loader.className = 'loader';
   $list.appendChild($loader);
+
   const urlEnd = 'filter.php?' +
                   event.target.getAttribute('list-type') +
                   '=' +
@@ -187,6 +188,7 @@ function handleSearch() {
   const $loader = document.createElement('div');
   $loader.className = 'loader';
   $list.appendChild($loader);
+
   getHttpRequest('search.php?s=' + $searchInput.value, function (response) {
     $loader.classList.add('hidden');
     if (response.drinks === null) {
@@ -248,9 +250,11 @@ function renderListPage() {
 
 function renderList(event) {
   const $list = renderListPage();
+
   const $loader = document.createElement('div');
   $loader.className = 'loader';
   $list.appendChild($loader);
+
   const listType = event.target.getAttribute('nav-data');
   const urlEnd = 'list.php?' + listType + '=list';
   getHttpRequest(urlEnd, response => {
