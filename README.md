@@ -12,6 +12,7 @@
 - HTML5
 - CSS3
 - Javascript ES6
+- XMLHttpRequest
 - GSAP (GreenSock Animation Platform)
 - GitHub Pages for deployment
 
